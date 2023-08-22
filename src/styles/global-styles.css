@@ -1,9 +1,16 @@
 body {
   font-family: 'Roboto';
   font-weight: 400;
+  margin: 0;
+  padding: 0;
 }
 
 h1 {
-  font-weight: 700;
-  color: #3f4f8c;
+  font-weight: 300;
+  color: #fff;
+  font-size: 24px;
+  margin: 0;
+  & span {
+    font-weight: 700;
+  }
 }

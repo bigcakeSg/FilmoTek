@@ -5,7 +5,7 @@ import {
   getMyStoreLoading
 } from '../../../store/myStore/selectors';
 
-export const useFirstPage = () => {
+export const useMovie = () => {
   const { userId } = useParams();
 
   const storeData = useSelector(getMyStoreData);

@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { useFirstPage } from './hooks';
+import { useMovie } from './hooks';
 import { Button } from '@mui/material';
 import SettingsBackupRestoreIcon from '@mui/icons-material/SettingsBackupRestore';
 import { PropTypes } from 'prop-types';
@@ -8,8 +8,8 @@ const Bonjour = ({ name, loading }) => {
   return <p>Bonjour {loading ? '...' : name}</p>;
 };
 
-const FirstPage = () => {
-  const { name, loading, userId } = useFirstPage();
+const Movie = () => {
+  const { name, loading, userId } = useMovie();
 
   return (
     <>
@@ -24,7 +24,7 @@ const FirstPage = () => {
   );
 };
 
-export default FirstPage;
+export default Movie;
 
 Bonjour.propTypes = {
   name: PropTypes.string,
