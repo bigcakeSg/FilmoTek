@@ -10,7 +10,7 @@ const Root = () => {
   const dispatch = useDispatch();
 
   const loadStoreData = ({ params }) => {
-    dispatch(getStoreData(params.userId));
+    // dispatch(getStoreData(params.userId));
     return true;
   };
 
@@ -30,7 +30,7 @@ const Root = () => {
           element: <MovieList />
         },
         {
-          path: 'first-page/:userId',
+          path: 'movie/:movieId',
           element: <Movie />,
           loader: loadStoreData
         }

@@ -5,7 +5,11 @@ import { Button } from '@mui/material';
 import ViewListIcon from '@mui/icons-material/ViewList';
 import QueueIcon from '@mui/icons-material/Queue';
 
-const Header = styled.nav`
+const Header = styled.header`
+  position: fixed;
+  left: 0;
+  right: 0;
+  z-index: 1000;
   background-color: ${colorA};
   padding: 10px;
   display: flex;
@@ -51,7 +55,7 @@ const HeaderMenu = () => {
           </li>
           <li>
             <Button variant="text" disabled startIcon={<QueueIcon />}>
-              Create a new movie
+              Add a movie
             </Button>
           </li>
         </ul>
