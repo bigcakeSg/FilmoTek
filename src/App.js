@@ -1,14 +1,18 @@
 import { Outlet } from 'react-router';
-import Menu from './components/shared/Menu';
+import HeaderMenu from './components/shared/HeaderMenu';
+import Footer from './components/shared/Footer';
+import { ThemeProvider } from '@mui/material/styles';
+import { filmoTekTheme } from './utils/theme';
 
 const App = () => {
   return (
-    <div>
-      <Menu />
-      <div>
+    <ThemeProvider theme={filmoTekTheme}>
+      <HeaderMenu />
+      <main>
         <Outlet />
-      </div>
-    </div>
+      </main>
+      <Footer />
+    </ThemeProvider>
   );
 };
 

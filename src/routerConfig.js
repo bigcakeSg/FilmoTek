@@ -2,15 +2,15 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
 import App from './App';
-import Home from './components/pages/Home';
-import FirstPage from './components/pages/FirstPage';
+import MovieList from './components/pages/MovieList';
+import Movie from './components/pages/Movie';
 import { getStoreData } from './store/myStore/thunks';
 
 const Root = () => {
   const dispatch = useDispatch();
 
   const loadStoreData = ({ params }) => {
-    dispatch(getStoreData(params.userId));
+    // dispatch(getStoreData(params.userId));
     return true;
   };
 
@@ -18,15 +18,20 @@ const Root = () => {
     {
       path: '/',
       element: <App />,
-      errorElement: <>OUPS !</>,
+      errorElement: (
+        <>
+          <h1>OUPS !</h1>
+          <div>Big Mistake...</div>
+        </>
+      ),
       children: [
         {
           path: '',
-          element: <Home />
+          element: <MovieList />
         },
         {
-          path: 'first-page/:userId',
-          element: <FirstPage />,
+          path: 'movie/:movieId',
+          element: <Movie />,
           loader: loadStoreData
         }
       ]
