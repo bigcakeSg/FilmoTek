@@ -1,4 +1,8 @@
-import { STORE_DATA_LOADING, STORE_DATA_SUCCESS } from './actions';
+import {
+  MOVIE_INFOS_LOADING,
+  MOVIE_INFOS_SUCCESS,
+  MOVIE_INFOS_FAILURE
+} from './actions';
 
 const initialState = {
   data: {},
@@ -8,11 +12,13 @@ const initialState = {
 
 export default function reducer(state = initialState, action) {
   switch (action.type) {
-    case STORE_DATA_LOADING:
+    case MOVIE_INFOS_LOADING:
       return { ...state, loading: true };
-    case STORE_DATA_SUCCESS:
+    case MOVIE_INFOS_SUCCESS:
       return { ...initialState, data: action.payload };
+    case MOVIE_INFOS_FAILURE:
+      return { ...state, loading: false, error: action.error };
     default:
-      return initialState;
+      return { ...state };
   }
 }

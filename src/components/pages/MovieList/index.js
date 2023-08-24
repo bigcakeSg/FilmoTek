@@ -1,19 +1,23 @@
 import styled from 'styled-components';
-import { movieList } from '../../../mocks';
+// import { movieList } from '../../../mocks';
 import MovieMiniature from '../../shared/MovieMiniature';
+import { useMovieList } from './hook';
 
 const StyledSection = styled.section`
   display: flex;
+  flex-wrap: wrap;
   margin: -10px;
 `;
 
-const MovieList = (userId, setUserId) => {
+const MovieList = () => {
+  const { movieList } = useMovieList();
+
   return (
     <div className="main-content">
       <h2>Movie list</h2>
       <StyledSection>
         {movieList.map((movie) => (
-          <MovieMiniature movieId={movie} />
+          <MovieMiniature movieId={movie} key={`movie-${movie}`} />
         ))}
       </StyledSection>
     </div>

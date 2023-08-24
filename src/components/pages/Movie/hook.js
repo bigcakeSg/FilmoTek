@@ -1,29 +1,30 @@
-import { useParams } from 'react-router-dom';
-import { getMovieTitleByRegion } from '../../../utils/helpers';
+import { useMemo } from 'react';
+import { useSelector } from 'react-redux';
 import {
-  movieInfo,
-  moviePrincipalCast,
-  movieExtendedCast,
-  movieCreators,
-  movieTitles
-} from '../../../mocks';
+  selectMovieInfosBaseInfos,
+  selectMovieInfosCreators,
+  selectMovieInfosExtendedCast,
+  selectMovieInfosPrincipalCast,
+  selectMovieInfosTitles
+} from '../../../store/movieInfos/selectors';
+import { getMovieTitleByRegion } from '../../../utils/helpers';
 
 export const useMovie = () => {
-  const { movieId } = useParams();
-  const movieTitleFrench = getMovieTitleByRegion(movieTitles, 'FR');
-  const directors = movieCreators.results.directors
-    .find((director) => director.category.text === 'Director')
-    .credits.map((director) => director.name.nameText.text);
-  const writers = movieCreators.results.writers
-    .find((writer) => writer.category.text === 'Writers')
-    .credits.map((writer) => writer.name.nameText.text);
+  const movieInfos = useSelector(selectMovieInfosBaseInfos);
+  const moviePrincipalCast = useSelector(selectMovieInfosPrincipalCast);
+  const movieExtendedCast = useSelector(selectMovieInfosExtendedCast);
+  const movieCreators = useSelector(selectMovieInfosCreators);
+  const movieTitles = useSelector(selectMovieInfosTitles);
+
+  const movieRegionTitle = useMemo(() => {
+    return movieTitles ? getMovieTitleByRegion(movieTitles, 'FR') : null;
+  }, [movieTitles]);
 
   return {
-    movieInfo: movieInfo.results,
-    moviePrincipalCast: moviePrincipalCast.results,
-    movieExtendedCast: movieExtendedCast.results,
-    movieDirectors: directors,
-    movieWriters: writers,
-    movieTitleFrench
+    movieInfos,
+    moviePrincipalCast: moviePrincipalCast,
+    movieExtendedCast: movieExtendedCast,
+    movieCreators: movieCreators,
+    movieRegionTitle
   };
 };

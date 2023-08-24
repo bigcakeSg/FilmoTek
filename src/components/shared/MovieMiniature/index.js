@@ -10,7 +10,7 @@ const StyledLink = styled(Link)`
 `;
 
 const StyledMovieMiniature = styled.div`
-  width: 150px;
+  width: 200px;
   margin: 10px;
   padding: 10px;
   background-color: ${colorA};
@@ -42,27 +42,31 @@ const StyledMovieMiniature = styled.div`
 `;
 
 const MovieMiniature = ({ movieId }) => {
-  const { movieMiniInfo, movieTitleFrench } = useMovieMiniature(movieId);
-  return (
-    <StyledLink to={`/movie/${movieId}`}>
-      <StyledMovieMiniature>
-        <img
-          src={movieMiniInfo.primaryImage.url}
-          width="100%"
-          alt={movieMiniInfo.primaryImage.caption.plainText}
-        />
-        <div className="movie-info">
-          <div className="movie-info__original">
-            <span className="movie-info__year">
-              {movieMiniInfo.releaseYear.year}&nbsp;-&nbsp;
-            </span>
-            {movieMiniInfo.originalTitleText.text}
+  const { movieMiniInfosLoading, movieMiniInfos, movieTitleFrench } =
+    useMovieMiniature(movieId);
+
+  if (movieMiniInfosLoading) return <div>Loading</div>;
+  else
+    return (
+      <StyledLink to={`/movie/${movieId}`}>
+        <StyledMovieMiniature>
+          <img
+            src={movieMiniInfos.primaryImage.url}
+            width="100%"
+            alt={movieMiniInfos.primaryImage.caption.plainText}
+          />
+          <div className="movie-info">
+            <div className="movie-info__original">
+              <span className="movie-info__year">
+                {movieMiniInfos.releaseYear.year}&nbsp;-&nbsp;
+              </span>
+              {movieMiniInfos.originalTitleText.text}
+            </div>
+            <div className="movie-info__region">{movieTitleFrench}</div>
           </div>
-          <div className="movie-info__region">{movieTitleFrench}</div>
-        </div>
-      </StyledMovieMiniature>
-    </StyledLink>
-  );
+        </StyledMovieMiniature>
+      </StyledLink>
+    );
 };
 
 export default MovieMiniature;

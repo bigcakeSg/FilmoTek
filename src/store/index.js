@@ -1,6 +1,8 @@
 import { combineReducers } from 'redux';
-import myStoreReducer from './myStore/reducer.js';
+import movieListReducer from './movieList/reducer.js';
+import movieInfosReducer from './movieInfos/reducer.js';
 
 export default combineReducers({
-  myStore: myStoreReducer
+  movieList: movieListReducer,
+  movieInfos: movieInfosReducer
 });

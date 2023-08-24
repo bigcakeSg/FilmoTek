@@ -4,13 +4,19 @@ import { useDispatch } from 'react-redux';
 import App from './App';
 import MovieList from './components/pages/MovieList';
 import Movie from './components/pages/Movie';
-import { getStoreData } from './store/myStore/thunks';
+import { getMovieList } from './store/movieList/thunks';
+import { getMovieInfos } from './store/movieInfos/thunks';
 
 const Root = () => {
   const dispatch = useDispatch();
 
-  const loadStoreData = ({ params }) => {
-    // dispatch(getStoreData(params.userId));
+  const loadMovieList = () => {
+    dispatch(getMovieList());
+    return false;
+  };
+
+  const loadMovieInfos = (movieId) => {
+    dispatch(getMovieInfos(movieId));
     return true;
   };
 
@@ -27,12 +33,13 @@ const Root = () => {
       children: [
         {
           path: '',
-          element: <MovieList />
+          element: <MovieList />,
+          loader: loadMovieList
         },
         {
           path: 'movie/:movieId',
           element: <Movie />,
-          loader: loadStoreData
+          loader: ({ params }) => loadMovieInfos(params.movieId)
         }
       ]
     }
