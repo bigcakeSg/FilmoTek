@@ -2,21 +2,19 @@ import axios from 'axios';
 import {
   movieListLoading,
   movieListSuccess,
-  movieMiniInfosLoading,
-  movieMiniInfosSuccess,
-  movieTitlesSuccess
+  movieListFailure
 } from './actions';
+import { apiHeaders } from '../../utils/configs';
 import { movieList } from '../../mocks';
-
-const headers = {
-  'X-RapidAPI-Key': 'c3906cc624mshb325ef5eff66c21p111ea4jsn5475587a7b03',
-  'X-RapidAPI-Host': 'moviesdatabase.p.rapidapi.com'
-};
 
 export const getMovieList = () => {
   return (dispatch) => {
-    dispatch(movieListLoading());
-    dispatch(movieListSuccess(movieList));
+    try {
+      dispatch(movieListLoading());
+      dispatch(movieListSuccess(movieList));
+    } catch (error) {
+      dispatch(movieListFailure(error.message));
+    }
   };
 };
 
@@ -29,7 +27,7 @@ export const getMovieMiniInfo = (movieId) => {
     const [miniInfo, titles] = await Promise.all(
       endPoints.map((endPoint) =>
         axios.get(endPoint, {
-          headers
+          headers: apiHeaders
         })
       )
     );

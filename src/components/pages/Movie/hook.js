@@ -1,27 +1,45 @@
-import { useParams } from 'react-router-dom';
-import { getMovieTitleByRegion } from '../../../utils/helpers';
+import { useMemo } from 'react';
+import { useSelector } from 'react-redux';
 import {
-  movieInfo,
-  moviePrincipalCast,
-  movieExtendedCast,
-  movieCreators,
-  movieTitles
-} from '../../../mocks';
+  selectMovieInfosBaseInfos,
+  selectMovieInfosCreators,
+  selectMovieInfosExtendedCast,
+  selectMovieInfosPrincipalCast,
+  selectMovieInfosTitles
+} from '../../../store/movieInfos/selectors';
+import { getMovieTitleByRegion } from '../../../utils/helpers';
 
 export const useMovie = () => {
-  const { movieId } = useParams();
-  const movieTitleFrench = getMovieTitleByRegion(movieTitles.results, 'FR');
-  const directors = movieCreators.results.directors
-    .find((director) => director.category.text === 'Director')
-    .credits.map((director) => director.name.nameText.text);
-  const writers = movieCreators.results.writers
-    .find((writer) => writer.category.text === 'Writers')
-    .credits.map((writer) => writer.name.nameText.text);
+  const movieInfos = useSelector(selectMovieInfosBaseInfos);
+  const moviePrincipalCast = useSelector(selectMovieInfosPrincipalCast);
+  const movieExtendedCast = useSelector(selectMovieInfosExtendedCast);
+  const movieCreators = useSelector(selectMovieInfosCreators);
+  const movieTitles = useSelector(selectMovieInfosTitles);
+
+  const movieTitleFrench = useMemo(() => {
+    return movieTitles ? getMovieTitleByRegion(movieTitles, 'FR') : null;
+  }, [movieTitles]);
+
+  const directors = useMemo(() => {
+    return movieCreators?.directors
+      ? movieCreators.directors
+          .find((director) => director.category.text === 'Director')
+          .credits.map((director) => director.name.nameText.text)
+      : null;
+  }, [movieCreators]);
+
+  const writers = useMemo(() => {
+    return movieCreators?.writers
+      ? movieCreators.writers
+          .find((writer) => writer.category.text === 'Writers')
+          .credits.map((writer) => writer.name.nameText.text)
+      : null;
+  }, [movieCreators]);
 
   return {
-    movieInfo: movieInfo.results,
-    moviePrincipalCast: moviePrincipalCast.results,
-    movieExtendedCast: movieExtendedCast.results,
+    movieInfos,
+    moviePrincipalCast: moviePrincipalCast,
+    movieExtendedCast: movieExtendedCast,
     movieDirectors: directors,
     movieWriters: writers,
     movieTitleFrench

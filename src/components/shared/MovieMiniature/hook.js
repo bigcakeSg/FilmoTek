@@ -12,7 +12,7 @@ export const useMovieMiniature = (movieId) => {
     const result = await dispatch(getMovieMiniInfo(movieId));
 
     setMovieMiniInfos(result);
-    console.log(result.titles);
+
     setMovieTitleFrench(getMovieTitleByRegion(result.titles, 'FR'));
   };
 
