@@ -12,7 +12,7 @@ export const StyledMovie = styled.div`
     overflow: hidden;
     width: 100%;
     height: ${bannerHeight}px;
-    background-color: red;
+    background-color: ${colorA};
     z-index: 10;
     &__image {
       width: 400%;

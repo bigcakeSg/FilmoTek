@@ -4,6 +4,7 @@ import MovieMiniature from '../../shared/MovieMiniature';
 
 const StyledSection = styled.section`
   display: flex;
+  flex-wrap: wrap;
   margin: -10px;
 `;
 
@@ -13,7 +14,7 @@ const MovieList = (userId, setUserId) => {
       <h2>Movie list</h2>
       <StyledSection>
         {movieList.map((movie) => (
-          <MovieMiniature movieId={movie} />
+          <MovieMiniature movieId={movie} key={`movie-${movie}`} />
         ))}
       </StyledSection>
     </div>

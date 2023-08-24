@@ -10,7 +10,7 @@ import {
 
 export const useMovie = () => {
   const { movieId } = useParams();
-  const movieTitleFrench = getMovieTitleByRegion(movieTitles, 'FR');
+  const movieTitleFrench = getMovieTitleByRegion(movieTitles.results, 'FR');
   const directors = movieCreators.results.directors
     .find((director) => director.category.text === 'Director')
     .credits.map((director) => director.name.nameText.text);

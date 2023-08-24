@@ -1,9 +1,4 @@
-import { Link } from 'react-router-dom';
 import { useMovie } from './hook';
-import { Button } from '@mui/material';
-import SettingsBackupRestoreIcon from '@mui/icons-material/SettingsBackupRestore';
-import styled from 'styled-components';
-import { colorA } from '../../../utils/colors';
 import { StyledMovie } from './styles';
 
 const Movie = () => {
