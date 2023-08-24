@@ -42,30 +42,31 @@ const StyledMovieMiniature = styled.div`
 `;
 
 const MovieMiniature = ({ movieId }) => {
-  const { movieMiniInfo, movieTitleFrench } = useMovieMiniature(movieId);
+  const { movieMiniInfosLoading, movieMiniInfos, movieTitleFrench } =
+    useMovieMiniature(movieId);
 
-  if (movieMiniInfo)
+  if (movieMiniInfosLoading) return <div>Loading</div>;
+  else
     return (
       <StyledLink to={`/movie/${movieId}`}>
         <StyledMovieMiniature>
           <img
-            src={movieMiniInfo.primaryImage.url}
+            src={movieMiniInfos.primaryImage.url}
             width="100%"
-            alt={movieMiniInfo.primaryImage.caption.plainText}
+            alt={movieMiniInfos.primaryImage.caption.plainText}
           />
           <div className="movie-info">
             <div className="movie-info__original">
               <span className="movie-info__year">
-                {movieMiniInfo.releaseYear.year}&nbsp;-&nbsp;
+                {movieMiniInfos.releaseYear.year}&nbsp;-&nbsp;
               </span>
-              {movieMiniInfo.originalTitleText.text}
+              {movieMiniInfos.originalTitleText.text}
             </div>
             <div className="movie-info__region">{movieTitleFrench}</div>
           </div>
         </StyledMovieMiniature>
       </StyledLink>
     );
-  else return null;
 };
 
 export default MovieMiniature;

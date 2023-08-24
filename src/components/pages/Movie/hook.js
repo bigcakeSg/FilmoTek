@@ -16,32 +16,15 @@ export const useMovie = () => {
   const movieCreators = useSelector(selectMovieInfosCreators);
   const movieTitles = useSelector(selectMovieInfosTitles);
 
-  const movieTitleFrench = useMemo(() => {
+  const movieRegionTitle = useMemo(() => {
     return movieTitles ? getMovieTitleByRegion(movieTitles, 'FR') : null;
   }, [movieTitles]);
-
-  const directors = useMemo(() => {
-    return movieCreators?.directors
-      ? movieCreators.directors
-          .find((director) => director.category.text === 'Director')
-          .credits.map((director) => director.name.nameText.text)
-      : null;
-  }, [movieCreators]);
-
-  const writers = useMemo(() => {
-    return movieCreators?.writers
-      ? movieCreators.writers
-          .find((writer) => writer.category.text === 'Writers')
-          .credits.map((writer) => writer.name.nameText.text)
-      : null;
-  }, [movieCreators]);
 
   return {
     movieInfos,
     moviePrincipalCast: moviePrincipalCast,
     movieExtendedCast: movieExtendedCast,
-    movieDirectors: directors,
-    movieWriters: writers,
-    movieTitleFrench
+    movieCreators: movieCreators,
+    movieRegionTitle
   };
 };

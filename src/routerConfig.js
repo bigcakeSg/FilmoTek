@@ -12,7 +12,7 @@ const Root = () => {
 
   const loadMovieList = () => {
     dispatch(getMovieList());
-    return true;
+    return false;
   };
 
   const loadMovieInfos = (movieId) => {

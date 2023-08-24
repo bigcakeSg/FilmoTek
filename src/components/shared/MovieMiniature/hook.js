@@ -1,27 +1,35 @@
-import { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useEffect, useMemo } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { getMovieTitleByRegion } from '../../../utils/helpers';
 import { getMovieMiniInfo } from '../../../store/movieList/thunks';
+import {
+  selectMovieMiniInfosData,
+  selectMovieMiniInfosLoading
+} from '../../../store/movieList/selectors';
 
 export const useMovieMiniature = (movieId) => {
   const dispatch = useDispatch();
-  const [movieMiniInfo, setMovieMiniInfos] = useState();
-  const [movieTitleFrench, setMovieTitleFrench] = useState();
 
-  const fetchMovieInfo = async (movieId) => {
-    const result = await dispatch(getMovieMiniInfo(movieId));
+  const movieMiniInfosLoading = useSelector(
+    selectMovieMiniInfosLoading(movieId)
+  );
+  const movieMiniInfos = useSelector(selectMovieMiniInfosData(movieId));
 
-    setMovieMiniInfos(result);
-
-    setMovieTitleFrench(getMovieTitleByRegion(result.titles, 'FR'));
-  };
+  const movieTitleFrench = useMemo(
+    () =>
+      movieMiniInfos?.titles
+        ? getMovieTitleByRegion(movieMiniInfos.titles, 'FR')
+        : '',
+    [movieMiniInfos]
+  );
 
   useEffect(() => {
-    fetchMovieInfo(movieId);
-  }, [movieId]);
+    if (!movieMiniInfos) dispatch(getMovieMiniInfo(movieId));
+  }, [movieId, movieMiniInfos]);
 
   return {
-    movieMiniInfo,
+    movieMiniInfosLoading,
+    movieMiniInfos,
     movieTitleFrench
   };
 };
