@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { colorA } from '../../../utils/colors';
+import { footerHeight } from '../../../utils/theme';
 
 const StyledFooter = styled.footer`
   position: fixed;
@@ -8,11 +9,17 @@ const StyledFooter = styled.footer`
   bottom: 0;
   z-index: 1000;
   background-color: ${colorA};
-  height: 25px;
+  height: ${footerHeight}px;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 300;
+  line-height: 25px;
+  text-align: right;
+  padding: 0 20px;
 `;
 
 const Footer = () => {
-  return <StyledFooter></StyledFooter>;
+  return <StyledFooter>&copy;Sébastien Girard</StyledFooter>;
 };
 
 export default Footer;

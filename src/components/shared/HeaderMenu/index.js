@@ -4,6 +4,7 @@ import { colorA } from '../../../utils/colors';
 import { Button } from '@mui/material';
 import ViewListIcon from '@mui/icons-material/ViewList';
 import QueueIcon from '@mui/icons-material/Queue';
+import { headerHeight } from '../../../utils/theme';
 
 const Header = styled.header`
   position: fixed;
@@ -15,6 +16,7 @@ const Header = styled.header`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  height: ${headerHeight}px;
   & ul {
     list-style: none;
     padding: 0;

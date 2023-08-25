@@ -4,6 +4,12 @@ import { colorA } from '../../../utils/colors';
 const bannerHeight = 350;
 
 export const StyledMovie = styled.div`
+  /* width: 100%; */
+  /* display: flex;
+  justify-content: center; */
+`;
+/*
+export const StyledMovie = styled.div`
   width: 100%;
   display: flex;
   justify-content: center;
@@ -151,3 +157,4 @@ export const StyledMovie = styled.div`
     }
   }
 `;
+*/

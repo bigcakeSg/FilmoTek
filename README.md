@@ -1,10 +1,13 @@
 # FilmoTek
+
 Gestionnaire de vidéothèque
 
 ## Roadmap
-- Rajout de la durée
+
 - Loaders
-- Optimisations CSS (largeur navigateur, taille des miniatures, animations, hauteur affiches)
+- absence d'image (affiche, cast)
+- Optimisations CSS (taille des miniatures, animations)
+- Résumé
 - Sortir les CSS pour chaque composants d'une fiche
 - Choix de l'affichage de la liste
 - Pagination
