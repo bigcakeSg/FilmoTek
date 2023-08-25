@@ -2,21 +2,23 @@ import { PropTypes } from 'prop-types';
 import styled from 'styled-components';
 import { colorA } from '../../../../utils/colors';
 
-const StyledMoviePrincipalCasting = styled.div`
+const StyledMovieCasting = styled.div`
   display: flex;
   flex-wrap: wrap;
   & .cast__item {
     margin: 5px;
     padding: 5px;
     font-size: 14px;
+    ${(props) => (props.principal ? '' : 'display: flex; width: 300px;')}
     & .casting__name {
       font-weight: 700;
       margin-top: 10px;
     }
   }
   & .casting__image {
-    width: 200px;
-    height: 200px;
+    width: ${(props) => (props.principal ? '200px' : '100px')};
+    height: ${(props) => (props.principal ? '200px' : '100px')};
+    ${(props) => (props.principal ? '' : 'margin-right: 10px;')}
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
@@ -25,29 +27,32 @@ const StyledMoviePrincipalCasting = styled.div`
   }
 `;
 
-const MoviePrincipalCasting = ({ casting }) => {
+const MovieCasting = ({ casting, principal }) => {
   return (
-    <StyledMoviePrincipalCasting>
+    <StyledMovieCasting principal={principal}>
       {casting.map((cast) => (
         <div className="cast__item" key={`cast-${cast.name.id}`}>
           <div
             className="casting__image"
             style={{
-              backgroundImage: `url(${cast.name.primaryImage.url})`
+              backgroundImage: `url(${cast.name.primaryImage?.url})`
             }}
           ></div>
-          <div className="casting__name">{cast.name.nameText.text}</div>
-          <div className="casting__character">
-            {cast.characters.map((char) => char.name).join(' / ')}
+          <div>
+            <div className="casting__name">{cast.name.nameText.text}</div>
+            <div className="casting__character">
+              {cast.characters.map((char) => char.name).join(' / ')}
+            </div>
           </div>
         </div>
       ))}
-    </StyledMoviePrincipalCasting>
+    </StyledMovieCasting>
   );
 };
 
-export default MoviePrincipalCasting;
+export default MovieCasting;
 
-MoviePrincipalCasting.propTypes = {
-  casting: PropTypes.array.isRequired
+MovieCasting.propTypes = {
+  casting: PropTypes.array.isRequired,
+  principal: PropTypes.bool
 };
