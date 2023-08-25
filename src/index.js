@@ -47,21 +47,12 @@ const StyledRoot = styled.div`
     width: 100%;
     & .inner-content {
       position: relative;
+      flex-direction: column;
       width: 100%;
       max-width: 1800px;
       margin: 0 auto 0 auto;
       padding: 20px;
     }
-    /* 
-    position:absolute;
-left: 50%;
-top: 50%;
-width: 326px;
-height: 118px;
-margin-top: -59px;
-margin-left: -163px;
-display: none;
-    */
   }
 `;
 

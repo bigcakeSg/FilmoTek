@@ -1,5 +1,6 @@
 import { PropTypes } from 'prop-types';
 import styled from 'styled-components';
+import { duration } from '../../../../utils/helpers';
 
 const StyledMovieMainInfo = styled.div`
   display: flex;
@@ -32,13 +33,6 @@ const StyledMovieMainInfo = styled.div`
     }
   }
 `;
-
-const duration = (runtime) => {
-  const hours = Math.floor(+runtime / 3600);
-  const minutes = Math.floor((+runtime % 3600) / 60);
-
-  return `${hours}h${minutes < 20 ? 0 : ''}${minutes}`;
-};
 
 const MovieMainInfo = ({ movieInfos, movieRegionTitle }) => {
   return (

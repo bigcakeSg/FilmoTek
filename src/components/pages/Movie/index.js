@@ -4,8 +4,7 @@ import MovieBanner from './MovieBanner';
 import MoviePicture from './MoviePicture';
 import MovieMainInfo from './MovieMainInfo';
 import MovieInfo from './MovieInfo';
-import MoviePrincipalCasting from './MoviePrincipalCasting';
-import MovieExtendedCasting from './MovieExtendedCasting';
+import MovieCasting from './MoviePrincipalCasting';
 import { useMovie } from './hook';
 // import { StyledMovie } from './styles';
 
@@ -68,8 +67,8 @@ const Movie = () => {
             <div className="movie__casting">
               <h2>Casting</h2>
               <div className="movie__casting-list">
-                <MoviePrincipalCasting casting={moviePrincipalCast} />
-                <MovieExtendedCasting casting={movieExtendedCast} />
+                <MovieCasting casting={moviePrincipalCast} principal />
+                <MovieCasting casting={movieExtendedCast} />
               </div>
             </div>
           </div>
