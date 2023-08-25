@@ -29,6 +29,9 @@ const StyledMovieMainInfo = styled.div`
       }
       & .duration {
         font-weight: 300;
+        margin-left: 10px;
+        border-left: solid 1px #fff;
+        padding-left: 10px;
       }
     }
   }
@@ -40,7 +43,7 @@ const MovieMainInfo = ({ movieInfos, movieRegionTitle }) => {
       <div className="movie__title">{movieInfos.originalTitleText}</div>
       <div className="movie__region-title">{movieRegionTitle}</div>
       <div className="movie__year-duration">
-        <span className="year">{movieInfos.releaseYear.year}</span> &#8226;{' '}
+        <span className="year">{movieInfos.releaseYear.year}</span>
         <span className="duration">
           {duration(movieInfos.runtime.seconds)} env.
         </span>

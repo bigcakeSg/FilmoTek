@@ -6,11 +6,12 @@ import MovieMainInfo from './MovieMainInfo';
 import MovieInfo from './MovieInfo';
 import MovieCasting from './MoviePrincipalCasting';
 import { useMovie } from './hook';
-// import { StyledMovie } from './styles';
+import { bannerHeight } from '../../../utils/theme';
+import MovieActions from './MovieActions';
 
 const StyledMovie = styled.div`
   & .inner-content {
-    top: 100px;
+    top: ${bannerHeight - 250}px;
   }
   & .movie {
     &__main-info {
@@ -48,6 +49,11 @@ const Movie = () => {
     return (
       <StyledMovie>
         <MovieBanner movieInfos={movieInfos} />
+        <MovieActions
+          onEdit={() => null}
+          onImport={() => null}
+          onDelete={() => null}
+        />
         <div className="main-content">
           <div className="inner-content">
             <MoviePicture movieInfos={movieInfos} />

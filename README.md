@@ -5,6 +5,7 @@ Gestionnaire de vidéothèque
 ## Roadmap
 
 - Loaders
+- Page d'erreur
 - absence d'image (affiche, cast)
 - Optimisations CSS (taille des miniatures, animations)
 - Résumé
