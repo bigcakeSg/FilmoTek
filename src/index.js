@@ -13,7 +13,7 @@ import './styles/global-styles.scss';
 import rootReducer from './store';
 import Root from './routerConfig';
 import styled from 'styled-components';
-import { colorA } from './utils/colors';
+import { colorA, colorALight } from './utils/colors';
 import { headerHeight, footerHeight } from './utils/theme';
 
 const StyledRoot = styled.div`
@@ -39,6 +39,7 @@ const StyledRoot = styled.div`
     left: 0;
     right: 0;
     overflow: auto;
+    background-color: ${colorALight};
   }
 
   & .main-content {

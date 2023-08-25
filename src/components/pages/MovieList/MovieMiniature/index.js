@@ -3,7 +3,8 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
 import { useMovieMiniature } from './hook';
-import { colorA } from '../../../../utils/colors';
+import { colorA, colorALight } from '../../../../utils/colors';
+import { CircularProgress } from '@mui/material';
 
 const StyledLink = styled(Link)`
   text-decoration: none;
@@ -77,11 +78,44 @@ const StyledMovieMiniature = styled.div`
   }
 `;
 
+const StyledMiniatureLoading = styled.div`
+  position: relative;
+  margin: 10px;
+  border: solid 1px ${colorA};
+  box-shadow: rgba(0, 0, 0, 0.5) 2px 2px 7px 1px;
+  width: ${miniWidth}px;
+  height: ${miniHeight}px;
+  text-transform: uppercase;
+  background-color: ${colorA};
+  color: ${colorALight};
+  font-weight: 700;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  & .loader {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    & .loading {
+      margin-bottom: 20px;
+    }
+  }
+`;
+
 const MovieMiniature = ({ movieId }) => {
   const { movieMiniInfosLoading, movieMiniInfos, movieTitleFrench } =
     useMovieMiniature(movieId);
 
-  if (movieMiniInfosLoading) return <div>Loading</div>;
+  if (movieMiniInfosLoading)
+    return (
+      <StyledMiniatureLoading>
+        <div className="loader">
+          <div className="loading">Loading</div>
+          <CircularProgress color="secondary" />
+        </div>
+      </StyledMiniatureLoading>
+    );
   else
     return (
       <StyledLink to={`/movie/${movieId}`}>

@@ -3,7 +3,6 @@ import HeaderMenu from './components/shared/HeaderMenu';
 import Footer from './components/shared/Footer';
 import { ThemeProvider } from '@mui/material/styles';
 import { filmoTekTheme } from './utils/theme';
-import { useRef } from 'react';
 
 const App = () => {
   return (

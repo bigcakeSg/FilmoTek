@@ -17,7 +17,7 @@ const StyledMovieCasting = styled.div`
   }
   & .casting__image {
     width: ${(props) => (props.principal ? '200px' : '100px')};
-    height: ${(props) => (props.principal ? '200px' : '100px')};
+    height: ${(props) => (props.principal ? '250px' : '125px')};
     ${(props) => (props.principal ? '' : 'margin-right: 10px;')}
     background-repeat: no-repeat;
     background-position: center;

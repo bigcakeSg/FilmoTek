@@ -1,4 +1,5 @@
 export const colorA = '#263238';
+export const colorALight = '#eceff1';
 export const colorB = '#873139';
 export const colorC = '#3496C7';
 export const colorD = '#C7C120';

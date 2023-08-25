@@ -1,9 +1,10 @@
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { colorA } from '../../../utils/colors';
 import { Button } from '@mui/material';
 import ViewListIcon from '@mui/icons-material/ViewList';
 import QueueIcon from '@mui/icons-material/Queue';
+import { BarChart } from '@mui/icons-material';
+import { colorA } from '../../../utils/colors';
 import { headerHeight } from '../../../utils/theme';
 
 const Header = styled.header`
@@ -23,11 +24,10 @@ const Header = styled.header`
     margin: 0;
     display: flex;
     & li {
+      margin: 5px;
       & a {
         text-decoration: none;
         color: #fff;
-        padding: 5px;
-        margin: 5px;
         &:hover {
           color: #ddd;
         }
@@ -56,7 +56,12 @@ const HeaderMenu = () => {
             </Link>
           </li>
           <li>
-            <Button variant="text" disabled startIcon={<QueueIcon />}>
+            <Button variant="text" color="secondary" startIcon={<BarChart />}>
+              Statistics
+            </Button>
+          </li>
+          <li>
+            <Button variant="text" color="secondary" startIcon={<QueueIcon />}>
               Add a movie
             </Button>
           </li>

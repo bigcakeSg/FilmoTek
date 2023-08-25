@@ -4,7 +4,7 @@ import MovieBanner from './MovieBanner';
 import MoviePicture from './MoviePicture';
 import MovieMainInfo from './MovieMainInfo';
 import MovieInfo from './MovieInfo';
-import MovieCasting from './MoviePrincipalCasting';
+import MovieCasting from './MovieCasting';
 import { useMovie } from './hook';
 import { bannerHeight } from '../../../utils/theme';
 import MovieActions from './MovieActions';
