@@ -1,6 +1,5 @@
 import styled from 'styled-components';
-// import { movieList } from '../../../mocks';
-import MovieMiniature from '../../shared/MovieMiniature';
+import MovieMiniature from './MovieMiniature';
 import { useMovieList } from './hook';
 
 const StyledSection = styled.section`

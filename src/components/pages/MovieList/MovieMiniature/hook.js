@@ -1,11 +1,11 @@
 import { useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getMovieTitleByRegion } from '../../../utils/helpers';
-import { getMovieMiniInfo } from '../../../store/movieList/thunks';
+import { getMovieTitleByRegion } from '../../../../utils/helpers';
 import {
   selectMovieMiniInfosData,
   selectMovieMiniInfosLoading
-} from '../../../store/movieList/selectors';
+} from '../../../../store/movieList/selectors';
+import { getMovieMiniInfo } from '../../../../store/movieList/thunks';
 
 export const useMovieMiniature = (movieId) => {
   const dispatch = useDispatch();
