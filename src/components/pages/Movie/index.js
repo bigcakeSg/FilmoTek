@@ -33,7 +33,10 @@ const StyledMovie = styled.div`
     }
     &__casting {
       margin-top: 400px;
+      padding-bottom: 20px;
       width: 100%;
+      flex: 1;
+      overflow: auto;
     }
   }
   & .loader {
