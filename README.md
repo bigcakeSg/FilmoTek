@@ -4,7 +4,6 @@ Gestionnaire de vidéothèque
 
 ## Roadmap
 
-- Loaders
 - Page d'erreur
 - Pagination
 - Choix de l'affichage de la liste
