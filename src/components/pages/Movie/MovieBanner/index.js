@@ -2,6 +2,8 @@ import { PropTypes } from 'prop-types';
 import styled from 'styled-components';
 import { colorB } from '../../../../utils/colors';
 import { bannerHeight } from '../../../../utils/theme';
+import { useMemo } from 'react';
+import { useMovieBanner } from './hook';
 
 const StyledMovieBanner = styled.div`
   position: relative;
@@ -25,13 +27,15 @@ const StyledMovieBanner = styled.div`
   }
 `;
 
-const MovieBanner = ({ movieInfos }) => {
+const MovieBanner = ({ movieInfos, loading }) => {
+  const { backgroundImage } = useMovieBanner(movieInfos, loading);
+
   return (
     <StyledMovieBanner>
       <div
         className="movie-banner__image"
         style={{
-          backgroundImage: `url(${movieInfos.primaryImage.url})`
+          backgroundImage
         }}
       ></div>
       <div className="movie-banner__overlay"></div>
@@ -42,5 +46,6 @@ const MovieBanner = ({ movieInfos }) => {
 export default MovieBanner;
 
 MovieBanner.propTypes = {
-  movieInfos: PropTypes.object.isRequired
+  movieInfos: PropTypes.object.isRequired,
+  loading: PropTypes.bool
 };

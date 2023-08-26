@@ -1,6 +1,7 @@
 import { PropTypes } from 'prop-types';
 import styled from 'styled-components';
 import { colorA } from '../../../../utils/colors';
+import { Skeleton } from '@mui/material';
 
 const StyledMoviePicture = styled.div`
   position: absolute;
@@ -9,15 +10,30 @@ const StyledMoviePicture = styled.div`
     border: solid 1px ${colorA};
     width: 250px;
   }
+  & .picture-skeleton {
+    width: 250px;
+    height: 385px;
+  }
 `;
 
-const MoviePicture = ({ movieInfos }) => {
+const MoviePicture = ({ movieInfos, loading }) => {
   return (
     <StyledMoviePicture>
-      <img
-        src={movieInfos.primaryImage.url}
-        alt={movieInfos.primaryImage.caption.plainText}
-      />
+      {loading ? (
+        <div className="picture-skeleton">
+          <Skeleton
+            variant="rectangular"
+            animation="wave"
+            width="100%"
+            height="100%"
+          />
+        </div>
+      ) : (
+        <img
+          src={movieInfos?.primaryImage?.url}
+          alt={movieInfos?.primaryImage?.caption?.plainText}
+        />
+      )}
     </StyledMoviePicture>
   );
 };
@@ -25,5 +41,6 @@ const MoviePicture = ({ movieInfos }) => {
 export default MoviePicture;
 
 MoviePicture.propTypes = {
-  movieInfos: PropTypes.object.isRequired
+  movieInfos: PropTypes.object.isRequired,
+  loading: PropTypes.bool
 };

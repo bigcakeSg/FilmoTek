@@ -6,12 +6,12 @@ Gestionnaire de vidéothèque
 
 - Loaders
 - Page d'erreur
-- absence d'image (affiche, cast)
-- Résumé
-- Sortir les CSS pour chaque composants d'une fiche
-- Choix de l'affichage de la liste
 - Pagination
+- Choix de l'affichage de la liste
 - Options de tri
+- Gestion absence d'image (affiche, cast)
+- Résumé
+- Lazy loading
 - Options de filtre
 - Recherche
 - Affichage des formats vidéo
@@ -24,3 +24,8 @@ Gestionnaire de vidéothèque
 - lien vers bande-annonce
 - lien vers musique
 - lien vers IMDB
+- Authentification
+- Mode consultation
+- Gestion de prêt
+- Dark mode
+- Multi-langages

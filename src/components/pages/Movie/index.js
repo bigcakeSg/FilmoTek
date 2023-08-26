@@ -8,6 +8,8 @@ import MovieCasting from './MovieCasting';
 import { useMovie } from './hook';
 import { bannerHeight } from '../../../utils/theme';
 import MovieActions from './MovieActions';
+import { CircularProgress } from '@mui/material';
+import { colorA } from '../../../utils/colors';
 
 const StyledMovie = styled.div`
   & .inner-content {
@@ -34,6 +36,20 @@ const StyledMovie = styled.div`
       width: 100%;
     }
   }
+  & .loader {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    height: 100px;
+    & .loading {
+      text-transform: uppercase;
+      color: ${colorA};
+      font-weight: 700;
+      font-size: 18px;
+      margin-bottom: 20px;
+    }
+  }
 `;
 
 const Movie = () => {
@@ -42,46 +58,61 @@ const Movie = () => {
     moviePrincipalCast,
     movieExtendedCast,
     movieCreators,
-    movieRegionTitle
+    movieRegionTitle,
+    movieInfosLoading
   } = useMovie();
 
-  if (movieInfos)
-    return (
-      <StyledMovie>
-        <MovieBanner movieInfos={movieInfos} />
-        <MovieActions
-          onEdit={() => null}
-          onImport={() => null}
-          onDelete={() => null}
-        />
-        <div className="main-content">
-          <div className="inner-content">
-            <MoviePicture movieInfos={movieInfos} />
-            <div className="movie__main-info">
-              <MovieMainInfo
-                movieInfos={movieInfos}
-                movieRegionTitle={movieRegionTitle}
-              />
-            </div>
-            <div className="movie__info">
-              <MovieInfo
-                movieInfos={movieInfos}
-                movieCreators={movieCreators}
-              />
-            </div>
+  return (
+    <StyledMovie>
+      <MovieBanner movieInfos={movieInfos} loading={movieInfosLoading} />
+      <MovieActions
+        onEdit={() => null}
+        onImport={() => null}
+        onDelete={() => null}
+      />
+      <div className="main-content">
+        <div className="inner-content">
+          <MoviePicture movieInfos={movieInfos} loading={movieInfosLoading} />
+          <div className="movie__main-info">
+            <MovieMainInfo
+              movieInfos={movieInfos}
+              movieRegionTitle={movieRegionTitle}
+              loading={movieInfosLoading}
+            />
+          </div>
+          <div className="movie__info">
+            <MovieInfo
+              movieInfos={movieInfos}
+              movieCreators={movieCreators}
+              loading={movieInfosLoading}
+            />
+          </div>
 
-            <div className="movie__casting">
-              <h2>Casting</h2>
-              <div className="movie__casting-list">
-                <MovieCasting casting={moviePrincipalCast} principal />
-                <MovieCasting casting={movieExtendedCast} />
+          <div className="movie__casting">
+            <h2>Casting</h2>
+            {movieInfosLoading ? (
+              <div className="loader">
+                <div className="loading">Loading</div>
+                <CircularProgress color="secondary" />
               </div>
-            </div>
+            ) : (
+              <div className="movie__casting-list">
+                <MovieCasting
+                  casting={moviePrincipalCast}
+                  loading={movieInfosLoading}
+                  principal
+                />
+                <MovieCasting
+                  casting={movieExtendedCast}
+                  loading={movieInfosLoading}
+                />
+              </div>
+            )}
           </div>
         </div>
-      </StyledMovie>
-    );
-  else return null;
+      </div>
+    </StyledMovie>
+  );
 };
 
 export default Movie;

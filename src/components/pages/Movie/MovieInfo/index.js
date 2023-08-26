@@ -1,6 +1,7 @@
 import { PropTypes } from 'prop-types';
 import styled from 'styled-components';
 import { colorA } from '../../../../utils/colors';
+import { Skeleton } from '@mui/material';
 
 const StyledMovieMainInfo = styled.div`
   font-size: 16px;
@@ -28,36 +29,77 @@ const StyledMovieMainInfo = styled.div`
       color: ${colorA};
     }
   }
+  & .skeleton {
+    display: inline-flex;
+  }
 `;
 
-const MovieInfo = ({ movieInfos, movieCreators }) => {
+const MovieInfo = ({ movieInfos, movieCreators, loading }) => {
   return (
     <StyledMovieMainInfo>
       <div>
         <div className="movie__info-item movie__directors">
           <span className="movie__label">
-            Director{movieCreators.directors.credits.length > 1 ? 's' : ''}:{' '}
+            Director
+            {movieCreators?.directors?.credits &&
+            movieCreators.directors.credits.length > 1
+              ? 's'
+              : ''}
+            :{' '}
           </span>
-          {movieCreators.directors.credits
-            .map((credit) => credit.name)
-            .join(', ')}
+          {loading ? (
+            <div className="skeleton">
+              <Skeleton
+                variant="text"
+                animation="wave"
+                sx={{ fontSize: '16px' }}
+                width={200}
+              />
+            </div>
+          ) : (
+            <span>
+              {movieCreators.directors.credits
+                .map((credit) => credit.name)
+                .join(', ')}
+            </span>
+          )}
         </div>
         <div className="movie__info-item movie__writers">
           <span className="movie__label">
-            Writer{movieCreators.writers.credits.length > 1 ? 's' : ''}:{' '}
+            Writer
+            {movieCreators?.writers?.credits &&
+            movieCreators.writers.credits.length > 1
+              ? 's'
+              : ''}
+            :{' '}
           </span>
-          {movieCreators.writers.credits
-            .map((credit) => credit.name)
-            .join(', ')}
+          {loading ? (
+            <div className="skeleton">
+              <Skeleton
+                variant="text"
+                animation="wave"
+                sx={{ fontSize: '16px' }}
+                width={200}
+              />
+            </div>
+          ) : (
+            <span>
+              {movieCreators.writers.credits
+                .map((credit) => credit.name)
+                .join(', ')}
+            </span>
+          )}
         </div>
       </div>
-      <div className="movie__info-item movie__genres">
-        {movieInfos.genres.map((genre) => (
-          <div className="movie__genres-item" key={`genre-${genre.id}`}>
-            {genre.text}
-          </div>
-        ))}
-      </div>
+      {loading ? null : (
+        <div className="movie__info-item movie__genres">
+          {movieInfos?.genres?.map((genre) => (
+            <div className="movie__genres-item" key={`genre-${genre.id}`}>
+              {genre.text}
+            </div>
+          ))}
+        </div>
+      )}
     </StyledMovieMainInfo>
   );
 };
@@ -66,5 +108,6 @@ export default MovieInfo;
 
 MovieInfo.propTypes = {
   movieInfos: PropTypes.object.isRequired,
-  movieCreators: PropTypes.object.isRequired
+  movieCreators: PropTypes.object.isRequired,
+  loading: PropTypes.bool
 };
