@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import MovieMiniature from './MovieMiniature';
 import { useMovieList } from './hook';
 import { Pagination } from '@mui/material';
+import { colorA } from '../../../utils/colors';
 
 const StyledMovieList = styled.div`
   & .movie-list {
@@ -11,6 +12,7 @@ const StyledMovieList = styled.div`
       text-transform: uppercase;
       text-align: right;
       font-size: 14px;
+      color: ${colorA};
       & .value {
         font-weight: 700;
         font-size: 20px;
@@ -27,7 +29,7 @@ const StyledMovieList = styled.div`
     &__pagination {
       display: flex;
       justify-content: center;
-      margin-top: 20px;
+      margin: 20px 0;
     }
   }
 `;
@@ -55,6 +57,7 @@ const MovieList = () => {
               count={pageQantity}
               shape="rounded"
               onChange={handleChange}
+              color="secondary"
             />
           </div>
         </div>

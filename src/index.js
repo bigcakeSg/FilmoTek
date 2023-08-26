@@ -56,7 +56,7 @@ const StyledRoot = styled.div`
       height: 100%;
       max-width: 1820px;
       margin: 0 auto 0 auto;
-      padding: 20px;
+      padding: 20px 20px 0 20px;
     }
   }
 `;
