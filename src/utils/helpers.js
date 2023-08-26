@@ -7,3 +7,8 @@ export const duration = (seconds) => {
 
   return `${hours}h${minutes < 10 ? 0 : ''}${minutes}`;
 };
+
+export const scrollTop = (elementId) => {
+  const mainElement = document.getElementById(elementId);
+  if (mainElement) mainElement.scrollTo(0, 0);
+};

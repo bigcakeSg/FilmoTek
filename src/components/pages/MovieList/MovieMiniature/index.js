@@ -20,7 +20,7 @@ const StyledMovieMiniature = styled.div`
   box-shadow: rgba(0, 0, 0, 0.5) 2px 2px 7px 1px;
   transition-duration: 0.5s;
   & .movie {
-    &__image {
+    &__picture {
       transition-duration: 0.5s;
       width: ${miniWidth}px;
       height: ${miniHeight}px;
@@ -121,7 +121,7 @@ const MovieMiniature = ({ movieId }) => {
       <StyledLink to={`/movie/${movieId}`}>
         <StyledMovieMiniature>
           <div
-            className="movie__image"
+            className="movie__picture"
             style={{
               backgroundImage: `url(${movieMiniInfos.primaryImage.url})`
             }}
