@@ -27,6 +27,7 @@ const StyledMovieMiniature = styled.div`
       background-position: center;
       background-repeat: no-repeat;
       background-size: 100%;
+      background-color: ${colorA};
     }
     &__overlay {
       backdrop-filter: blur(0px) brightness(100%);
@@ -61,7 +62,6 @@ const StyledMovieMiniature = styled.div`
   }
   :hover {
     box-shadow: 2px 2px 7px 1px rgba(0, 0, 0, 0);
-    background-color: #fff;
     color: ${colorA};
     border-color: ${colorA};
     & .movie {

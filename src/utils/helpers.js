@@ -1,5 +1,5 @@
 export const getMovieTitleByRegion = (movieTitles, region) =>
-  movieTitles.find((movie) => movie.region === region).title;
+  movieTitles.find((movie) => movie.region === region)?.title;
 
 export const duration = (seconds) => {
   const hours = Math.floor(+seconds / 3600);

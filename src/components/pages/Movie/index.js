@@ -34,6 +34,8 @@ const StyledMovie = styled.div`
     &__casting {
       margin-top: 400px;
       width: 100%;
+      flex: 1;
+      overflow: auto;
     }
   }
   & .loader {
