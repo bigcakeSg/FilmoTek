@@ -1,6 +1,5 @@
 import styled from 'styled-components';
-// import { movieList } from '../../../mocks';
-import MovieMiniature from '../../shared/MovieMiniature';
+import MovieMiniature from './MovieMiniature';
 import { useMovieList } from './hook';
 
 const StyledSection = styled.section`
@@ -14,12 +13,14 @@ const MovieList = () => {
 
   return (
     <div className="main-content">
-      <h2>Movie list</h2>
-      <StyledSection>
-        {movieList.map((movie) => (
-          <MovieMiniature movieId={movie} key={`movie-${movie}`} />
-        ))}
-      </StyledSection>
+      <div className="inner-content">
+        <h2>Movie list</h2>
+        <StyledSection>
+          {movieList.map((movie) => (
+            <MovieMiniature movieId={movie} key={`movie-${movie}`} />
+          ))}
+        </StyledSection>
+      </div>
     </div>
   );
 };

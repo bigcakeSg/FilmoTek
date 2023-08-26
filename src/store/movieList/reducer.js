@@ -1,3 +1,4 @@
+import { mockedState } from '../../mocks';
 import {
   MOVIE_LIST_LOADING,
   MOVIE_LIST_SUCCESS,
@@ -7,9 +8,11 @@ import {
   MOVIE_MINI_INFOS_FAILURE
 } from './actions';
 
+const initialMiniInfos = mockedState.movieList.movieMiniInfosList;
+
 const initialState = {
   movieIdList: [],
-  movieMiniInfosList: {},
+  movieMiniInfosList: initialMiniInfos, // TODO: remplacer par {}
   loading: false,
   error: null
 };

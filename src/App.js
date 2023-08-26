@@ -8,7 +8,7 @@ const App = () => {
   return (
     <ThemeProvider theme={filmoTekTheme}>
       <HeaderMenu />
-      <main>
+      <main id="main-content">
         <Outlet />
       </main>
       <Footer />

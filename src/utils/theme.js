@@ -1,5 +1,9 @@
 import { createTheme } from '@mui/material';
 
+export const headerHeight = 60;
+export const footerHeight = 25;
+export const bannerHeight = 250;
+
 export const filmoTekTheme = createTheme({
   palette: {
     // primary: {

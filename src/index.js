@@ -13,9 +13,8 @@ import './styles/global-styles.scss';
 import rootReducer from './store';
 import Root from './routerConfig';
 import styled from 'styled-components';
-import { colorA } from './utils/colors';
-
-const headerHeight = '60px';
+import { colorA, colorALight } from './utils/colors';
+import { headerHeight, footerHeight } from './utils/theme';
 
 const StyledRoot = styled.div`
   & h1 {
@@ -33,22 +32,28 @@ const StyledRoot = styled.div`
     border-bottom: solid 1px ${colorA};
   }
 
-  & header {
-    height: ${headerHeight};
-  }
-
   & main {
-    display: flex;
-    justify-content: center;
+    position: fixed;
+    top: ${headerHeight}px;
+    bottom: ${footerHeight}px;
+    left: 0;
+    right: 0;
+    overflow: auto;
+    background-color: ${colorALight};
   }
 
   & .main-content {
-    width: 100%;
-    max-width: 1024px;
-    margin: 0px 20px;
     position: absolute;
-    bottom: 0;
-    top: ${headerHeight};
+    top: 0;
+    width: 100%;
+    & .inner-content {
+      position: relative;
+      flex-direction: column;
+      width: 100%;
+      max-width: 1800px;
+      margin: 0 auto 0 auto;
+      padding: 20px;
+    }
   }
 `;
 

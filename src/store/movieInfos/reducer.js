@@ -13,7 +13,7 @@ const initialState = {
 export default function reducer(state = initialState, action) {
   switch (action.type) {
     case MOVIE_INFOS_LOADING:
-      return { ...state, loading: true };
+      return { ...initialState, loading: true };
     case MOVIE_INFOS_SUCCESS:
       return { ...initialState, data: action.payload };
     case MOVIE_INFOS_FAILURE:

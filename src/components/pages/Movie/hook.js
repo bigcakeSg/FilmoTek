@@ -4,6 +4,7 @@ import {
   selectMovieInfosBaseInfos,
   selectMovieInfosCreators,
   selectMovieInfosExtendedCast,
+  selectMovieInfosLoading,
   selectMovieInfosPrincipalCast,
   selectMovieInfosTitles
 } from '../../../store/movieInfos/selectors';
@@ -15,6 +16,7 @@ export const useMovie = () => {
   const movieExtendedCast = useSelector(selectMovieInfosExtendedCast);
   const movieCreators = useSelector(selectMovieInfosCreators);
   const movieTitles = useSelector(selectMovieInfosTitles);
+  const movieInfosLoading = useSelector(selectMovieInfosLoading);
 
   const movieRegionTitle = useMemo(() => {
     return movieTitles ? getMovieTitleByRegion(movieTitles, 'FR') : null;
@@ -25,6 +27,7 @@ export const useMovie = () => {
     moviePrincipalCast: moviePrincipalCast,
     movieExtendedCast: movieExtendedCast,
     movieCreators: movieCreators,
-    movieRegionTitle
+    movieRegionTitle,
+    movieInfosLoading
   };
 };
