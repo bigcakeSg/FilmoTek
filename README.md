@@ -5,7 +5,6 @@ Gestionnaire de vidéothèque
 ## Roadmap
 
 - Page d'erreur
-- Choix de l'affichage de la liste
 - Options de tri
 - Gestion absence d'image (affiche, cast)
 - Résumé

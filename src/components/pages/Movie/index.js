@@ -68,13 +68,13 @@ const Movie = () => {
   return (
     <StyledMovie>
       <MovieBanner movieInfos={movieInfos} loading={movieInfosLoading} />
-      <MovieActions
-        onEdit={() => null}
-        onImport={() => null}
-        onDelete={() => null}
-      />
       <div className="main-content">
         <div className="inner-content">
+          <MovieActions
+            onEdit={() => null}
+            onImport={() => null}
+            onDelete={() => null}
+          />
           <MoviePicture movieInfos={movieInfos} loading={movieInfosLoading} />
           <div className="movie__main-info">
             <MovieMainInfo
@@ -90,7 +90,6 @@ const Movie = () => {
               loading={movieInfosLoading}
             />
           </div>
-
           <div className="movie__casting">
             <h2>Casting</h2>
             {movieInfosLoading ? (
