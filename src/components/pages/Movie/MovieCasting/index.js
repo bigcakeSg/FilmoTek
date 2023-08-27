@@ -56,3 +56,7 @@ MovieCasting.propTypes = {
   casting: PropTypes.array.isRequired,
   principal: PropTypes.bool
 };
+
+MovieCasting.defaultProps = {
+  casting: []
+};

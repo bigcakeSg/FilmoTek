@@ -10,19 +10,12 @@ import { getMovieInfos } from './store/movieInfos/thunks';
 const Root = () => {
   const dispatch = useDispatch();
 
-  const scrollTop = () => {
-    const mainElement = document.getElementById('main-content');
-    if (mainElement) mainElement.scrollTo(0, 0);
-  };
-
   const loadMovieList = () => {
-    scrollTop();
     dispatch(getMovieList());
     return false;
   };
 
   const loadMovieInfos = (movieId) => {
-    scrollTop();
     dispatch(getMovieInfos(movieId));
     return true;
   };

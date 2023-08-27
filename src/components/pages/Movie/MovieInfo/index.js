@@ -111,3 +111,8 @@ MovieInfo.propTypes = {
   movieCreators: PropTypes.object.isRequired,
   loading: PropTypes.bool
 };
+
+MovieInfo.defaultProps = {
+  movieInfos: {},
+  movieCreators: {}
+};

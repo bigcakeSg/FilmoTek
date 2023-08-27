@@ -49,3 +49,7 @@ MovieBanner.propTypes = {
   movieInfos: PropTypes.object.isRequired,
   loading: PropTypes.bool
 };
+
+MovieBanner.defaultProps = {
+  movieInfos: {}
+};

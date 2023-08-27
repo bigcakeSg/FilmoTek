@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { selectMovieIdList } from '../../../store/movieList/selectors';
+import { scrollTop } from '../../../utils/helpers';
 
 const sliceList = (page, count, list) => {
   const newList = [...list];
@@ -13,27 +14,48 @@ export const useMovieList = () => {
   const moviesPerPage = 30;
 
   const [movieListPage, setMovieListPage] = useState([]);
+  const [displayType, setDisplayType] = useState('TILES');
+  const [sortType, setSortType] = useState('ALPHA');
+
   const movieList = useSelector(selectMovieIdList);
 
   useEffect(() => {
     setMovieListPage(sliceList(1, moviesPerPage, movieList));
   }, []);
 
-  const pageQantity = useMemo(() => {
-    return Math.ceil(movieList.length / moviesPerPage);
-  }, [movieList]);
+  const moviesSorted = useMemo(() => {
+    // TODO: sort
+    return movieList;
+  }, [movieList, sortType]);
 
-  const handleChange = useCallback(
+  const pageQantity = useMemo(() => {
+    return Math.ceil(moviesSorted.length / moviesPerPage);
+  }, [moviesSorted]);
+
+  const handlePaginationChange = useCallback(
     (_, page) => {
-      setMovieListPage(sliceList(page, moviesPerPage, movieList));
+      scrollTop('movie-list__container');
+      setMovieListPage(sliceList(page, moviesPerPage, moviesSorted));
     },
-    [movieList]
+    [moviesSorted]
   );
+
+  const handleDisplayChange = (_, newDisplay) => {
+    setDisplayType(newDisplay);
+  };
+
+  const handleSortChange = (event) => {
+    setSortType(event.target.value);
+  };
 
   return {
     moviesCount: movieList.length,
     movieListPage,
-    handleChange,
-    pageQantity
+    handlePaginationChange,
+    pageQantity,
+    displayType,
+    handleDisplayChange,
+    handleSortChange,
+    sortType
   };
 };

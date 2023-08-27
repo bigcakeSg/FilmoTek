@@ -107,6 +107,10 @@ export default MovieMainInfo;
 
 MovieMainInfo.propTypes = {
   movieInfos: PropTypes.object.isRequired,
-  movieRegionTitle: PropTypes.string.isRequired,
+  movieRegionTitle: PropTypes.string,
   loading: PropTypes.bool
+};
+
+MovieMainInfo.defaultProps = {
+  movieInfos: {}
 };
