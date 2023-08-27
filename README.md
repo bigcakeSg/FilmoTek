@@ -12,7 +12,7 @@ Gestionnaire de vidéothèque
 - Options de filtre
 - Recherche
 - Affichage des formats vidéo
-- Affichage des infos de todo-list
+- Affichage des infos de backlog
 - Côté serveur
 - Création d'une nouvelle fiche
 - Synchronisation IMDB
