@@ -5,7 +5,11 @@ const MovieListTiles = ({ movieList }) => {
   return (
     <>
       {movieList.map((movie) => (
-        <MovieMiniature movieId={movie} key={`movie-${movie}`} />
+        <MovieMiniature
+          movieId={movie}
+          miniatureType="TILE"
+          key={`movie-${movie}`}
+        />
       ))}
     </>
   );

@@ -4,7 +4,13 @@ import { Link } from 'react-router-dom';
 
 import { useMovieMiniature } from './hook';
 import { colorA, colorALight } from '../../../../utils/colors';
-import { CircularProgress } from '@mui/material';
+import {
+  CircularProgress,
+  Divider,
+  ListItem,
+  ListItemButton,
+  ListItemText
+} from '@mui/material';
 
 const StyledLink = styled(Link)`
   text-decoration: none;
@@ -65,7 +71,7 @@ const StyledMovieMiniature = styled.div`
     color: ${colorA};
     border-color: ${colorA};
     & .movie {
-      &__image {
+      &__picture {
         background-size: 150%;
       }
       &__overlay {
@@ -103,10 +109,12 @@ const StyledMiniatureLoading = styled.div`
   }
 `;
 
-const MovieMiniature = ({ movieId }) => {
-  const { movieMiniInfosLoading, movieMiniInfos, movieTitleFrench } =
-    useMovieMiniature(movieId);
-
+const MovieTile = ({
+  movieId,
+  movieMiniInfosLoading,
+  movieMiniInfos,
+  movieTitleFrench
+}) => {
   if (movieMiniInfosLoading)
     return (
       <StyledMiniatureLoading>
@@ -141,8 +149,107 @@ const MovieMiniature = ({ movieId }) => {
     );
 };
 
+MovieTile.propTypes = {
+  movieId: PropTypes.string.isRequired,
+  movieMiniInfosLoading: PropTypes.bool,
+  movieMiniInfos: PropTypes.object,
+  movieTitleFrench: PropTypes.string
+};
+
+const StyledMovieItem = styled.div`
+  & a {
+    text-decoration: none;
+    color: ${colorA};
+  }
+  & .MuiListItemText-primary {
+    font-weight: 700;
+    font-size: 20px;
+  }
+  & .movie-list__picture {
+    width: 50px;
+    height: 74px;
+    border: solid 2px ${colorA};
+    margin-right: 20px;
+    box-shadow: rgba(0, 0, 0, 0.5) 2px 2px 7px 1px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-color: ${colorA};
+  }
+`;
+
+const MovieListItem = ({
+  movieId,
+  movieMiniInfosLoading,
+  movieMiniInfos,
+  movieTitleFrench
+}) => {
+  // TODO: loader
+  return (
+    <StyledMovieItem>
+      <Link to={`/movie/${movieId}`}>
+        <ListItem disablePadding>
+          <ListItemButton>
+            <div
+              className="movie-list__picture"
+              style={{
+                backgroundImage: `url(${movieMiniInfos.primaryImage.url})`
+              }}
+            ></div>
+            <ListItemText
+              primary={movieMiniInfos?.originalTitleText?.text}
+              secondary={movieTitleFrench}
+            />
+            <ListItemText
+              secondary={movieMiniInfos?.releaseYear?.year}
+              sx={{ textAlign: 'right' }}
+            />
+          </ListItemButton>
+        </ListItem>
+      </Link>
+      <Divider />
+    </StyledMovieItem>
+  );
+};
+
+MovieListItem.propTypes = {
+  movieId: PropTypes.string.isRequired,
+  movieMiniInfosLoading: PropTypes.bool,
+  movieMiniInfos: PropTypes.object,
+  movieTitleFrench: PropTypes.string
+};
+
+const MovieMiniature = ({ movieId, miniatureType }) => {
+  const { movieMiniInfosLoading, movieMiniInfos, movieTitleFrench } =
+    useMovieMiniature(movieId);
+
+  switch (miniatureType) {
+    case 'TILE':
+      return (
+        <MovieTile
+          movieId={movieId}
+          movieMiniInfosLoading={movieMiniInfosLoading}
+          movieMiniInfos={movieMiniInfos}
+          movieTitleFrench={movieTitleFrench}
+        />
+      );
+    case 'LIST':
+      return (
+        <MovieListItem
+          movieId={movieId}
+          movieMiniInfosLoading={movieMiniInfosLoading}
+          movieMiniInfos={movieMiniInfos}
+          movieTitleFrench={movieTitleFrench}
+        />
+      );
+    default:
+      return null;
+  }
+};
+
 export default MovieMiniature;
 
 MovieMiniature.propTypes = {
-  movieId: PropTypes.string.isRequired
+  movieId: PropTypes.string.isRequired,
+  miniatureType: PropTypes.string
 };

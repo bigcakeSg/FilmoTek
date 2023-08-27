@@ -44,3 +44,7 @@ MoviePicture.propTypes = {
   movieInfos: PropTypes.object.isRequired,
   loading: PropTypes.bool
 };
+
+MoviePicture.defaultProps = {
+  movieInfos: {}
+};

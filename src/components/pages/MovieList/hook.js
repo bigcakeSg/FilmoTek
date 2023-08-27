@@ -15,6 +15,7 @@ export const useMovieList = () => {
 
   const [movieListPage, setMovieListPage] = useState([]);
   const [displayType, setDisplayType] = useState('TILES');
+  const [sortType, setSortType] = useState('ALPHA');
 
   const movieList = useSelector(selectMovieIdList);
 
@@ -22,28 +23,39 @@ export const useMovieList = () => {
     setMovieListPage(sliceList(1, moviesPerPage, movieList));
   }, []);
 
-  const pageQantity = useMemo(() => {
-    return Math.ceil(movieList.length / moviesPerPage);
-  }, [movieList]);
+  const moviesSorted = useMemo(() => {
+    // TODO: sort
+    return movieList;
+  }, [movieList, sortType]);
 
-  const handleChange = useCallback(
+  const pageQantity = useMemo(() => {
+    return Math.ceil(moviesSorted.length / moviesPerPage);
+  }, [moviesSorted]);
+
+  const handlePaginationChange = useCallback(
     (_, page) => {
       scrollTop('movie-list__container');
-      setMovieListPage(sliceList(page, moviesPerPage, movieList));
+      setMovieListPage(sliceList(page, moviesPerPage, moviesSorted));
     },
-    [movieList]
+    [moviesSorted]
   );
 
-  const handleDisplayType = (_, newDisplay) => {
+  const handleDisplayChange = (_, newDisplay) => {
     setDisplayType(newDisplay);
+  };
+
+  const handleSortChange = (event) => {
+    setSortType(event.target.value);
   };
 
   return {
     moviesCount: movieList.length,
     movieListPage,
-    handleChange,
+    handlePaginationChange,
     pageQantity,
     displayType,
-    handleDisplayType
+    handleDisplayChange,
+    handleSortChange,
+    sortType
   };
 };

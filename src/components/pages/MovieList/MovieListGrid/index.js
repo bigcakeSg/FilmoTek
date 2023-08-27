@@ -1,7 +1,7 @@
 import { PropTypes } from 'prop-types';
 import { Divider, List } from '@mui/material';
-import MovieItem from '../MovieItem';
 import styled from 'styled-components';
+import MovieMiniature from '../MovieMiniature';
 
 const StyledMovieListGrid = styled.div`
   width: 100%;
@@ -14,7 +14,11 @@ const MovieListGrid = ({ movieList }) => {
       <List>
         <Divider />
         {movieList.map((movie) => (
-          <MovieItem movieId={movie} key={`movie-${movie}`} />
+          <MovieMiniature
+            movieId={movie}
+            miniatureType="LIST"
+            key={`movie-${movie}`}
+          />
         ))}
       </List>
     </StyledMovieListGrid>

@@ -1,3 +1,4 @@
+import { PropTypes } from 'prop-types';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Edit from '@mui/icons-material/Edit';
 import Download from '@mui/icons-material/Download';
@@ -35,3 +36,15 @@ const MovieActions = ({ onDelete, onEdit, onImport }) => {
 };
 
 export default MovieActions;
+
+MovieActions.propTypes = {
+  onDelete: PropTypes.func.isRequired,
+  onEdit: PropTypes.func.isRequired,
+  onImport: PropTypes.func.isRequired
+};
+
+MovieActions.defaultProps = {
+  onDelete: () => null,
+  onEdit: () => null,
+  onImport: () => null
+};
