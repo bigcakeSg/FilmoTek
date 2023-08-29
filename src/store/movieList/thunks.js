@@ -8,14 +8,15 @@ import {
   movieMiniInfosSuccess
 } from './actions';
 import { apiHeaders } from '../../utils/configs';
-import { movieList } from '../../mocks';
-import { selectMovieMiniInfosData } from './selectors';
 
 export const getMovieList = () => {
-  return (dispatch) => {
+  return async (dispatch) => {
     try {
       dispatch(movieListLoading());
-      dispatch(movieListSuccess(movieList));
+
+      const { data } = await axios.get('http://localhost:5000/movie-list');
+
+      dispatch(movieListSuccess(data.movieList));
       // TODO: supprimer mini infos si id n'existe plus
     } catch (error) {
       dispatch(movieListFailure(error.message));

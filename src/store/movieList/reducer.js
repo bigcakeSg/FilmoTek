@@ -1,4 +1,4 @@
-import { mockedState } from '../../mocks';
+import { mockedState } from '../../mocks/state';
 import {
   MOVIE_LIST_LOADING,
   MOVIE_LIST_SUCCESS,

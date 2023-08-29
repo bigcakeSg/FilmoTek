@@ -73,3 +73,107 @@ export const getMovieInfos = (movieId) => {
     }
   };
 };
+
+export const postMovie = (movieId) => {
+  return async (dispatch, getState) => {
+    try {
+      const params = [
+        'base_info',
+        'principalCast',
+        'extendedCast',
+        'creators_directors_writers'
+      ];
+
+      const [
+        base_info,
+        principalCast,
+        extendedCast,
+        creators_directors_writers,
+        titles
+      ] = await Promise.all([
+        ...params.map((param) =>
+          axios.get(`https://moviesdatabase.p.rapidapi.com/titles/${movieId}`, {
+            headers: apiHeaders,
+            params: {
+              info: param
+            }
+          })
+        ),
+        axios.get(
+          `https://moviesdatabase.p.rapidapi.com/titles/${movieId}/aka`,
+          {
+            headers: apiHeaders
+          }
+        )
+      ]);
+
+      const result = {
+        imdbId: movieId,
+        originalTitle: base_info.data.results.originalTitleText.text,
+        regionalTitle: titles.data.results.map((title) => ({
+          title: title?.title,
+          region: title?.region
+        })),
+        picture: {
+          url: base_info.data.results.primaryImage?.url,
+          height: base_info.data.results.primaryImage?.height,
+          width: base_info.data.results.primaryImage?.width
+        },
+        releaseDate: {
+          year: base_info.data.results.releaseDate?.year,
+          month: base_info.data.results.releaseDate?.month,
+          day: base_info.data.results.releaseDate?.day
+        },
+        genres: base_info.data.results.genres.genres.map((genre) => ({
+          id: genre?.id,
+          text: genre?.text
+        })),
+        directors:
+          creators_directors_writers.data.results.directors[0].credits.map(
+            (credit) => ({
+              id: credit.name.id,
+              name: credit.name.nameText.text,
+              attributes: credit?.attributes?.map((attr) => attr.text)
+            })
+          ),
+        writers: creators_directors_writers.data.results.writers[0].credits.map(
+          (credit) => ({
+            id: credit.name.id,
+            name: credit.name.nameText.text,
+            attributes: credit?.attributes?.map((attr) => attr.text)
+          })
+        ),
+        casting: {
+          principal: principalCast.data.results.principalCast[0].credits.map(
+            (cast) => ({
+              id: cast.name.id,
+              name: cast.name.nameText.text,
+              attributes: cast?.attributes?.map((attr) => attr.text),
+              characters: cast.characters?.map((char) => char.name),
+              picture: {
+                url: cast.name.primaryImage.url,
+                height: cast.name.primaryImage.height,
+                width: cast.name.primaryImage.width
+              }
+            })
+          ),
+          extended: extendedCast.data.results.cast.edges.map(({ node }) => ({
+            id: node.name.id,
+            name: node.name.nameText.text,
+            attributes: node?.attributes?.map((attr) => attr.text),
+            characters: node.characters?.map((char) => char.name),
+            picture: {
+              url: node.name.primaryImage?.url,
+              height: node.name.primaryImage?.height,
+              width: node.name.primaryImage?.width
+            }
+          }))
+        }
+      };
+
+      const data = await axios.post(`http://localhost:5000/movie`, result);
+    } catch (error) {
+      //
+    }
+  };
+};
