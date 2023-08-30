@@ -19,14 +19,14 @@ export const useMovieList = () => {
 
   const movieList = useSelector(selectMovieIdList);
 
-  useEffect(() => {
-    setMovieListPage(sliceList(1, moviesPerPage, movieList));
-  }, []);
-
   const moviesSorted = useMemo(() => {
     // TODO: sort
-    return movieList;
+    return movieList.map((movie) => movie.imdbId);
   }, [movieList, sortType]);
+
+  useEffect(() => {
+    setMovieListPage(sliceList(1, moviesPerPage, moviesSorted));
+  }, [moviesPerPage, moviesSorted]);
 
   const pageQantity = useMemo(() => {
     return Math.ceil(moviesSorted.length / moviesPerPage);

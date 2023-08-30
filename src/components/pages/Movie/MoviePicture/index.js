@@ -29,10 +29,7 @@ const MoviePicture = ({ movieInfos, loading }) => {
           />
         </div>
       ) : (
-        <img
-          src={movieInfos?.primaryImage?.url}
-          alt={movieInfos?.primaryImage?.caption?.plainText}
-        />
+        <img src={movieInfos?.picture?.url} alt={movieInfos.originalTitle} />
       )}
     </StyledMoviePicture>
   );

@@ -2,7 +2,6 @@ import { PropTypes } from 'prop-types';
 import styled from 'styled-components';
 import { colorB } from '../../../../utils/colors';
 import { bannerHeight } from '../../../../utils/theme';
-import { useMemo } from 'react';
 import { useMovieBanner } from './hook';
 
 const StyledMovieBanner = styled.div`

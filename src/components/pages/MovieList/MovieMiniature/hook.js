@@ -17,8 +17,8 @@ export const useMovieMiniature = (movieId) => {
 
   const movieTitleFrench = useMemo(
     () =>
-      movieMiniInfos?.titles
-        ? getMovieTitleByRegion(movieMiniInfos.titles, 'FR')
+      movieMiniInfos?.regionalTitles
+        ? getMovieTitleByRegion(movieMiniInfos.regionalTitles, 'FR')
         : '',
     [movieMiniInfos]
   );

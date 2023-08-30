@@ -1,26 +1,12 @@
 import styled from 'styled-components';
 import { useMovieList } from './hook';
-import {
-  FormControl,
-  InputLabel,
-  MenuItem,
-  Pagination,
-  Select,
-  ToggleButton,
-  ToggleButtonGroup
-} from '@mui/material';
-import { Apps } from '@mui/icons-material';
-import { List } from '@mui/icons-material';
+import { Pagination } from '@mui/material';
 import { colorA } from '../../../utils/colors';
 import MovieListTiles from './MovieListTiles';
 import MovieListGrid from './MovieListGrid';
+import MovieListActionsButtons from './MovieListActionsButtons';
 
 const StyledMovieList = styled.div`
-  & .display-type__buttons {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-  }
   & .movie-list {
     &__count {
       margin-top: -10px;
@@ -47,12 +33,6 @@ const StyledMovieList = styled.div`
       justify-content: center;
       margin: 20px 0;
     }
-    &__actions {
-      display: flex;
-      &__sort {
-        margin-right: 10px;
-      }
-    }
   }
 `;
 
@@ -72,39 +52,12 @@ const MovieList = () => {
     <StyledMovieList>
       <div className="main-content">
         <div className="inner-content">
-          <div className="display-type__buttons">
-            <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
-              <div className="movie-list__actions">
-                <div className="movie-list__actions__sort">
-                  <InputLabel id="movie-list-sort-by-label">Sort by</InputLabel>
-                  <Select
-                    labelId="movie-list-sort-by-label"
-                    id="movie-list-sort-by"
-                    value={sortType}
-                    onChange={handleSortChange}
-                    label="Sort by"
-                  >
-                    <MenuItem value="ALPHA">Title</MenuItem>
-                    <MenuItem value="CHRONO">Year</MenuItem>
-                  </Select>
-                </div>
-                <ToggleButtonGroup
-                  value={displayType}
-                  exclusive
-                  onChange={handleDisplayChange}
-                  aria-label="text alignment"
-                >
-                  <ToggleButton value="TILES" size="small" aria-label="Tiles">
-                    <Apps />
-                  </ToggleButton>
-                  <ToggleButton value="LIST" size="small" aria-label="List">
-                    <List />
-                  </ToggleButton>
-                </ToggleButtonGroup>
-              </div>
-            </FormControl>
-          </div>
-
+          <MovieListActionsButtons
+            sortType={sortType}
+            handleSortChange={handleSortChange}
+            displayType={displayType}
+            handleDisplayChange={handleDisplayChange}
+          />
           <h2>Movie list</h2>
           <div className="movie-list__count">
             <span className="value">{moviesCount}</span>{' '}

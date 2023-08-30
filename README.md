@@ -1,6 +1,6 @@
 # FilmoTek
 
-Gestionnaire de vidéothèque
+Gestionnaire de vidéothèque (partie front - React)
 
 ## Roadmap
 
