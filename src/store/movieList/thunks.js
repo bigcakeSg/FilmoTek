@@ -7,7 +7,6 @@ import {
   movieMiniInfosLoading,
   movieMiniInfosSuccess
 } from './actions';
-import { apiHeaders } from '../../utils/configs';
 
 export const getMovieList = () => {
   return async (dispatch) => {
@@ -29,17 +28,6 @@ export const getMovieMiniInfo = (movieId) => {
     try {
       dispatch(movieMiniInfosLoading(movieId));
 
-      // const endPoints = [
-      //   `https://moviesdatabase.p.rapidapi.com/titles/${movieId}`,
-      //   `https://moviesdatabase.p.rapidapi.com/titles/${movieId}/aka`
-      // ];
-      // const [miniInfo, titles] = await Promise.all(
-      //   endPoints.map((endPoint) =>
-      //     axios.get(endPoint, {
-      //       headers: apiHeaders
-      //     })
-      //   )
-      // );
       const { data } = await axios.get(
         `http://localhost:5000/movie/mini-infos/${movieId}`
       );

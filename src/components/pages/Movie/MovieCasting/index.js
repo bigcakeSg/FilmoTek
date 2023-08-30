@@ -39,7 +39,7 @@ const MovieCasting = ({ casting, principal }) => {
             }}
           ></div>
           <div>
-            <div className="casting__name">{cast.name}</div>
+            <div className="casting__name">{cast.name.text}</div>
             <div className="casting__character">
               {cast.characters.map((char) => char).join(' / ')}
             </div>

@@ -58,7 +58,7 @@ const MovieInfo = ({ movieInfos, movieCreators, loading }) => {
           ) : (
             <span>
               {movieCreators?.directors
-                ?.map((credit) => credit.name)
+                ?.map((credit) => credit.name.text)
                 .join(', ')}
             </span>
           )}
@@ -82,7 +82,9 @@ const MovieInfo = ({ movieInfos, movieCreators, loading }) => {
             </div>
           ) : (
             <span>
-              {movieCreators?.writers?.map((credit) => credit.name).join(', ')}
+              {movieCreators?.writers
+                ?.map((credit) => credit.name.text)
+                .join(', ')}
             </span>
           )}
         </div>
