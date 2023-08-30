@@ -1,4 +1,4 @@
-import { mockedState } from '../../mocks/state';
+// import { mockedState } from '../../mocks/state';
 import {
   MOVIE_LIST_LOADING,
   MOVIE_LIST_SUCCESS,
@@ -8,11 +8,11 @@ import {
   MOVIE_MINI_INFOS_FAILURE
 } from './actions';
 
-const initialMiniInfos = mockedState.movieList.movieMiniInfosList;
+// const initialMiniInfos = mockedState.movieList.movieMiniInfosList;
 
 const initialState = {
   movieIdList: [],
-  movieMiniInfosList: initialMiniInfos, // TODO: remplacer par {}
+  movieMiniInfosList: {},
   loading: false,
   error: null
 };
@@ -40,7 +40,7 @@ export default function reducer(state = initialState, action) {
         ...state,
         movieMiniInfosList: {
           ...state.movieMiniInfosList,
-          [action.payload.id]: { ...miniInfosState, infos: action.payload }
+          [action.payload.imdbId]: { ...miniInfosState, infos: action.payload }
         }
       };
     case MOVIE_MINI_INFOS_FAILURE:

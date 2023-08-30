@@ -1,6 +1,6 @@
 import { useCallback, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { postMovie } from '../../../store/movieInfos/thunks';
+import { postMovieByImdbId } from '../../../store/movieInfos/thunks';
 
 export const useAddMovieForm = (setAddMovieOpen) => {
   const dispatch = useDispatch();
@@ -8,7 +8,7 @@ export const useAddMovieForm = (setAddMovieOpen) => {
   const [newMovie, setNewMovie] = useState('');
 
   const handleAddMovie = useCallback(async () => {
-    await dispatch(postMovie(newMovie));
+    await dispatch(postMovieByImdbId(newMovie));
     setAddMovieOpen(false);
     setNewMovie('');
   }, [newMovie]);

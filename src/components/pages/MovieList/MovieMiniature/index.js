@@ -131,18 +131,18 @@ const MovieTile = ({
           <div
             className="movie__picture"
             style={{
-              backgroundImage: `url(${movieMiniInfos.primaryImage.url})`
+              backgroundImage: `url(${movieMiniInfos.picture.url})`
             }}
           ></div>
           <div className="movie__overlay"></div>
           <div className="movie__infos">
             <div>
               <div className="original-title">
-                {movieMiniInfos.originalTitleText.text}
+                {movieMiniInfos.originalTitle}
               </div>
               <div className="regional-title">{movieTitleFrench}</div>
             </div>
-            <div className="year">{movieMiniInfos.releaseYear.year}</div>
+            <div className="year">{movieMiniInfos.releaseYear}</div>
           </div>
         </StyledMovieMiniature>
       </StyledLink>
@@ -193,15 +193,15 @@ const MovieListItem = ({
             <div
               className="movie-list__picture"
               style={{
-                backgroundImage: `url(${movieMiniInfos.primaryImage.url})`
+                backgroundImage: `url(${movieMiniInfos.picture.url})`
               }}
             ></div>
             <ListItemText
-              primary={movieMiniInfos?.originalTitleText?.text}
+              primary={movieMiniInfos.originalTitle}
               secondary={movieTitleFrench}
             />
             <ListItemText
-              secondary={movieMiniInfos?.releaseYear?.year}
+              secondary={movieMiniInfos.releaseYear}
               sx={{ textAlign: 'right' }}
             />
           </ListItemButton>

@@ -56,14 +56,7 @@ const StyledMovie = styled.div`
 `;
 
 const Movie = () => {
-  const {
-    movieInfos,
-    moviePrincipalCast,
-    movieExtendedCast,
-    movieCreators,
-    movieRegionTitle,
-    movieInfosLoading
-  } = useMovie();
+  const { movieInfos, movieRegionTitle, movieInfosLoading } = useMovie();
 
   return (
     <StyledMovie>
@@ -86,7 +79,10 @@ const Movie = () => {
           <div className="movie__info">
             <MovieInfo
               movieInfos={movieInfos}
-              movieCreators={movieCreators}
+              movieCreators={{
+                directors: movieInfos.directors,
+                writers: movieInfos.writers
+              }}
               loading={movieInfosLoading}
             />
           </div>
@@ -100,12 +96,12 @@ const Movie = () => {
             ) : (
               <div className="movie__casting-list">
                 <MovieCasting
-                  casting={moviePrincipalCast}
+                  casting={movieInfos.casting.principal}
                   loading={movieInfosLoading}
                   principal
                 />
                 <MovieCasting
-                  casting={movieExtendedCast}
+                  casting={movieInfos.casting.extended}
                   loading={movieInfosLoading}
                 />
               </div>

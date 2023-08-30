@@ -41,8 +41,7 @@ const MovieInfo = ({ movieInfos, movieCreators, loading }) => {
         <div className="movie__info-item movie__directors">
           <span className="movie__label">
             Director
-            {movieCreators?.directors?.credits &&
-            movieCreators.directors.credits.length > 1
+            {movieCreators?.directors && movieCreators.directors.length > 1
               ? 's'
               : ''}
             :{' '}
@@ -58,8 +57,8 @@ const MovieInfo = ({ movieInfos, movieCreators, loading }) => {
             </div>
           ) : (
             <span>
-              {movieCreators.directors.credits
-                .map((credit) => credit.name)
+              {movieCreators?.directors
+                ?.map((credit) => credit.name)
                 .join(', ')}
             </span>
           )}
@@ -67,8 +66,7 @@ const MovieInfo = ({ movieInfos, movieCreators, loading }) => {
         <div className="movie__info-item movie__writers">
           <span className="movie__label">
             Writer
-            {movieCreators?.writers?.credits &&
-            movieCreators.writers.credits.length > 1
+            {movieCreators?.writers && movieCreators.writers.length > 1
               ? 's'
               : ''}
             :{' '}
@@ -84,9 +82,7 @@ const MovieInfo = ({ movieInfos, movieCreators, loading }) => {
             </div>
           ) : (
             <span>
-              {movieCreators.writers.credits
-                .map((credit) => credit.name)
-                .join(', ')}
+              {movieCreators?.writers?.map((credit) => credit.name).join(', ')}
             </span>
           )}
         </div>

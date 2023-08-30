@@ -64,7 +64,7 @@ const MovieMainInfo = ({ movieInfos, movieRegionTitle, loading }) => {
         ) : (
           <>
             <div className="movie__title--original">
-              {movieInfos.originalTitleText}
+              {movieInfos.originalTitle}
             </div>
             <div className="movie__title--region">{movieRegionTitle}</div>
           </>
@@ -92,10 +92,8 @@ const MovieMainInfo = ({ movieInfos, movieRegionTitle, loading }) => {
           </>
         ) : (
           <>
-            <div className="year">{movieInfos.releaseYear.year}</div>
-            <div className="duration">
-              {duration(movieInfos.runtime.seconds)} env.
-            </div>
+            <div className="year">{movieInfos.releaseDate.year}</div>
+            <div className="duration">{duration(movieInfos.duration)} env.</div>
           </>
         )}
       </div>

@@ -3,9 +3,9 @@ import { useMemo } from 'react';
 export const useMovieBanner = (movieInfos, loading) => {
   const backgroundImage = useMemo(
     () =>
-      loading || !movieInfos?.primaryImage?.url
+      loading || !movieInfos?.picture?.url
         ? 'unset'
-        : `url(${movieInfos.primaryImage.url})`,
+        : `url(${movieInfos.picture.url})`,
     [loading, movieInfos]
   );
 
