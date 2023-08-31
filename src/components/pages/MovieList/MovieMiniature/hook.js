@@ -1,19 +1,19 @@
-import { useEffect, useMemo } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useEffect, useMemo, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { getMovieTitleByRegion } from '../../../../utils/helpers';
-import {
-  selectMovieMiniInfosData,
-  selectMovieMiniInfosLoading
-} from '../../../../store/movieList/selectors';
 import { getMovieMiniInfo } from '../../../../store/movieList/thunks';
 
 export const useMovieMiniature = (movieId) => {
   const dispatch = useDispatch();
 
-  const movieMiniInfosLoading = useSelector(
-    selectMovieMiniInfosLoading(movieId)
-  );
-  const movieMiniInfos = useSelector(selectMovieMiniInfosData(movieId));
+  const [movieMiniInfos, setMovieMiniInfos] = useState(null);
+  useEffect(() => {
+    const getInfos = async (id) => {
+      const infos = await dispatch(getMovieMiniInfo(movieId));
+      setMovieMiniInfos(infos);
+    };
+    getInfos(movieId);
+  }, [movieId]);
 
   const movieTitleFrench = useMemo(
     () =>
@@ -23,12 +23,7 @@ export const useMovieMiniature = (movieId) => {
     [movieMiniInfos]
   );
 
-  useEffect(() => {
-    if (!movieMiniInfos) dispatch(getMovieMiniInfo(movieId));
-  }, [movieId, movieMiniInfos]);
-
   return {
-    movieMiniInfosLoading,
     movieMiniInfos,
     movieTitleFrench
   };

@@ -8,7 +8,9 @@ import {
 import { apiHeaders } from '../../utils/configs';
 import { selectMovieId } from './selectors';
 import { getMovieList } from '../movieList/thunks';
+import { movieList } from '../../mocks/mocks';
 
+// Movie infos importation
 export const getMovieInfos = (movieId) => {
   return async (dispatch, getState) => {
     try {
@@ -17,12 +19,6 @@ export const getMovieInfos = (movieId) => {
       if (selectMovieId(state) !== movieId) {
         dispatch(movieInfosLoading());
 
-        const params = [
-          'base_info',
-          'principalCast',
-          'extendedCast',
-          'creators_directors_writers'
-        ];
         const { data } = await axios.get(
           `http://localhost:5000/movie/infos/${movieId}`
         );
@@ -35,6 +31,7 @@ export const getMovieInfos = (movieId) => {
   };
 };
 
+// Movie creation
 export const postMovieByImdbId = (movieId) => {
   return async (dispatch, getState) => {
     try {
@@ -82,16 +79,17 @@ export const postMovieByImdbId = (movieId) => {
           width: base_info.data.results.primaryImage?.width
         },
         releaseDate: {
-          year: base_info.data.results.releaseDate?.year,
+          year: base_info.data.results.releaseYear.year,
           month: base_info.data.results.releaseDate?.month,
           day: base_info.data.results.releaseDate?.day
         },
-        duration: base_info.data.results.runtime.seconds,
-        plot: base_info.data.results.plot.plotText.plainText,
-        genres: base_info.data.results.genres.genres.map((genre) => ({
-          id: genre?.id,
-          text: genre?.text
-        })),
+        duration: base_info.data.results.runtime?.seconds,
+        plot: base_info.data.results.plot?.plotText?.plainText,
+        genres:
+          base_info.data.results.genres?.genres.map((genre) => ({
+            id: genre?.id,
+            text: genre?.text
+          })) || [],
         directors:
           creators_directors_writers.data.results.directors[0].credits.map(
             (credit) => ({
@@ -110,38 +108,53 @@ export const postMovieByImdbId = (movieId) => {
             (cast) => ({
               name: {
                 id: cast.name.id,
-                text: cast.name.nameText.text
+                text: cast.name.nameText.text,
+                picture: {
+                  url: cast.name?.primaryImage?.url,
+                  height: cast.name?.primaryImage?.height,
+                  width: cast.name?.primaryImage?.width
+                }
               },
-              characters: cast.characters?.map((char) => char.name),
-              picture: {
-                url: cast.name.primaryImage.url,
-                height: cast.name.primaryImage.height,
-                width: cast.name.primaryImage.width
-              },
+              characters: cast.characters?.map((char) => char.name) || [],
               attributes: cast?.attributes?.map((attr) => attr.text) || []
             })
           ),
           extended: extendedCast.data.results.cast.edges.map(({ node }) => ({
             name: {
               id: node.name.id,
-              text: node.name.nameText.text
+              text: node.name.nameText.text,
+              picture: {
+                url: node.name?.primaryImage?.url,
+                height: node.name?.primaryImage?.height,
+                width: node.name?.primaryImage?.width
+              }
             },
-            characters: node.characters?.map((char) => char.name),
-            picture: {
-              url: node.name.primaryImage?.url,
-              height: node.name.primaryImage?.height,
-              width: node.name.primaryImage?.width
-            },
+            characters: node.characters?.map((char) => char.name) || [],
             attributes: node?.attributes?.map((attr) => attr.text) || []
           }))
         }
       };
-
+      console.log('movieParams', movieParams);
       await axios.post(`http://localhost:5000/movie`, movieParams);
 
       dispatch(getMovieList());
     } catch (error) {
       console.log('ERROR', error);
+    }
+  };
+};
+
+// Movie list creation
+export const postMovieListByImdbId = () => {
+  return async (dispatch, getState) => {
+    try {
+      const movies = getState().movieList.data.map((movie) => movie.imdbId);
+      for (const movie of movieList) {
+        console.log('movie:', movie);
+        if (!movies.includes(movie)) await dispatch(postMovieByImdbId(movie));
+      }
+    } catch (error) {
+      dispatch(movieInfosFailure(error.message));
     }
   };
 };

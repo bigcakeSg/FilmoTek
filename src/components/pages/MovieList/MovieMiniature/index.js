@@ -109,13 +109,8 @@ const StyledMiniatureLoading = styled.div`
   }
 `;
 
-const MovieTile = ({
-  movieId,
-  movieMiniInfosLoading,
-  movieMiniInfos,
-  movieTitleFrench
-}) => {
-  if (movieMiniInfosLoading)
+const MovieTile = ({ movieId, movieMiniInfos, movieTitleFrench }) => {
+  if (!movieMiniInfos)
     return (
       <StyledMiniatureLoading>
         <div className="loader">
@@ -142,7 +137,7 @@ const MovieTile = ({
               </div>
               <div className="regional-title">{movieTitleFrench}</div>
             </div>
-            <div className="year">{movieMiniInfos.releaseYear}</div>
+            <div className="year">{movieMiniInfos.releaseDate.year}</div>
           </div>
         </StyledMovieMiniature>
       </StyledLink>
@@ -178,38 +173,42 @@ const StyledMovieItem = styled.div`
   }
 `;
 
-const MovieListItem = ({
-  movieId,
-  movieMiniInfosLoading,
-  movieMiniInfos,
-  movieTitleFrench
-}) => {
-  // TODO: loader
-  return (
-    <StyledMovieItem>
-      <Link to={`/movie/${movieId}`}>
+const MovieListItem = ({ movieId, movieMiniInfos, movieTitleFrench }) => {
+  if (!movieMiniInfos)
+    return (
+      <StyledMovieItem>
         <ListItem disablePadding>
-          <ListItemButton>
-            <div
-              className="movie-list__picture"
-              style={{
-                backgroundImage: `url(${movieMiniInfos.picture.url})`
-              }}
-            ></div>
-            <ListItemText
-              primary={movieMiniInfos.originalTitle}
-              secondary={movieTitleFrench}
-            />
-            <ListItemText
-              secondary={movieMiniInfos.releaseYear}
-              sx={{ textAlign: 'right' }}
-            />
-          </ListItemButton>
+          <ListItemText primary="Loading..." />
         </ListItem>
-      </Link>
-      <Divider />
-    </StyledMovieItem>
-  );
+        <Divider />
+      </StyledMovieItem>
+    );
+  else
+    return (
+      <StyledMovieItem>
+        <Link to={`/movie/${movieId}`}>
+          <ListItem disablePadding>
+            <ListItemButton>
+              <div
+                className="movie-list__picture"
+                style={{
+                  backgroundImage: `url(${movieMiniInfos.picture.url})`
+                }}
+              ></div>
+              <ListItemText
+                primary={movieMiniInfos.originalTitle}
+                secondary={movieTitleFrench}
+              />
+              <ListItemText
+                secondary={movieMiniInfos.releaseDate.year}
+                sx={{ textAlign: 'right' }}
+              />
+            </ListItemButton>
+          </ListItem>
+        </Link>
+        <Divider />
+      </StyledMovieItem>
+    );
 };
 
 MovieListItem.propTypes = {
