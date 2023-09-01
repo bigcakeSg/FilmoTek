@@ -1,30 +1,14 @@
-import { useEffect, useMemo, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useMemo } from 'react';
+import { useSelector } from 'react-redux';
 import {
   selectMovieInfosData,
   selectMovieInfosLoading
 } from '../../../store/movieInfos/selectors';
-import { getMovieTitleByRegion, loadImageAsBlob } from '../../../utils/helpers';
+import { getMovieTitleByRegion } from '../../../utils/helpers';
 
 export const useMovie = () => {
-  const dispatch = useDispatch();
-
   const movieInfos = useSelector(selectMovieInfosData);
   const movieInfosLoading = useSelector(selectMovieInfosLoading);
-
-  const [blobUrl, setBlobUrl] = useState('');
-
-  useEffect(() => {
-    const getInfos = async (url, id) => {
-      let blob = '';
-
-      if (url) blob = await dispatch(loadImageAsBlob(url, id));
-
-      setBlobUrl(blob);
-    };
-
-    getInfos(movieInfos?.picture?.url, movieInfos?.imdbId);
-  }, [movieInfos]);
 
   const movieRegionTitle = useMemo(() => {
     return movieInfos?.regionalTitles
@@ -35,7 +19,6 @@ export const useMovie = () => {
   return {
     movieInfos,
     movieRegionTitle,
-    movieInfosLoading,
-    blobUrl
+    movieInfosLoading
   };
 };

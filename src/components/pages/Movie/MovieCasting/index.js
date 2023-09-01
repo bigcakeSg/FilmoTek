@@ -1,6 +1,8 @@
 import { PropTypes } from 'prop-types';
 import styled from 'styled-components';
 import { colorA } from '../../../../utils/colors';
+import { useCastingThumbnail } from './hook';
+import NoImg from '../../../../assets/noName.jpg';
 
 const StyledMovieCasting = styled.div`
   display: flex;
@@ -27,24 +29,50 @@ const StyledMovieCasting = styled.div`
   }
 `;
 
+const CastingThumbnail = ({ cast }) => {
+  const { castBlob } = useCastingThumbnail(cast);
+
+  return (
+    <div className="cast__item">
+      <div
+        className="casting__image"
+        style={{
+          backgroundImage: `url(${castBlob || NoImg})`
+        }}
+      ></div>
+      <div>
+        <div className="casting__name">{cast.name.text}</div>
+        <div className="casting__character">
+          {cast.characters.map((char) => char).join(' / ')}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+CastingThumbnail.propTypes = {
+  cast: PropTypes.object
+};
+
 const MovieCasting = ({ casting, principal }) => {
   return (
     <StyledMovieCasting principal={principal}>
       {casting.map((cast) => (
-        <div className="cast__item" key={`cast-${cast.name.id}`}>
-          <div
-            className="casting__image"
-            style={{
-              backgroundImage: `url(${cast.name.picture?.url})`
-            }}
-          ></div>
-          <div>
-            <div className="casting__name">{cast.name.text}</div>
-            <div className="casting__character">
-              {cast.characters.map((char) => char).join(' / ')}
-            </div>
-          </div>
-        </div>
+        <CastingThumbnail cast={cast} key={`cast-${cast.name.id}`} />
+        // <div className="cast__item" key={`cast-${cast.name.id}`}>
+        //   <div
+        //     className="casting__image"
+        //     style={{
+        //       backgroundImage: `url(${cast.name.picture?.url})`
+        //     }}
+        //   ></div>
+        //   <div>
+        //     <div className="casting__name">{cast.name.text}</div>
+        //     <div className="casting__character">
+        //       {cast.characters.map((char) => char).join(' / ')}
+        //     </div>
+        //   </div>
+        // </div>
       ))}
     </StyledMovieCasting>
   );

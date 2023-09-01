@@ -56,8 +56,7 @@ const StyledMovie = styled.div`
 `;
 
 const Movie = () => {
-  const { movieInfos, movieRegionTitle, movieInfosLoading, blobUrl } =
-    useMovie();
+  const { movieInfos, movieRegionTitle, movieInfosLoading } = useMovie();
 
   return (
     <StyledMovie>
@@ -70,7 +69,8 @@ const Movie = () => {
             onDelete={() => null}
           />
           <MoviePicture
-            blobUrl={blobUrl}
+            id={movieInfos?.imdbId}
+            movieUrl={movieInfos?.picture?.url}
             originalTitle={movieInfos.originalTitle}
             loading={movieInfosLoading}
           />

@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { colorA } from '../../../../utils/colors';
 import { Skeleton } from '@mui/material';
 import NoImg from '../../../../assets/noMovie.jpg';
+import { useMoviePicture } from './hook';
 
 const StyledMoviePicture = styled.div`
   position: absolute;
@@ -17,7 +18,9 @@ const StyledMoviePicture = styled.div`
   }
 `;
 
-const MoviePicture = ({ blobUrl, originalTitle, loading }) => {
+const MoviePicture = ({ id, movieUrl, originalTitle, loading }) => {
+  const { blobUrl } = useMoviePicture(movieUrl, id);
+
   return (
     <StyledMoviePicture>
       {loading ? (
@@ -39,7 +42,8 @@ const MoviePicture = ({ blobUrl, originalTitle, loading }) => {
 export default MoviePicture;
 
 MoviePicture.propTypes = {
-  blobUrl: PropTypes.string,
+  id: PropTypes.string,
+  movieUrl: PropTypes.string,
   originalTitle: PropTypes.string,
   loading: PropTypes.bool
 };
