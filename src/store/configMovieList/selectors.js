@@ -16,3 +16,8 @@ export const selectPage = createSelector(
   configMovieListStore,
   (store) => store.page
 );
+
+export const selectCreationRedirect = createSelector(
+  configMovieListStore,
+  (store) => store.creationRedirect
+);

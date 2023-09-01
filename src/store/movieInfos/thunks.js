@@ -79,7 +79,7 @@ export const postMovieByImdbId = (movieId) => {
           width: base_info.data.results.primaryImage?.width
         },
         releaseDate: {
-          year: base_info.data.results.releaseYear.year,
+          year: base_info.data.results.releaseYear?.year || null,
           month: base_info.data.results.releaseDate?.month,
           day: base_info.data.results.releaseDate?.day
         },
@@ -134,10 +134,17 @@ export const postMovieByImdbId = (movieId) => {
           }))
         }
       };
-      console.log('movieParams', movieParams);
-      await axios.post(`http://localhost:5000/movie`, movieParams);
+
+      const { data, status } = await axios.post(
+        `http://localhost:5000/movie`,
+        movieParams
+      );
 
       dispatch(getMovieList());
+
+      if (status === 200) return false;
+      else if (status === 201) return true;
+      else throw new Error(data);
     } catch (error) {
       console.log('ERROR', error);
     }
@@ -150,7 +157,6 @@ export const postMovieListByImdbId = () => {
     try {
       const movies = getState().movieList.data.map((movie) => movie.imdbId);
       for (const movie of movieList) {
-        console.log('movie:', movie);
         if (!movies.includes(movie)) await dispatch(postMovieByImdbId(movie));
       }
     } catch (error) {

@@ -93,7 +93,11 @@ const MovieMainInfo = ({ movieInfos, movieRegionTitle, loading }) => {
         ) : (
           <>
             <div className="year">{movieInfos.releaseDate.year}</div>
-            <div className="duration">{duration(movieInfos.duration)} env.</div>
+            <div className="duration">
+              {movieInfos.duration
+                ? `${duration(movieInfos.duration)} env.`
+                : null}
+            </div>
           </>
         )}
       </div>

@@ -5,7 +5,6 @@ Gestionnaire de vidéothèque (partie front - React)
 ## Roadmap
 
 - Page d'erreur
-- Options de tri
 - Gestion absence d'image (affiche, cast)
 - Résumé
 - Lazy loading
