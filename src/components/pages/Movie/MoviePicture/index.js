@@ -2,6 +2,7 @@ import { PropTypes } from 'prop-types';
 import styled from 'styled-components';
 import { colorA } from '../../../../utils/colors';
 import { Skeleton } from '@mui/material';
+import NoImg from '../../../../assets/noMovie.jpg';
 
 const StyledMoviePicture = styled.div`
   position: absolute;
@@ -16,7 +17,7 @@ const StyledMoviePicture = styled.div`
   }
 `;
 
-const MoviePicture = ({ movieInfos, loading }) => {
+const MoviePicture = ({ blobUrl, originalTitle, loading }) => {
   return (
     <StyledMoviePicture>
       {loading ? (
@@ -29,7 +30,7 @@ const MoviePicture = ({ movieInfos, loading }) => {
           />
         </div>
       ) : (
-        <img src={movieInfos?.picture?.url} alt={movieInfos.originalTitle} />
+        <img src={blobUrl || NoImg} alt={originalTitle} />
       )}
     </StyledMoviePicture>
   );
@@ -38,7 +39,8 @@ const MoviePicture = ({ movieInfos, loading }) => {
 export default MoviePicture;
 
 MoviePicture.propTypes = {
-  movieInfos: PropTypes.object.isRequired,
+  blobUrl: PropTypes.string,
+  originalTitle: PropTypes.string,
   loading: PropTypes.bool
 };
 

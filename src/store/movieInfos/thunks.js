@@ -151,7 +151,7 @@ export const postMovieByImdbId = (movieId) => {
         return { severity: 'success', message: 'Movie created!' };
       else throw new Error(data.message);
     } catch (error) {
-      console.log(error);
+      return { severity: 'error', message: error };
     }
   };
 };

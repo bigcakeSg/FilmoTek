@@ -21,6 +21,13 @@ const Header = styled.header`
   justify-content: space-between;
   align-items: center;
   height: ${headerHeight}px;
+  & a {
+    text-decoration: none;
+    color: #fff;
+    &:hover {
+      color: #ddd;
+    }
+  }
   & ul {
     list-style: none;
     padding: 0;
@@ -28,13 +35,6 @@ const Header = styled.header`
     display: flex;
     & li {
       margin: 5px;
-      & a {
-        text-decoration: none;
-        color: #fff;
-        &:hover {
-          color: #ddd;
-        }
-      }
     }
   }
 `;
@@ -46,7 +46,9 @@ const HeaderMenu = ({ noMenu }) => {
     <>
       <Header>
         <h1>
-          Filmo<span>TEK</span>
+          <Link to={`/`}>
+            Filmo<span>TEK</span>
+          </Link>
         </h1>
         <nav>
           {noMenu ? null : (

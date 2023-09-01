@@ -11,6 +11,7 @@ import {
   ListItemButton,
   ListItemText
 } from '@mui/material';
+import NoImg from '../../../../assets/noMovie.jpg';
 
 const StyledLink = styled(Link)`
   text-decoration: none;
@@ -109,7 +110,7 @@ const StyledMiniatureLoading = styled.div`
   }
 `;
 
-const MovieTile = ({ movieId, movieMiniInfos, movieTitleFrench }) => {
+const MovieTile = ({ movieId, movieMiniInfos, movieTitleFrench, blobUrl }) => {
   if (!movieMiniInfos)
     return (
       <StyledMiniatureLoading>
@@ -126,7 +127,7 @@ const MovieTile = ({ movieId, movieMiniInfos, movieTitleFrench }) => {
           <div
             className="movie__picture"
             style={{
-              backgroundImage: `url(${movieMiniInfos.picture.url})`
+              backgroundImage: `url(${blobUrl || NoImg})`
             }}
           ></div>
           <div className="movie__overlay"></div>
@@ -148,7 +149,8 @@ MovieTile.propTypes = {
   movieId: PropTypes.string.isRequired,
   movieMiniInfosLoading: PropTypes.bool,
   movieMiniInfos: PropTypes.object,
-  movieTitleFrench: PropTypes.string
+  movieTitleFrench: PropTypes.string,
+  blobUrl: PropTypes.string
 };
 
 const StyledMovieItem = styled.div`
@@ -173,7 +175,12 @@ const StyledMovieItem = styled.div`
   }
 `;
 
-const MovieListItem = ({ movieId, movieMiniInfos, movieTitleFrench }) => {
+const MovieListItem = ({
+  movieId,
+  movieMiniInfos,
+  movieTitleFrench,
+  blobUrl
+}) => {
   if (!movieMiniInfos)
     return (
       <StyledMovieItem>
@@ -192,7 +199,7 @@ const MovieListItem = ({ movieId, movieMiniInfos, movieTitleFrench }) => {
               <div
                 className="movie-list__picture"
                 style={{
-                  backgroundImage: `url(${movieMiniInfos.picture.url})`
+                  backgroundImage: `url(${blobUrl || NoImg})`
                 }}
               ></div>
               <ListItemText
@@ -215,11 +222,12 @@ MovieListItem.propTypes = {
   movieId: PropTypes.string.isRequired,
   movieMiniInfosLoading: PropTypes.bool,
   movieMiniInfos: PropTypes.object,
-  movieTitleFrench: PropTypes.string
+  movieTitleFrench: PropTypes.string,
+  blobUrl: PropTypes.string
 };
 
 const MovieMiniature = ({ movieId, miniatureType }) => {
-  const { movieMiniInfosLoading, movieMiniInfos, movieTitleFrench } =
+  const { movieMiniInfosLoading, movieMiniInfos, movieTitleFrench, blobUrl } =
     useMovieMiniature(movieId);
 
   switch (miniatureType) {
@@ -230,6 +238,7 @@ const MovieMiniature = ({ movieId, miniatureType }) => {
           movieMiniInfosLoading={movieMiniInfosLoading}
           movieMiniInfos={movieMiniInfos}
           movieTitleFrench={movieTitleFrench}
+          blobUrl={blobUrl}
         />
       );
     case 'LIST':
@@ -239,6 +248,7 @@ const MovieMiniature = ({ movieId, miniatureType }) => {
           movieMiniInfosLoading={movieMiniInfosLoading}
           movieMiniInfos={movieMiniInfos}
           movieTitleFrench={movieTitleFrench}
+          blobUrl={blobUrl}
         />
       );
     default:
