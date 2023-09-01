@@ -38,6 +38,21 @@ const MovieListActionsButtons = ({
       <FormControl size="small">
         <div className="movie-list__actions">
           {/* <div className="movie-list__actions__filter">
+            <InputLabel id="movie-list-filter-by-list-label">
+              List(s)
+            </InputLabel>
+            <Select
+              labelId="movie-list-filter-by-list-label"
+              id="movie-list-filter-by-list"
+              value={null}
+              onChange={() => null}
+              label="List(s)"
+              sx={{ minWidth: 250 }}
+            >
+              <MenuItem value="test">test</MenuItem>
+            </Select>
+          </div>
+          <div className="movie-list__actions__filter">
             <InputLabel id="movie-list-filter-by-director-label">
               Director(s)
             </InputLabel>

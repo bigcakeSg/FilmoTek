@@ -1,3 +1,4 @@
+import { PropTypes } from 'prop-types';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { Button } from '@mui/material';
@@ -38,7 +39,7 @@ const Header = styled.header`
   }
 `;
 
-const HeaderMenu = () => {
+const HeaderMenu = ({ noMenu }) => {
   const { addMovieOpen, setAddMovieOpen } = useHeaderMenu();
 
   return (
@@ -48,36 +49,42 @@ const HeaderMenu = () => {
           Filmo<span>TEK</span>
         </h1>
         <nav>
-          <ul>
-            <li>
-              <Link to={`/`}>
+          {noMenu ? null : (
+            <ul>
+              <li>
+                <Link to={`/`}>
+                  <Button
+                    variant="text"
+                    color="secondary"
+                    startIcon={<ViewListIcon />}
+                  >
+                    Movie List
+                  </Button>
+                </Link>
+              </li>
+              <li>
                 <Button
                   variant="text"
                   color="secondary"
-                  startIcon={<ViewListIcon />}
+                  startIcon={<BarChart />}
                 >
-                  Movie List
+                  Statistics
                 </Button>
-              </Link>
-            </li>
-            <li>
-              <Button variant="text" color="secondary" startIcon={<BarChart />}>
-                Statistics
-              </Button>
-            </li>
-            <li>
-              <Button
-                variant="text"
-                color="secondary"
-                startIcon={<QueueIcon />}
-                onClick={() => {
-                  setAddMovieOpen(true);
-                }}
-              >
-                Add a movie
-              </Button>
-            </li>
-          </ul>
+              </li>
+              <li>
+                <Button
+                  variant="text"
+                  color="secondary"
+                  startIcon={<QueueIcon />}
+                  onClick={() => {
+                    setAddMovieOpen(true);
+                  }}
+                >
+                  Add a movie
+                </Button>
+              </li>
+            </ul>
+          )}
         </nav>
       </Header>
       <AddMovieForm
@@ -89,3 +96,11 @@ const HeaderMenu = () => {
 };
 
 export default HeaderMenu;
+
+HeaderMenu.propTypes = {
+  noMenu: PropTypes.bool
+};
+
+AddMovieForm.defaultProps = {
+  noMenu: false
+};

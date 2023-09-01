@@ -6,6 +6,7 @@ import MovieList from './components/pages/MovieList';
 import Movie from './components/pages/Movie';
 import { getMovieList } from './store/movieList/thunks';
 import { getMovieInfos } from './store/movieInfos/thunks';
+import Error from './components/pages/Error';
 
 const Root = () => {
   const dispatch = useDispatch();
@@ -24,12 +25,7 @@ const Root = () => {
     {
       path: '/',
       element: <App />,
-      errorElement: (
-        <>
-          <h1>OUPS !</h1>
-          <div>Big Mistake...</div>
-        </>
-      ),
+      errorElement: <Error />,
       children: [
         {
           path: '',
