@@ -83,7 +83,9 @@ const AddMovieForm = ({ addMovieOpen, setAddMovieOpen }) => {
             >
               Cancel
             </Button>
-            <Button type="submit">Add</Button>
+            <Button type="submit" disabled={!newMovie.trim()}>
+              Add
+            </Button>
           </DialogActions>
         </form>
         <StyledLoader
