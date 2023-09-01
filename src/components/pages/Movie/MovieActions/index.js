@@ -11,6 +11,10 @@ const StyledMovieActions = styled.div`
   top: 10px;
   z-index: 100;
   display: flex;
+  & button {
+    box-shadow: rgba(0, 0, 0, 0.2) 1px 1px 7px 0px;
+    margin: 0 10px;
+  }
 `;
 
 const MovieActions = ({ onDelete, onEdit, onImport }) => {

@@ -31,11 +31,11 @@ const MovieCasting = ({ casting, principal }) => {
   return (
     <StyledMovieCasting principal={principal}>
       {casting.map((cast) => (
-        <div className="cast__item" key={`cast-${cast.id}`}>
+        <div className="cast__item" key={`cast-${cast.name.id}`}>
           <div
             className="casting__image"
             style={{
-              backgroundImage: `url(${cast.picture?.url})`
+              backgroundImage: `url(${cast.name.picture?.url})`
             }}
           ></div>
           <div>

@@ -1,17 +1,61 @@
 import { useCallback, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { postMovieByImdbId } from '../../../store/movieInfos/thunks';
+import { selectCreationRedirect } from '../../../store/configMovieList/selectors';
+import { configRedirectMovieList } from '../../../store/configMovieList/actions';
 
 export const useAddMovieForm = (setAddMovieOpen) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const [newMovie, setNewMovie] = useState('');
+  const [isMovieCreation, setIsMovieCreation] = useState(false);
+  const [isSnackOpen, setIsSnackOpen] = useState(false);
+  const [resultMessage, setResultMessage] = useState({
+    severity: 'success',
+    message: ''
+  });
 
-  const handleAddMovie = useCallback(async () => {
-    await dispatch(postMovieByImdbId(newMovie));
-    setAddMovieOpen(false);
-    setNewMovie('');
-  }, [newMovie]);
+  const creationRedirect = useSelector(selectCreationRedirect);
 
-  return { newMovie, setNewMovie, handleAddMovie };
+  const handleRedirect = (e) => {
+    dispatch(configRedirectMovieList(e.target.checked));
+  };
+
+  const handleAddMovie = useCallback(
+    async (e) => {
+      e.preventDefault();
+      setIsMovieCreation(true);
+
+      const result = await dispatch(postMovieByImdbId(newMovie));
+
+      if (result)
+        setResultMessage({ severity: 'success', message: 'Movie created!' });
+      else
+        setResultMessage({
+          severity: 'warning',
+          message: 'Movie already exists!'
+        });
+
+      setAddMovieOpen(false);
+      setIsMovieCreation(false);
+      setNewMovie('');
+      if (creationRedirect) navigate(`/movie/${newMovie}`);
+      setIsSnackOpen(true);
+    },
+    [newMovie, creationRedirect]
+  );
+
+  return {
+    newMovie,
+    setNewMovie,
+    handleAddMovie,
+    isMovieCreation,
+    creationRedirect,
+    handleRedirect,
+    isSnackOpen,
+    setIsSnackOpen,
+    resultMessage
+  };
 };

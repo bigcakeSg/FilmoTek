@@ -5,7 +5,6 @@ Gestionnaire de vidéothèque (partie front - React)
 ## Roadmap
 
 - Page d'erreur
-- Options de tri
 - Gestion absence d'image (affiche, cast)
 - Résumé
 - Lazy loading
@@ -13,8 +12,6 @@ Gestionnaire de vidéothèque (partie front - React)
 - Recherche
 - Affichage des formats vidéo
 - Affichage des infos de backlog
-- Côté serveur
-- Création d'une nouvelle fiche
 - Synchronisation IMDB
 - Edition d'une fiche
 - Statistiques

@@ -40,6 +40,7 @@ const MovieList = () => {
   const {
     moviesCount,
     movieListPage,
+    actualPage,
     handlePaginationChange,
     pageQantity,
     displayType,
@@ -77,6 +78,7 @@ const MovieList = () => {
               shape="rounded"
               onChange={handlePaginationChange}
               color="secondary"
+              page={actualPage}
             />
           </div>
         </div>

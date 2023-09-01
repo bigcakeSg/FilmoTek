@@ -62,7 +62,7 @@ const MovieListActionsButtons = ({
               label="Sort by"
             >
               <MenuItem value="ALPHA">Title</MenuItem>
-              <MenuItem value="CHRONO">Year</MenuItem>
+              <MenuItem value="CHRONO">Release date</MenuItem>
             </Select>
           </div>
           <ToggleButtonGroup
