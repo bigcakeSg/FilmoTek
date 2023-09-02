@@ -43,22 +43,14 @@ const MovieList = () => {
     actualPage,
     handlePaginationChange,
     pageQantity,
-    displayType,
-    handleDisplayChange,
-    handleSortChange,
-    sortType
+    displayType
   } = useMovieList();
 
   return (
     <StyledMovieList>
       <div className="main-content">
         <div className="inner-content">
-          <MovieListActionsButtons
-            sortType={sortType}
-            handleSortChange={handleSortChange}
-            displayType={displayType}
-            handleDisplayChange={handleDisplayChange}
-          />
+          <MovieListActionsButtons />
           <h2>Movie list</h2>
           <div className="movie-list__count">
             <span className="value">{moviesCount}</span>{' '}

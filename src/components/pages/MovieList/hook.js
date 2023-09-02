@@ -1,17 +1,15 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectMovieIdList } from '../../../store/movieList/selectors';
-import { scrollTop } from '../../../utils/helpers';
-import {
-  configDisplayMovieList,
-  configPageMovieList,
-  configSortMovieList
-} from '../../../store/configMovieList/actions';
+import { getMovieTitleByRegion, scrollTop } from '../../../utils/helpers';
+import { configPageMovieList } from '../../../store/configMovieList/actions';
 import {
   selecSort,
   selectDisplayType,
-  selectPage
+  selectPage,
+  selectSearchTitleRedirect
 } from '../../../store/configMovieList/selectors';
+import { regionLanguage } from '../../../utils/configs';
 
 const sliceList = (page, count, list) => {
   const newList = [...list];
@@ -53,14 +51,30 @@ export const useMovieList = () => {
   const actualPage = useSelector(selectPage);
 
   const movieList = useSelector(selectMovieIdList);
+  const searchTitle = useSelector(selectSearchTitleRedirect);
+
+  const movieFiltered = useMemo(() => {
+    return movieList.filter((movie) => {
+      const isOriginalTitle =
+        movie.originalTitle.toLowerCase().indexOf(searchTitle.toLowerCase()) !==
+        -1;
+
+      const isRegionalTitle =
+        getMovieTitleByRegion(movie.regionalTitles, regionLanguage)
+          .toLowerCase()
+          .indexOf(searchTitle.toLowerCase()) !== -1;
+
+      return isOriginalTitle || isRegionalTitle;
+    });
+  }, [movieList, searchTitle]);
 
   const moviesSorted = useMemo(() => {
     if (sortType === 'ALPHA')
-      return [...movieList].sort(sortAlpha).map((movie) => movie.imdbId);
+      return [...movieFiltered].sort(sortAlpha).map((movie) => movie.imdbId);
     if (sortType === 'CHRONO')
-      return [...movieList].sort(sortChrono).map((movie) => movie.imdbId);
-    return [...movieList].map((movie) => movie.imdbId);
-  }, [movieList, sortType]);
+      return [...movieFiltered].sort(sortChrono).map((movie) => movie.imdbId);
+    return [...movieFiltered].map((movie) => movie.imdbId);
+  }, [movieFiltered, sortType]);
 
   const movieListPage = useMemo(() => {
     return sliceList(actualPage, moviesPerPage, moviesSorted);
@@ -78,14 +92,6 @@ export const useMovieList = () => {
     [moviesSorted]
   );
 
-  const handleDisplayChange = (_, newDisplay) => {
-    dispatch(configDisplayMovieList(newDisplay));
-  };
-
-  const handleSortChange = (event) => {
-    dispatch(configSortMovieList(event.target.value));
-  };
-
   return {
     moviesCount: movieList.length,
     movieListPage,
@@ -93,8 +99,6 @@ export const useMovieList = () => {
     handlePaginationChange,
     pageQantity,
     displayType,
-    handleDisplayChange,
-    handleSortChange,
     sortType
   };
 };

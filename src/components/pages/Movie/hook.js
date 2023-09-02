@@ -5,6 +5,7 @@ import {
   selectMovieInfosLoading
 } from '../../../store/movieInfos/selectors';
 import { getMovieTitleByRegion } from '../../../utils/helpers';
+import { regionLanguage } from '../../../utils/configs';
 
 export const useMovie = () => {
   const movieInfos = useSelector(selectMovieInfosData);
@@ -12,7 +13,7 @@ export const useMovie = () => {
 
   const movieRegionTitle = useMemo(() => {
     return movieInfos?.regionalTitles
-      ? getMovieTitleByRegion(movieInfos.regionalTitles, 'FR')
+      ? getMovieTitleByRegion(movieInfos.regionalTitles, regionLanguage)
       : null;
   }, [movieInfos]);
 

@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 export const getMovieTitleByRegion = (movieTitles, region) =>
-  movieTitles.find((movie) => movie.region === region)?.title.toString();
+  movieTitles.find((movie) => movie.region === region)?.title.toString() || '';
 
 export const duration = (seconds) => {
   const hours = Math.floor(+seconds / 3600);

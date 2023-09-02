@@ -1,15 +1,16 @@
-import { PropTypes } from 'prop-types';
 import styled from 'styled-components';
 import {
   FormControl,
+  InputAdornment,
   InputLabel,
   MenuItem,
   Select,
+  TextField,
   ToggleButton,
   ToggleButtonGroup
 } from '@mui/material';
-import { Apps } from '@mui/icons-material';
-import { List } from '@mui/icons-material';
+import { Apps, Search, List } from '@mui/icons-material';
+import { useMovieListActionsButtons } from './hook';
 
 const StyledMovieListActionsButtons = styled.div`
   position: absolute;
@@ -27,16 +28,35 @@ const StyledMovieListActionsButtons = styled.div`
   }
 `;
 
-const MovieListActionsButtons = ({
-  sortType,
-  handleSortChange,
-  displayType,
-  handleDisplayChange
-}) => {
+const MovieListActionsButtons = () => {
+  const {
+    handleDisplayChange,
+    handleSortChange,
+    handleSearchTitleChange,
+    sortType,
+    displayType
+  } = useMovieListActionsButtons();
+
   return (
     <StyledMovieListActionsButtons>
       <FormControl size="small">
         <div className="movie-list__actions">
+          <div className="movie-list__actions__filter">
+            <TextField
+              id="input-with-icon-textfield"
+              label="Search title"
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <Search />
+                  </InputAdornment>
+                )
+              }}
+              variant="outlined"
+              size="small"
+              onChange={handleSearchTitleChange}
+            />
+          </div>
           {/* <div className="movie-list__actions__filter">
             <InputLabel id="movie-list-filter-by-list-label">
               List(s)
@@ -75,6 +95,7 @@ const MovieListActionsButtons = ({
               value={sortType}
               onChange={handleSortChange}
               label="Sort by"
+              sx={{ minWidth: 150 }}
             >
               <MenuItem value="ALPHA">Title</MenuItem>
               <MenuItem value="CHRONO">Release date</MenuItem>
@@ -100,10 +121,3 @@ const MovieListActionsButtons = ({
 };
 
 export default MovieListActionsButtons;
-
-MovieListActionsButtons.propTypes = {
-  sortType: PropTypes.string,
-  handleSortChange: PropTypes.func,
-  displayType: PropTypes.string,
-  handleDisplayChange: PropTypes.func
-};

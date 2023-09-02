@@ -5,6 +5,7 @@ import {
   loadImageAsBlob
 } from '../../../../utils/helpers';
 import { getMovieMiniInfo } from '../../../../store/movieList/thunks';
+import { regionLanguage } from '../../../../utils/configs';
 
 export const useMovieMiniature = (movieId) => {
   const dispatch = useDispatch();
@@ -26,7 +27,7 @@ export const useMovieMiniature = (movieId) => {
   const movieTitleFrench = useMemo(
     () =>
       movieMiniInfos?.regionalTitles
-        ? getMovieTitleByRegion(movieMiniInfos.regionalTitles, 'FR')
+        ? getMovieTitleByRegion(movieMiniInfos.regionalTitles, regionLanguage)
         : '',
     [movieMiniInfos]
   );
