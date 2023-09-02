@@ -1,3 +1,4 @@
+import { PropTypes } from 'prop-types';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { Button } from '@mui/material';
@@ -20,6 +21,13 @@ const Header = styled.header`
   justify-content: space-between;
   align-items: center;
   height: ${headerHeight}px;
+  & a {
+    text-decoration: none;
+    color: #fff;
+    &:hover {
+      color: #ddd;
+    }
+  }
   & ul {
     list-style: none;
     padding: 0;
@@ -27,57 +35,58 @@ const Header = styled.header`
     display: flex;
     & li {
       margin: 5px;
-      & a {
-        text-decoration: none;
-        color: #fff;
-        &:hover {
-          color: #ddd;
-        }
-      }
     }
   }
 `;
 
-const HeaderMenu = () => {
+const HeaderMenu = ({ noMenu }) => {
   const { addMovieOpen, setAddMovieOpen } = useHeaderMenu();
 
   return (
     <>
       <Header>
         <h1>
-          Filmo<span>TEK</span>
+          <Link to={`/`}>
+            Filmo<span>TEK</span>
+          </Link>
         </h1>
         <nav>
-          <ul>
-            <li>
-              <Link to={`/`}>
+          {noMenu ? null : (
+            <ul>
+              <li>
+                <Link to={`/`}>
+                  <Button
+                    variant="text"
+                    color="secondary"
+                    startIcon={<ViewListIcon />}
+                  >
+                    Movie List
+                  </Button>
+                </Link>
+              </li>
+              <li>
                 <Button
                   variant="text"
                   color="secondary"
-                  startIcon={<ViewListIcon />}
+                  startIcon={<BarChart />}
                 >
-                  Movie List
+                  Statistics
                 </Button>
-              </Link>
-            </li>
-            <li>
-              <Button variant="text" color="secondary" startIcon={<BarChart />}>
-                Statistics
-              </Button>
-            </li>
-            <li>
-              <Button
-                variant="text"
-                color="secondary"
-                startIcon={<QueueIcon />}
-                onClick={() => {
-                  setAddMovieOpen(true);
-                }}
-              >
-                Add a movie
-              </Button>
-            </li>
-          </ul>
+              </li>
+              <li>
+                <Button
+                  variant="text"
+                  color="secondary"
+                  startIcon={<QueueIcon />}
+                  onClick={() => {
+                    setAddMovieOpen(true);
+                  }}
+                >
+                  Add a movie
+                </Button>
+              </li>
+            </ul>
+          )}
         </nav>
       </Header>
       <AddMovieForm
@@ -89,3 +98,11 @@ const HeaderMenu = () => {
 };
 
 export default HeaderMenu;
+
+HeaderMenu.propTypes = {
+  noMenu: PropTypes.bool
+};
+
+AddMovieForm.defaultProps = {
+  noMenu: false
+};

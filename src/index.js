@@ -61,6 +61,8 @@ const StyledRoot = styled.div`
   }
 `;
 
+sessionStorage.clear(); // Clear session storage
+
 const store = configureStore({ reducer: rootReducer, devTools: true });
 
 const root = ReactDOM.createRoot(document.getElementById('root'));

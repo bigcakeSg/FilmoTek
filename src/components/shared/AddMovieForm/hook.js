@@ -30,18 +30,13 @@ export const useAddMovieForm = (setAddMovieOpen) => {
 
       const result = await dispatch(postMovieByImdbId(newMovie));
 
-      if (result)
-        setResultMessage({ severity: 'success', message: 'Movie created!' });
-      else
-        setResultMessage({
-          severity: 'warning',
-          message: 'Movie already exists!'
-        });
+      setResultMessage(result);
 
       setAddMovieOpen(false);
       setIsMovieCreation(false);
       setNewMovie('');
-      if (creationRedirect) navigate(`/movie/${newMovie}`);
+      if (creationRedirect && result.severity !== 'error')
+        navigate(`/movie/${newMovie}`);
       setIsSnackOpen(true);
     },
     [newMovie, creationRedirect]

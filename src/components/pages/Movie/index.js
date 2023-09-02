@@ -68,7 +68,12 @@ const Movie = () => {
             onImport={() => null}
             onDelete={() => null}
           />
-          <MoviePicture movieInfos={movieInfos} loading={movieInfosLoading} />
+          <MoviePicture
+            id={movieInfos?.imdbId}
+            movieUrl={movieInfos?.picture?.url}
+            originalTitle={movieInfos.originalTitle}
+            loading={movieInfosLoading}
+          />
           <div className="movie__main-info">
             <MovieMainInfo
               movieInfos={movieInfos}

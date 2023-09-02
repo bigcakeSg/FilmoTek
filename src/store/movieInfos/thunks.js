@@ -65,6 +65,9 @@ export const postMovieByImdbId = (movieId) => {
         )
       ]);
 
+      if (!base_info.data.results)
+        return { severity: 'error', message: 'IMDB id does not exist' };
+
       // Movie creation
       const movieParams = {
         imdbId: movieId,
@@ -142,11 +145,13 @@ export const postMovieByImdbId = (movieId) => {
 
       dispatch(getMovieList());
 
-      if (status === 200) return false;
-      else if (status === 201) return true;
-      else throw new Error(data);
+      if (status === 200)
+        return { severity: 'warning', message: 'Movie already exists!' };
+      else if (status === 201)
+        return { severity: 'success', message: 'Movie created!' };
+      else throw new Error(data.message);
     } catch (error) {
-      console.log('ERROR', error);
+      return { severity: 'error', message: error };
     }
   };
 };

@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 export const getMovieTitleByRegion = (movieTitles, region) =>
   movieTitles.find((movie) => movie.region === region)?.title.toString();
 
@@ -11,4 +13,23 @@ export const duration = (seconds) => {
 export const scrollTop = (elementId) => {
   const mainElement = document.getElementById(elementId);
   if (mainElement) mainElement.scrollTo(0, 0);
+};
+
+export const loadImageAsBlob = (imageUrl, id) => {
+  return async () => {
+    try {
+      let blob = sessionStorage.getItem(id); // get the blob URL for this image URL (or null)
+      let result = null;
+
+      if (!blob) {
+        result = await axios.get(imageUrl, { responseType: 'blob' });
+        blob = URL.createObjectURL(result.data);
+        sessionStorage.setItem(id, blob); // save in session storage
+      }
+
+      return blob;
+    } catch (error) {
+      return null;
+    }
+  };
 };
