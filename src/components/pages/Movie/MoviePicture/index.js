@@ -19,11 +19,11 @@ const StyledMoviePicture = styled.div`
 `;
 
 const MoviePicture = ({ id, movieUrl, originalTitle, loading }) => {
-  const { blobUrl } = useMoviePicture(movieUrl, id);
+  const { blobUrl, pictureLoading } = useMoviePicture(movieUrl, id, loading);
 
   return (
     <StyledMoviePicture>
-      {loading ? (
+      {loading || pictureLoading ? (
         <div className="picture-skeleton">
           <Skeleton
             variant="rectangular"
