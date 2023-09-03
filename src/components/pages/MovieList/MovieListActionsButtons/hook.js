@@ -8,6 +8,7 @@ import {
   selecSort,
   selectDisplayType
 } from '../../../../store/configMovieList/selectors';
+import { debounce } from '../../../../utils/helpers';
 
 export const useMovieListActionsButtons = () => {
   const dispatch = useDispatch();
@@ -23,8 +24,12 @@ export const useMovieListActionsButtons = () => {
     dispatch(configSortMovieList(event.target.value));
   };
 
+  const filterTitle = debounce((value) => {
+    dispatch(configSearchTitleMovieList(value));
+  }, 500);
+
   const handleSearchTitleChange = (event) => {
-    dispatch(configSearchTitleMovieList(event.target.value));
+    filterTitle(event.target.value);
   };
 
   return {

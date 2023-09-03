@@ -86,8 +86,12 @@ export const useMovieList = () => {
   }, [moviesSorted, actualPage]);
 
   const pageQantity = useMemo(() => {
-    return Math.ceil(movieList.length / moviesPerPage);
-  }, [movieList]);
+    const qtt = Math.ceil(movieFiltered.length / moviesPerPage);
+
+    if (qtt !== 0 && qtt < actualPage) dispatch(configPageMovieList(qtt));
+
+    return qtt;
+  }, [movieFiltered]);
 
   const handlePaginationChange = useCallback(
     (_, page) => {
