@@ -4,25 +4,30 @@ import {
   getMovieTitleByRegion,
   loadImageAsBlob
 } from '../../../../utils/helpers';
-import { getMovieMiniInfo } from '../../../../store/movieList/thunks';
 import { regionLanguage } from '../../../../utils/configs';
+// import { selectMovieById } from '../../../../store/movieList/selectors';
 
-export const useMovieMiniature = (movieId) => {
+export const useMovieMiniature = (movieMiniInfos) => {
   const dispatch = useDispatch();
 
-  const [movieMiniInfos, setMovieMiniInfos] = useState(null);
   const [blobUrl, setBlobUrl] = useState('');
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const getInfos = async (id) => {
-      const infos = await dispatch(getMovieMiniInfo(id));
-      const blob = await dispatch(loadImageAsBlob(infos.picture.url, id));
+    setIsLoading(true);
 
-      setMovieMiniInfos(infos);
+    const getBlob = async (id) => {
+      const blob = await dispatch(
+        loadImageAsBlob(movieMiniInfos.picture.url, id)
+      );
       setBlobUrl(blob);
+      setIsLoading(false);
     };
-    getInfos(movieId);
-  }, [movieId]);
+
+    setBlobUrl(movieMiniInfos.picture.url);
+    setIsLoading(false);
+    // getBlob(movieMiniInfos.imdbId);
+  }, [movieMiniInfos]);
 
   const movieTitleFrench = useMemo(
     () =>
@@ -33,8 +38,8 @@ export const useMovieMiniature = (movieId) => {
   );
 
   return {
-    movieMiniInfos,
     movieTitleFrench,
-    blobUrl
+    blobUrl,
+    isLoading
   };
 };

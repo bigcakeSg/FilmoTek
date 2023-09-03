@@ -1,6 +1,9 @@
 import { useCallback, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectMovieIdList } from '../../../store/movieList/selectors';
+import {
+  selectMovieIdList,
+  selectMovieListLoading
+} from '../../../store/movieList/selectors';
 import { getMovieTitleByRegion, scrollTop } from '../../../utils/helpers';
 import { configPageMovieList } from '../../../store/configMovieList/actions';
 import {
@@ -52,6 +55,7 @@ export const useMovieList = () => {
 
   const movieList = useSelector(selectMovieIdList);
   const searchTitle = useSelector(selectSearchTitleRedirect);
+  const movieListLoading = useSelector(selectMovieListLoading);
 
   const movieFiltered = useMemo(() => {
     return movieList.filter((movie) => {
@@ -69,11 +73,12 @@ export const useMovieList = () => {
   }, [movieList, searchTitle]);
 
   const moviesSorted = useMemo(() => {
-    if (sortType === 'ALPHA')
-      return [...movieFiltered].sort(sortAlpha).map((movie) => movie.imdbId);
-    if (sortType === 'CHRONO')
-      return [...movieFiltered].sort(sortChrono).map((movie) => movie.imdbId);
-    return [...movieFiltered].map((movie) => movie.imdbId);
+    const moviesClone = JSON.parse(JSON.stringify(movieFiltered));
+
+    if (sortType === 'ALPHA') return moviesClone.sort(sortAlpha);
+    if (sortType === 'CHRONO') return moviesClone.sort(sortChrono);
+
+    return moviesClone.map((movie) => movie.imdbId);
   }, [movieFiltered, sortType]);
 
   const movieListPage = useMemo(() => {
@@ -81,15 +86,15 @@ export const useMovieList = () => {
   }, [moviesSorted, actualPage]);
 
   const pageQantity = useMemo(() => {
-    return Math.ceil(moviesSorted.length / moviesPerPage);
-  }, [moviesSorted]);
+    return Math.ceil(movieList.length / moviesPerPage);
+  }, [movieList]);
 
   const handlePaginationChange = useCallback(
     (_, page) => {
       dispatch(configPageMovieList(page));
       scrollTop('movie-list__container');
     },
-    [moviesSorted]
+    [movieList]
   );
 
   return {
@@ -99,6 +104,7 @@ export const useMovieList = () => {
     handlePaginationChange,
     pageQantity,
     displayType,
-    sortType
+    sortType,
+    movieListLoading
   };
 };

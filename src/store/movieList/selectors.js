@@ -11,3 +11,8 @@ export const selectMovieIdList = createSelector(
   movieListStore,
   (store) => store.data
 );
+
+export const selectMovieById = (id) =>
+  createSelector(movieListStore, (store) =>
+    store.data.find((movie) => movie.imdbId === id)
+  );

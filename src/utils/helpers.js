@@ -29,6 +29,7 @@ export const loadImageAsBlob = (imageUrl, id) => {
 
       return blob;
     } catch (error) {
+      console.log('ERROR');
       return null;
     }
   };

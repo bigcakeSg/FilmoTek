@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { useMovieList } from './hook';
-import { Pagination } from '@mui/material';
+import { CircularProgress, Pagination } from '@mui/material';
 import { colorA } from '../../../utils/colors';
 import MovieListTiles from './MovieListTiles';
 import MovieListGrid from './MovieListGrid';
@@ -34,6 +34,20 @@ const StyledMovieList = styled.div`
       margin: 20px 0;
     }
   }
+  & .loader {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    height: 100px;
+    & .loading {
+      text-transform: uppercase;
+      color: ${colorA};
+      font-weight: 700;
+      font-size: 18px;
+      margin-bottom: 20px;
+    }
+  }
 `;
 
 const MovieList = () => {
@@ -43,36 +57,45 @@ const MovieList = () => {
     actualPage,
     handlePaginationChange,
     pageQantity,
-    displayType
+    displayType,
+    movieListLoading
   } = useMovieList();
-
   return (
     <StyledMovieList>
       <div className="main-content">
         <div className="inner-content">
           <MovieListActionsButtons />
           <h2>Movie list</h2>
-          <div className="movie-list__count">
-            <span className="value">{moviesCount}</span>{' '}
-            <span className="label">movies</span>
-          </div>
-          <div id="movie-list__container" className="movie-list__container">
-            {displayType === 'TILES' ? (
-              <MovieListTiles movieList={movieListPage} />
-            ) : null}
-            {displayType === 'LIST' ? (
-              <MovieListGrid movieList={movieListPage} />
-            ) : null}
-          </div>
-          <div className="movie-list__pagination">
-            <Pagination
-              count={pageQantity}
-              shape="rounded"
-              onChange={handlePaginationChange}
-              color="secondary"
-              page={actualPage}
-            />
-          </div>
+          {movieListLoading ? (
+            <div className="loader">
+              <div className="loading">Loading</div>
+              <CircularProgress color="secondary" />
+            </div>
+          ) : (
+            <>
+              <div className="movie-list__count">
+                <span className="value">{moviesCount}</span>{' '}
+                <span className="label">movies</span>
+              </div>
+              <div id="movie-list__container" className="movie-list__container">
+                {displayType === 'TILES' ? (
+                  <MovieListTiles movieList={movieListPage} />
+                ) : null}
+                {displayType === 'LIST' ? (
+                  <MovieListGrid movieList={movieListPage} />
+                ) : null}
+              </div>
+              <div className="movie-list__pagination">
+                <Pagination
+                  count={pageQantity}
+                  shape="rounded"
+                  onChange={handlePaginationChange}
+                  color="secondary"
+                  page={actualPage}
+                />
+              </div>
+            </>
+          )}
         </div>
       </div>
     </StyledMovieList>
