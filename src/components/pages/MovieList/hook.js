@@ -16,7 +16,7 @@ import {
   selectPage,
   selectSearchTitle
 } from '../../../store/configMovieList/selectors';
-import { regionLanguage } from '../../../utils/configs';
+import { selectRegion } from '../../../store/config/selector';
 
 const sliceList = (page, count, list) => {
   const newList = [...list];
@@ -60,6 +60,7 @@ export const useMovieList = () => {
   const movieList = useSelector(selectMovieIdList);
   const searchTitle = useSelector(selectSearchTitle);
   const movieListLoading = useSelector(selectMovieListLoading);
+  const regionLanguage = useSelector(selectRegion);
 
   // Filter movies
   const moviesFiltered = useMemo(() => {

@@ -1,6 +1,6 @@
-export const MOVIE_INFOS_LOADING = 'Movie Infos: LOADING';
-export const MOVIE_INFOS_SUCCESS = 'Movie Infos: SUCCESS';
-export const MOVIE_INFOS_FAILURE = 'Movie Infos: FAILURE';
+export const MOVIE_INFOS_LOADING = 'Movie Infos: loading';
+export const MOVIE_INFOS_SUCCESS = 'Movie Infos: success';
+export const MOVIE_INFOS_FAILURE = 'Movie Infos: failure';
 
 export const movieInfosLoading = () => ({
   type: MOVIE_INFOS_LOADING

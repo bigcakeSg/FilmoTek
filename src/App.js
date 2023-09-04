@@ -6,12 +6,18 @@ import { filmoTekTheme } from './utils/theme';
 import { useEffect } from 'react';
 import { getMovieList } from './store/movieList/thunks';
 import { useDispatch } from 'react-redux';
+import { getConfig } from './store/config/thunks';
 
 const App = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getMovieList());
+    const configApp = async () => {
+      await dispatch(getConfig());
+      dispatch(getMovieList());
+    };
+
+    configApp();
   }, []);
 
   return (

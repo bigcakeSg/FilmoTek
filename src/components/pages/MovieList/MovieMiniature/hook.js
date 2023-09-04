@@ -1,8 +1,11 @@
-import { useMemo, useRef } from 'react';
+import { useMemo } from 'react';
+import { useSelector } from 'react-redux';
 import { getMovieTitleByRegion } from '../../../../utils/helpers';
-import { regionLanguage } from '../../../../utils/configs';
+import { selectRegion } from '../../../../store/config/selector';
 
 export const useMovieMiniature = (movieMiniInfos) => {
+  const regionLanguage = useSelector(selectRegion);
+
   const movieTitleFrench = useMemo(
     () =>
       movieMiniInfos?.regionalTitles
