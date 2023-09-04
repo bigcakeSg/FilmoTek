@@ -14,7 +14,7 @@ import {
   selecSort,
   selectDisplayType,
   selectPage,
-  selectSearchTitleRedirect
+  selectSearchTitle
 } from '../../../store/configMovieList/selectors';
 import { regionLanguage } from '../../../utils/configs';
 
@@ -58,11 +58,11 @@ export const useMovieList = () => {
   const actualPage = useSelector(selectPage);
 
   const movieList = useSelector(selectMovieIdList);
-  const searchTitle = useSelector(selectSearchTitleRedirect);
+  const searchTitle = useSelector(selectSearchTitle);
   const movieListLoading = useSelector(selectMovieListLoading);
 
   // Filter movies
-  const movieFiltered = useMemo(() => {
+  const moviesFiltered = useMemo(() => {
     return movieList.filter((movie) => {
       const isOriginalTitle =
         movie.originalTitle.toLowerCase().indexOf(searchTitle.toLowerCase()) !==
@@ -79,7 +79,7 @@ export const useMovieList = () => {
 
   // Sort movies
   const moviesSorted = useMemo(() => {
-    const moviesClone = JSON.parse(JSON.stringify(movieFiltered));
+    const moviesClone = JSON.parse(JSON.stringify(moviesFiltered));
 
     switch (sortType) {
       case 'ALPHA':
@@ -105,7 +105,7 @@ export const useMovieList = () => {
       default:
         return moviesClone;
     }
-  }, [movieFiltered, sortType]);
+  }, [moviesFiltered, sortType]);
 
   // Pagination
   const movieListPage = useMemo(() => {
@@ -113,12 +113,12 @@ export const useMovieList = () => {
   }, [moviesSorted, actualPage]);
 
   const pageQantity = useMemo(() => {
-    const qtt = Math.ceil(movieFiltered.length / moviesPerPage);
+    const qtt = Math.ceil(moviesFiltered.length / moviesPerPage);
 
     if (qtt !== 0 && qtt < actualPage) dispatch(configPageMovieList(qtt));
 
     return qtt;
-  }, [movieFiltered]);
+  }, [moviesFiltered]);
 
   const handlePaginationChange = useCallback(
     (_, page) => {
@@ -130,6 +130,7 @@ export const useMovieList = () => {
 
   return {
     moviesCount: movieList.length,
+    moviesFilteredCount: moviesFiltered.length,
     movieListPage,
     actualPage,
     handlePaginationChange,

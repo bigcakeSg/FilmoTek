@@ -53,6 +53,7 @@ const StyledMovieList = styled.div`
 const MovieList = () => {
   const {
     moviesCount,
+    moviesFilteredCount,
     movieListPage,
     actualPage,
     handlePaginationChange,
@@ -74,7 +75,13 @@ const MovieList = () => {
           ) : (
             <>
               <div className="movie-list__count">
-                <span className="value">{moviesCount}</span>{' '}
+                {moviesFilteredCount !== moviesCount
+                  ? moviesFilteredCount
+                  : null}
+                <span className="value">
+                  {moviesFilteredCount !== moviesCount ? ' / ' : null}
+                  {moviesCount}
+                </span>{' '}
                 <span className="label">movies</span>
               </div>
               <div id="movie-list__container" className="movie-list__container">

@@ -22,7 +22,7 @@ export const selectCreationRedirect = createSelector(
   (store) => store.creationRedirect
 );
 
-export const selectSearchTitleRedirect = createSelector(
+export const selectSearchTitle = createSelector(
   configMovieListStore,
   (store) => store.searchTitle
 );

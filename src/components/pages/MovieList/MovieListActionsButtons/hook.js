@@ -6,7 +6,8 @@ import {
 } from '../../../../store/configMovieList/actions';
 import {
   selecSort,
-  selectDisplayType
+  selectDisplayType,
+  selectSearchTitle
 } from '../../../../store/configMovieList/selectors';
 import { debounce } from '../../../../utils/helpers';
 
@@ -15,6 +16,7 @@ export const useMovieListActionsButtons = () => {
 
   const sortType = useSelector(selecSort);
   const displayType = useSelector(selectDisplayType);
+  const searchTitle = useSelector(selectSearchTitle);
 
   const handleDisplayChange = (_, newDisplay) => {
     dispatch(configDisplayMovieList(newDisplay));
@@ -29,7 +31,12 @@ export const useMovieListActionsButtons = () => {
   }, 500);
 
   const handleSearchTitleChange = (event) => {
-    filterTitle(event.target.value);
+    // filterTitle(event.target.value);
+    dispatch(configSearchTitleMovieList(event.target.value));
+  };
+
+  const handleClearTitleFilter = () => {
+    dispatch(configSearchTitleMovieList(''));
   };
 
   return {
@@ -37,6 +44,8 @@ export const useMovieListActionsButtons = () => {
     handleSortChange,
     handleSearchTitleChange,
     sortType,
-    displayType
+    displayType,
+    searchTitle,
+    handleClearTitleFilter
   };
 };

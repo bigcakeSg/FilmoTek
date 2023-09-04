@@ -12,7 +12,7 @@ const Root = () => {
   const dispatch = useDispatch();
 
   const loadMovieList = () => {
-    dispatch(getMovieList());
+    // dispatch(getMovieList());
     return false;
   };
 
