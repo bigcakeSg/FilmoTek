@@ -18,21 +18,21 @@ const StyledMovie = styled.div`
   & .movie {
     &__main-info {
       position: absolute;
-      left: 290px;
-      width: calc(100% - 310px);
+      left: 350px;
+      width: calc(100% - 370px);
       height: 220px;
       vertical-align: text-bottom;
     }
     &__info {
       position: absolute;
       top: 260px;
-      left: 290px;
-      width: calc(100% - 320px);
-      height: 125px;
+      left: 350px;
+      width: calc(100% - 370px);
+      height: 195px;
       vertical-align: text-bottom;
     }
     &__casting {
-      margin-top: 400px;
+      margin-top: 450px;
       padding-bottom: 20px;
       width: 100%;
       flex: 1;

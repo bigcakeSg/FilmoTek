@@ -5,20 +5,23 @@ import { Skeleton } from '@mui/material';
 import NoImg from '../../../../assets/noMovie.jpg';
 import { useMoviePicture } from './hook';
 
+const pictureHeight = 444;
+const pictureWidth = 300;
+
 const StyledMoviePicture = styled.div`
   position: absolute;
-  height: 370px;
+  height: ${pictureHeight}px;
   display: flex;
   flex-direction: column;
   justify-content: end;
   & img {
     box-shadow: rgba(0, 0, 0, 0.5) 2px 2px 7px 1px;
     border: solid 1px ${colorA};
-    width: 250px;
+    width: ${pictureWidth}px;
   }
   & .picture-skeleton {
-    width: 250px;
-    height: 370px;
+    width: ${pictureWidth}px;
+    height: ${pictureHeight}px;
   }
 `;
 
