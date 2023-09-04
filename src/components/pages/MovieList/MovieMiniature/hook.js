@@ -6,7 +6,7 @@ import { selectRegion } from '../../../../store/config/selector';
 export const useMovieMiniature = (movieMiniInfos) => {
   const regionLanguage = useSelector(selectRegion);
 
-  const movieTitleFrench = useMemo(
+  const movieTitleRegional = useMemo(
     () =>
       movieMiniInfos?.regionalTitles
         ? getMovieTitleByRegion(movieMiniInfos.regionalTitles, regionLanguage)
@@ -48,7 +48,7 @@ export const useMovieMiniature = (movieMiniInfos) => {
   */
 
   return {
-    movieTitleFrench,
+    movieTitleRegional,
     isLoading: false
   };
 };

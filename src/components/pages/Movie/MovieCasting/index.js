@@ -18,6 +18,7 @@ const StyledMovieCasting = styled.div`
     ${(props) => (props.principal ? '' : 'display: flex; width: 300px;')}
     & .casting {
       &__infos {
+        width: 180px;
         ${(props) =>
           props.principal
             ? `margin-top: 10px; width: ${principalWidth}px;`

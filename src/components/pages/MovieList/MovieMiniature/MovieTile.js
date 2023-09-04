@@ -105,7 +105,7 @@ const StyledLink = styled(Link)`
 `;
 
 const MovieTile = ({ movie }) => {
-  const { movieTitleFrench, isLoading } = useMovieMiniature(movie);
+  const { movieTitleRegional, isLoading } = useMovieMiniature(movie);
 
   if (isLoading)
     return (
@@ -136,7 +136,7 @@ const MovieTile = ({ movie }) => {
           <div className="movie__infos">
             <div>
               <div className="original-title">{movie.originalTitle}</div>
-              <div className="regional-title">{movieTitleFrench}</div>
+              <div className="regional-title">{movieTitleRegional}</div>
             </div>
             <div className="year">{movie.releaseDate.year}</div>
           </div>

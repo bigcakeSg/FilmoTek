@@ -40,7 +40,7 @@ const StyledMovieItem = styled.div`
 `;
 
 const MovieListItem = ({ movie }) => {
-  const { movieTitleFrench, isLoading } = useMovieMiniature(movie);
+  const { movieTitleRegional, isLoading } = useMovieMiniature(movie);
 
   if (isLoading)
     return (
@@ -79,7 +79,7 @@ const MovieListItem = ({ movie }) => {
               ></div> */}
               <ListItemText
                 primary={movie.originalTitle}
-                secondary={movieTitleFrench}
+                secondary={movieTitleRegional}
               />
               <ListItemText
                 secondary={movie.releaseDate.year}

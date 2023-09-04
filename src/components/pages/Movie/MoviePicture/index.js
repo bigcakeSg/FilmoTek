@@ -14,6 +14,7 @@ const StyledMoviePicture = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: end;
+  z-index: 100;
   & img {
     box-shadow: rgba(0, 0, 0, 0.5) 2px 2px 7px 1px;
     border: solid 1px ${colorA};

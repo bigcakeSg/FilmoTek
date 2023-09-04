@@ -9,7 +9,9 @@ import {
   selectDisplayType,
   selectSearchTitle
 } from '../../../../store/configMovieList/selectors';
+import { selectRegion } from '../../../../store/config/selector';
 import { debounce } from '../../../../utils/helpers';
+import { useMemo } from 'react';
 
 export const useMovieListActionsButtons = () => {
   const dispatch = useDispatch();
@@ -17,6 +19,7 @@ export const useMovieListActionsButtons = () => {
   const sortType = useSelector(selecSort);
   const displayType = useSelector(selectDisplayType);
   const searchTitle = useSelector(selectSearchTitle);
+  const regionLanguage = useSelector(selectRegion);
 
   const handleDisplayChange = (_, newDisplay) => {
     dispatch(configDisplayMovieList(newDisplay));
@@ -26,6 +29,7 @@ export const useMovieListActionsButtons = () => {
     dispatch(configSortMovieList(event.target.value));
   };
 
+  // FIXME: debounce
   const filterTitle = debounce((value) => {
     dispatch(configSearchTitleMovieList(value));
   }, 500);
@@ -39,6 +43,11 @@ export const useMovieListActionsButtons = () => {
     dispatch(configSearchTitleMovieList(''));
   };
 
+  const country = useMemo(() => {
+    if (regionLanguage === 'FR') return 'French';
+    else return 'Region';
+  }, [regionLanguage]);
+
   return {
     handleDisplayChange,
     handleSortChange,
@@ -46,6 +55,7 @@ export const useMovieListActionsButtons = () => {
     sortType,
     displayType,
     searchTitle,
-    handleClearTitleFilter
+    handleClearTitleFilter,
+    country
   };
 };
