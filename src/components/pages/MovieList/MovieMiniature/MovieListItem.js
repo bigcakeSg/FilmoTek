@@ -6,6 +6,9 @@ import { colorA } from '../../../../utils/colors';
 import NoImg from '../../../../assets/noMovie.jpg';
 import { useMovieMiniature } from './hook';
 
+const miniWidth = 50;
+const miniHeight = 74;
+
 const StyledMovieItem = styled.div`
   & a {
     text-decoration: none;
@@ -15,21 +18,29 @@ const StyledMovieItem = styled.div`
     font-weight: 700;
     font-size: 20px;
   }
-  & .movie-list__picture {
-    width: 50px;
-    height: 74px;
-    border: solid 2px ${colorA};
-    margin-right: 20px;
-    box-shadow: rgba(0, 0, 0, 0.5) 2px 2px 7px 1px;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-color: ${colorA};
+  & .movie {
+    &__picture-container {
+      position: relative;
+      width: ${miniWidth}px;
+      height: ${miniHeight}px;
+      box-shadow: rgba(0, 0, 0, 0.5) 2px 2px 7px 1px;
+      margin-right: 20px;
+    }
+    &__picture {
+      position: absolute;
+      width: ${miniWidth}px;
+      height: ${miniHeight}px;
+      border: solid 2px ${colorA};
+      margin-right: 20px;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
   }
 `;
 
 const MovieListItem = ({ movie }) => {
-  const { movieTitleFrench, blobUrl, isLoading } = useMovieMiniature(movie);
+  const { movieTitleFrench, isLoading } = useMovieMiniature(movie);
 
   if (isLoading)
     return (
@@ -46,12 +57,26 @@ const MovieListItem = ({ movie }) => {
         <Link to={`/movie/${movie.imdbId}`}>
           <ListItem disablePadding>
             <ListItemButton>
-              <div
+              <div className="movie__picture-container">
+                <div
+                  className="movie__picture movie__no-picture"
+                  style={{
+                    backgroundImage: `url(${NoImg})`
+                  }}
+                ></div>
+                <div
+                  className="movie__picture movie__with-picture"
+                  style={{
+                    backgroundImage: `url(${movie.picture.url})`
+                  }}
+                ></div>
+              </div>
+              {/* <div
                 className="movie-list__picture"
                 style={{
                   backgroundImage: `url(${blobUrl || NoImg})`
                 }}
-              ></div>
+              ></div> */}
               <ListItemText
                 primary={movie.originalTitle}
                 secondary={movieTitleFrench}

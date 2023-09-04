@@ -4,7 +4,11 @@ import {
   selectMovieIdList,
   selectMovieListLoading
 } from '../../../store/movieList/selectors';
-import { getMovieTitleByRegion, scrollTop } from '../../../utils/helpers';
+import {
+  getMovieTitleByRegion,
+  normalizeTitle,
+  scrollTop
+} from '../../../utils/helpers';
 import { configPageMovieList } from '../../../store/configMovieList/actions';
 import {
   selecSort,
@@ -22,8 +26,8 @@ const sliceList = (page, count, list) => {
 };
 
 const sortAlpha = (a, b) => {
-  if (a.originalTitle.toLowerCase() < b.originalTitle.toLowerCase()) return -1;
-  if (a.originalTitle.toLowerCase() > b.originalTitle.toLowerCase()) return 1;
+  if (a < b) return -1;
+  if (a > b) return 1;
   return 0;
 };
 
@@ -57,6 +61,7 @@ export const useMovieList = () => {
   const searchTitle = useSelector(selectSearchTitleRedirect);
   const movieListLoading = useSelector(selectMovieListLoading);
 
+  // Filter movies
   const movieFiltered = useMemo(() => {
     return movieList.filter((movie) => {
       const isOriginalTitle =
@@ -72,15 +77,37 @@ export const useMovieList = () => {
     });
   }, [movieList, searchTitle]);
 
+  // Sort movies
   const moviesSorted = useMemo(() => {
     const moviesClone = JSON.parse(JSON.stringify(movieFiltered));
 
-    if (sortType === 'ALPHA') return moviesClone.sort(sortAlpha);
-    if (sortType === 'CHRONO') return moviesClone.sort(sortChrono);
-
-    return moviesClone.map((movie) => movie.imdbId);
+    switch (sortType) {
+      case 'ALPHA':
+        return moviesClone.sort((a, b) =>
+          sortAlpha(
+            normalizeTitle(a.originalTitle),
+            normalizeTitle(b.originalTitle)
+          )
+        );
+      case 'ALPHA_FRENCH':
+        return moviesClone.sort((a, b) =>
+          sortAlpha(
+            normalizeTitle(
+              getMovieTitleByRegion(a.regionalTitles, regionLanguage)
+            ) || normalizeTitle(a.originalTitle),
+            normalizeTitle(
+              getMovieTitleByRegion(b.regionalTitles, regionLanguage)
+            ) || normalizeTitle(b.originalTitle)
+          )
+        );
+      case 'CHRONO':
+        return moviesClone.sort(sortChrono);
+      default:
+        return moviesClone;
+    }
   }, [movieFiltered, sortType]);
 
+  // Pagination
   const movieListPage = useMemo(() => {
     return sliceList(actualPage, moviesPerPage, moviesSorted);
   }, [moviesSorted, actualPage]);

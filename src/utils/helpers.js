@@ -46,3 +46,33 @@ export const debounce = (func, delay) => {
     }, delay);
   };
 };
+
+export const normalizeTitle = (title) => {
+  let normTitle = title;
+
+  if (normTitle.indexOf('The ') === 0) normTitle = title.slice(4);
+  if (normTitle.indexOf('A ') === 0) normTitle = title.slice(2);
+  if (normTitle.indexOf('Le ') === 0) normTitle = title.slice(3);
+  if (normTitle.indexOf('La ') === 0) normTitle = title.slice(3);
+  if (normTitle.indexOf("L'") === 0) normTitle = title.slice(2);
+  if (normTitle.indexOf('Les ') === 0) normTitle = title.slice(4);
+  if (normTitle.indexOf('Un ') === 0) normTitle = title.slice(3);
+  if (normTitle.indexOf('Une ') === 0) normTitle = title.slice(4);
+  if (normTitle.indexOf("D'") === 0) normTitle = title.slice(2);
+  if (normTitle.indexOf('Des ') === 0) normTitle = title.slice(4);
+
+  return normTitle
+    .toLowerCase()
+    .replace(/\s/g, '')
+    .replace(/[àáâãäå]/g, 'a')
+    .replace(/æ/g, 'ae')
+    .replace(/ç/g, 'c')
+    .replace(/[èéêë]/g, 'e')
+    .replace(/[ìíîï]/g, 'i')
+    .replace(/ñ/g, 'n')
+    .replace(/[òóôõö]/g, 'o')
+    .replace(/œ/g, 'oe')
+    .replace(/[ùúûü]/g, 'u')
+    .replace(/[ýÿ]/g, 'y')
+    .replace(/\W/g, '');
+};

@@ -40,22 +40,23 @@ const StyledMovieMiniature = styled.div`
   border: solid 1px ${colorA};
   box-shadow: rgba(0, 0, 0, 0.5) 2px 2px 7px 1px;
   transition-duration: 0.5s;
+  width: ${miniWidth}px;
+  height: ${miniHeight}px;
   & .movie {
     &__picture {
+      position: absolute;
       transition-duration: 0.5s;
       width: ${miniWidth}px;
       height: ${miniHeight}px;
       background-position: center;
       background-repeat: no-repeat;
-      background-size: 100%;
-      background-color: ${colorA};
+      background-size: 101% 101%;
     }
     &__overlay {
       backdrop-filter: blur(0px) brightness(100%);
       position: absolute;
       width: ${miniWidth}px;
       height: ${miniHeight}px;
-      top: 0;
     }
     &__infos {
       display: none;
@@ -87,7 +88,7 @@ const StyledMovieMiniature = styled.div`
     border-color: ${colorA};
     & .movie {
       &__picture {
-        background-size: 150%;
+        background-size: 150% 150%;
       }
       &__overlay {
         backdrop-filter: blur(10px) brightness(50%);
@@ -104,7 +105,7 @@ const StyledLink = styled(Link)`
 `;
 
 const MovieTile = ({ movie }) => {
-  const { movieTitleFrench, blobUrl, isLoading } = useMovieMiniature(movie);
+  const { movieTitleFrench, isLoading } = useMovieMiniature(movie);
 
   if (isLoading)
     return (
@@ -120,10 +121,15 @@ const MovieTile = ({ movie }) => {
       <StyledLink to={`/movie/${movie.imdbId}`}>
         <StyledMovieMiniature>
           <div
-            className="movie__picture"
+            className="movie__picture movie__no-picture"
             style={{
-              // backgroundImage: `url(${blobUrl || NoImg})`
-              backgroundImage: `url(${blobUrl || NoImg})`
+              backgroundImage: `url(${NoImg})`
+            }}
+          ></div>
+          <div
+            className="movie__picture movie__with-picture"
+            style={{
+              backgroundImage: `url(${movie.picture.url})`
             }}
           ></div>
           <div className="movie__overlay"></div>

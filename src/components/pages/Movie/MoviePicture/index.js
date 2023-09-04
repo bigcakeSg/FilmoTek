@@ -7,6 +7,10 @@ import { useMoviePicture } from './hook';
 
 const StyledMoviePicture = styled.div`
   position: absolute;
+  height: 370px;
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
   & img {
     box-shadow: rgba(0, 0, 0, 0.5) 2px 2px 7px 1px;
     border: solid 1px ${colorA};
@@ -14,7 +18,7 @@ const StyledMoviePicture = styled.div`
   }
   & .picture-skeleton {
     width: 250px;
-    height: 385px;
+    height: 370px;
   }
 `;
 

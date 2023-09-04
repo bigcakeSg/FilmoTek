@@ -1,18 +1,18 @@
-import { useEffect, useMemo, useState } from 'react';
-import { useDispatch } from 'react-redux';
-import {
-  getMovieTitleByRegion,
-  loadImageAsBlob
-} from '../../../../utils/helpers';
+import { useMemo, useRef } from 'react';
+import { getMovieTitleByRegion } from '../../../../utils/helpers';
 import { regionLanguage } from '../../../../utils/configs';
-// import { selectMovieById } from '../../../../store/movieList/selectors';
 
 export const useMovieMiniature = (movieMiniInfos) => {
-  const dispatch = useDispatch();
+  const movieTitleFrench = useMemo(
+    () =>
+      movieMiniInfos?.regionalTitles
+        ? getMovieTitleByRegion(movieMiniInfos.regionalTitles, regionLanguage)
+        : '',
+    [movieMiniInfos]
+  );
 
-  const [blobUrl, setBlobUrl] = useState('');
-  const [isLoading, setIsLoading] = useState(true);
-
+  // FIXME: code below to load blob image
+  /*
   useEffect(() => {
     setIsLoading(true);
 
@@ -28,18 +28,24 @@ export const useMovieMiniature = (movieMiniInfos) => {
     setIsLoading(false);
     // getBlob(movieMiniInfos.imdbId);
   }, [movieMiniInfos]);
+  */
 
-  const movieTitleFrench = useMemo(
-    () =>
-      movieMiniInfos?.regionalTitles
-        ? getMovieTitleByRegion(movieMiniInfos.regionalTitles, regionLanguage)
-        : '',
-    [movieMiniInfos]
-  );
+  // code below to load movie mini-infos
+  /*
+  const [movieMiniInfos, setMovieMiniInfos] = useState('');
+  useEffect(() => {
+    const getInfos = async (id) => {
+      const infos = await dispatch(getMovieMiniInfo(id));
+      setMovieMiniInfos(infos);
+      const blob = await dispatch(loadImageAsBlob(infos.picture.url, id));
+      setBlobUrl(blob);
+    };
+    getInfos(movieId);
+  }, [movieId]);
+  */
 
   return {
     movieTitleFrench,
-    blobUrl,
-    isLoading
+    isLoading: false
   };
 };

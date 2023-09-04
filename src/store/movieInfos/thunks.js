@@ -9,6 +9,7 @@ import { apiHeaders } from '../../utils/configs';
 import { selectMovieId } from './selectors';
 import { getMovieList } from '../movieList/thunks';
 import { movieList } from '../../mocks/mocks';
+import { movieLisAddMovie } from '../movieList/actions';
 
 // Movie infos importation
 export const getMovieInfos = (movieId) => {
@@ -143,8 +144,16 @@ export const postMovieByImdbId = (movieId) => {
         movieParams
       );
 
-      dispatch(getMovieList());
-
+      dispatch(
+        movieLisAddMovie({
+          imdbId: movieId,
+          originalTitle: movieParams.originalTitle,
+          regionalTitles: movieParams.regionalTitles,
+          picture: movieParams.picture,
+          releaseDate: movieParams.releaseDate,
+          directors: movieParams.directors
+        })
+      );
       if (status === 200)
         return { severity: 'warning', message: 'Movie already exists!' };
       else if (status === 201)

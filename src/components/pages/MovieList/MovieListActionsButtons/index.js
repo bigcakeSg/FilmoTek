@@ -98,6 +98,7 @@ const MovieListActionsButtons = () => {
               sx={{ minWidth: 150 }}
             >
               <MenuItem value="ALPHA">Title</MenuItem>
+              <MenuItem value="ALPHA_FRENCH">French title</MenuItem>
               <MenuItem value="CHRONO">Release date</MenuItem>
             </Select>
           </div>
