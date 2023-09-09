@@ -18,21 +18,24 @@ const StyledMovie = styled.div`
   & .movie {
     &__main-info {
       position: absolute;
-      left: 290px;
-      width: calc(100% - 310px);
+      left: 350px;
+      width: calc(100% - 370px);
       height: 220px;
       vertical-align: text-bottom;
     }
     &__info {
-      position: absolute;
-      top: 260px;
-      left: 290px;
-      width: calc(100% - 320px);
-      height: 125px;
+      position: relative;
+      top: 10px;
+      left: 330px;
+      width: calc(100% - 370px);
+      height: 195px;
       vertical-align: text-bottom;
     }
     &__casting {
-      margin-top: 400px;
+      margin-top: 50px;
+    }
+    &__container {
+      margin-top: 230px;
       padding-bottom: 20px;
       width: 100%;
       flex: 1;
@@ -81,36 +84,38 @@ const Movie = () => {
               loading={movieInfosLoading}
             />
           </div>
-          <div className="movie__info">
-            <MovieInfo
-              movieInfos={movieInfos}
-              movieCreators={{
-                directors: movieInfos.directors,
-                writers: movieInfos.writers
-              }}
-              loading={movieInfosLoading}
-            />
-          </div>
-          <div className="movie__casting">
-            <h2>Casting</h2>
-            {movieInfosLoading ? (
-              <div className="loader">
-                <div className="loading">Loading</div>
-                <CircularProgress color="secondary" />
-              </div>
-            ) : (
-              <div className="movie__casting-list">
-                <MovieCasting
-                  casting={movieInfos.casting.principal}
-                  loading={movieInfosLoading}
-                  principal
-                />
-                <MovieCasting
-                  casting={movieInfos.casting.extended}
-                  loading={movieInfosLoading}
-                />
-              </div>
-            )}
+          <div className="movie__container">
+            <div className="movie__info">
+              <MovieInfo
+                movieInfos={movieInfos}
+                movieCreators={{
+                  directors: movieInfos.directors,
+                  writers: movieInfos.writers
+                }}
+                loading={movieInfosLoading}
+              />
+            </div>
+            <div className="movie__casting">
+              <h2>Casting</h2>
+              {movieInfosLoading ? (
+                <div className="loader">
+                  <div className="loading">Loading</div>
+                  <CircularProgress color="secondary" />
+                </div>
+              ) : (
+                <div className="movie__casting-list">
+                  <MovieCasting
+                    casting={movieInfos.casting.principal}
+                    loading={movieInfosLoading}
+                    principal
+                  />
+                  <MovieCasting
+                    casting={movieInfos.casting.extended}
+                    loading={movieInfosLoading}
+                  />
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>

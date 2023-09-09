@@ -1,17 +1,22 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectMovieIdList } from '../../../store/movieList/selectors';
-import { scrollTop } from '../../../utils/helpers';
 import {
-  configDisplayMovieList,
-  configPageMovieList,
-  configSortMovieList
-} from '../../../store/configMovieList/actions';
+  selectMovieIdList,
+  selectMovieListLoading
+} from '../../../store/movieList/selectors';
+import {
+  getMovieTitleByRegion,
+  normalizeTitle,
+  scrollTop
+} from '../../../utils/helpers';
+import { configPageMovieList } from '../../../store/configMovieList/actions';
 import {
   selecSort,
   selectDisplayType,
-  selectPage
+  selectPage,
+  selectSearchTitle
 } from '../../../store/configMovieList/selectors';
+import { selectRegion } from '../../../store/config/selector';
 
 const sliceList = (page, count, list) => {
   const newList = [...list];
@@ -21,8 +26,8 @@ const sliceList = (page, count, list) => {
 };
 
 const sortAlpha = (a, b) => {
-  if (a.originalTitle.toLowerCase() < b.originalTitle.toLowerCase()) return -1;
-  if (a.originalTitle.toLowerCase() > b.originalTitle.toLowerCase()) return 1;
+  if (a < b) return -1;
+  if (a > b) return 1;
   return 0;
 };
 
@@ -53,48 +58,86 @@ export const useMovieList = () => {
   const actualPage = useSelector(selectPage);
 
   const movieList = useSelector(selectMovieIdList);
+  const searchTitle = useSelector(selectSearchTitle);
+  const movieListLoading = useSelector(selectMovieListLoading);
+  const regionLanguage = useSelector(selectRegion);
 
+  // Filter movies
+  const moviesFiltered = useMemo(() => {
+    return movieList.filter((movie) => {
+      const isOriginalTitle =
+        movie.originalTitle.toLowerCase().indexOf(searchTitle.toLowerCase()) !==
+        -1;
+
+      const isRegionalTitle =
+        getMovieTitleByRegion(movie.regionalTitles, regionLanguage)
+          .toLowerCase()
+          .indexOf(searchTitle.toLowerCase()) !== -1;
+
+      return isOriginalTitle || isRegionalTitle;
+    });
+  }, [movieList, searchTitle]);
+
+  // Sort movies
   const moviesSorted = useMemo(() => {
-    if (sortType === 'ALPHA')
-      return [...movieList].sort(sortAlpha).map((movie) => movie.imdbId);
-    if (sortType === 'CHRONO')
-      return [...movieList].sort(sortChrono).map((movie) => movie.imdbId);
-    return [...movieList].map((movie) => movie.imdbId);
-  }, [movieList, sortType]);
+    const moviesClone = JSON.parse(JSON.stringify(moviesFiltered));
 
+    switch (sortType) {
+      case 'ALPHA':
+        return moviesClone.sort((a, b) =>
+          sortAlpha(
+            normalizeTitle(a.originalTitle),
+            normalizeTitle(b.originalTitle)
+          )
+        );
+      case 'ALPHA_FRENCH':
+        return moviesClone.sort((a, b) =>
+          sortAlpha(
+            normalizeTitle(
+              getMovieTitleByRegion(a.regionalTitles, regionLanguage)
+            ) || normalizeTitle(a.originalTitle),
+            normalizeTitle(
+              getMovieTitleByRegion(b.regionalTitles, regionLanguage)
+            ) || normalizeTitle(b.originalTitle)
+          )
+        );
+      case 'CHRONO':
+        return moviesClone.sort(sortChrono);
+      default:
+        return moviesClone;
+    }
+  }, [moviesFiltered, sortType]);
+
+  // Pagination
   const movieListPage = useMemo(() => {
     return sliceList(actualPage, moviesPerPage, moviesSorted);
   }, [moviesSorted, actualPage]);
 
   const pageQantity = useMemo(() => {
-    return Math.ceil(moviesSorted.length / moviesPerPage);
-  }, [moviesSorted]);
+    const qtt = Math.ceil(moviesFiltered.length / moviesPerPage);
+
+    if (qtt !== 0 && qtt < actualPage) dispatch(configPageMovieList(qtt));
+
+    return qtt;
+  }, [moviesFiltered]);
 
   const handlePaginationChange = useCallback(
     (_, page) => {
       dispatch(configPageMovieList(page));
       scrollTop('movie-list__container');
     },
-    [moviesSorted]
+    [movieList]
   );
-
-  const handleDisplayChange = (_, newDisplay) => {
-    dispatch(configDisplayMovieList(newDisplay));
-  };
-
-  const handleSortChange = (event) => {
-    dispatch(configSortMovieList(event.target.value));
-  };
 
   return {
     moviesCount: movieList.length,
+    moviesFilteredCount: moviesFiltered.length,
     movieListPage,
     actualPage,
     handlePaginationChange,
     pageQantity,
     displayType,
-    handleDisplayChange,
-    handleSortChange,
-    sortType
+    sortType,
+    movieListLoading
   };
 };

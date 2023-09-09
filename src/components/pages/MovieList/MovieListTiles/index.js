@@ -6,9 +6,9 @@ const MovieListTiles = ({ movieList }) => {
     <>
       {movieList.map((movie) => (
         <MovieMiniature
-          movieId={movie}
+          movie={movie}
           miniatureType="TILE"
-          key={`movie-${movie}`}
+          key={`movie-${movie.imdbId}`}
         />
       ))}
     </>

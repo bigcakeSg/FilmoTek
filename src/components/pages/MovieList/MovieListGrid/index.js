@@ -15,7 +15,7 @@ const MovieListGrid = ({ movieList }) => {
         <Divider />
         {movieList.map((movie) => (
           <MovieMiniature
-            movieId={movie}
+            movie={movie}
             miniatureType="LIST"
             key={`movie-${movie}`}
           />

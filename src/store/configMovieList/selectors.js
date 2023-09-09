@@ -21,3 +21,8 @@ export const selectCreationRedirect = createSelector(
   configMovieListStore,
   (store) => store.creationRedirect
 );
+
+export const selectSearchTitle = createSelector(
+  configMovieListStore,
+  (store) => store.searchTitle
+);

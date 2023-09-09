@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import { loadImageAsBlob } from '../../../../utils/helpers';
 
 export const useCastingThumbnail = (casting) => {
+  // FIXME: load blob
   const dispatch = useDispatch();
   const [castBlob, setCastBlob] = useState([]);
 

@@ -2,14 +2,16 @@ import {
   CONFIG_SORT_MOVIELIST,
   CONFIG_DISPLAY_MOVIELIST,
   CONFIG_PAGE_MOVIELIST,
-  CONFIG_REDIRECT_MOVIELIST
+  CONFIG_REDIRECT_MOVIELIST,
+  CONFIG_SEARCHTITLE_MOVIELIST
 } from './actions';
 
 const initialState = {
   sort: 'ALPHA',
   displayType: 'TILES',
   page: 1,
-  creationRedirect: false
+  creationRedirect: false,
+  searchTitle: ''
 };
 
 export default function reducer(state = initialState, action) {
@@ -22,6 +24,8 @@ export default function reducer(state = initialState, action) {
       return { ...state, page: action.payload };
     case CONFIG_REDIRECT_MOVIELIST:
       return { ...state, creationRedirect: action.payload };
+    case CONFIG_SEARCHTITLE_MOVIELIST:
+      return { ...state, searchTitle: action.payload };
     default:
       return { ...state };
   }

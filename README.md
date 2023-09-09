@@ -6,8 +6,7 @@ Gestionnaire de vidéothèque (partie front - React)
 
 - Résumé
 - Lazy loading
-- Options de filtre
-- Recherche
+- Options de filtre (par réalisateur)
 - Affichage des formats vidéo
 - Affichage des infos de backlog
 - Synchronisation IMDB
@@ -21,3 +20,4 @@ Gestionnaire de vidéothèque (partie front - React)
 - Gestion de prêt
 - Dark mode
 - Multi-langages
+- Films par nom

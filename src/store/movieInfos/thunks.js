@@ -5,10 +5,9 @@ import {
   movieInfosFailure
 } from './actions';
 
-import { apiHeaders } from '../../utils/configs';
 import { selectMovieId } from './selectors';
-import { getMovieList } from '../movieList/thunks';
 import { movieList } from '../../mocks/mocks';
+import { movieLisAddMovie } from '../movieList/actions';
 
 // Movie infos importation
 export const getMovieInfos = (movieId) => {
@@ -35,6 +34,9 @@ export const getMovieInfos = (movieId) => {
 export const postMovieByImdbId = (movieId) => {
   return async (dispatch, getState) => {
     try {
+      const state = getState();
+      const apiHeader = state.config.data.rapidApiHeader;
+
       const params = [
         'base_info',
         'principalCast',
@@ -51,7 +53,7 @@ export const postMovieByImdbId = (movieId) => {
       ] = await Promise.all([
         ...params.map((param) =>
           axios.get(`https://moviesdatabase.p.rapidapi.com/titles/${movieId}`, {
-            headers: apiHeaders,
+            headers: apiHeader,
             params: {
               info: param
             }
@@ -60,7 +62,7 @@ export const postMovieByImdbId = (movieId) => {
         axios.get(
           `https://moviesdatabase.p.rapidapi.com/titles/${movieId}/aka`,
           {
-            headers: apiHeaders
+            headers: apiHeader
           }
         )
       ]);
@@ -143,13 +145,22 @@ export const postMovieByImdbId = (movieId) => {
         movieParams
       );
 
-      dispatch(getMovieList());
-
       if (status === 200)
         return { severity: 'warning', message: 'Movie already exists!' };
-      else if (status === 201)
+      else if (status === 201) {
+        dispatch(
+          movieLisAddMovie({
+            imdbId: movieId,
+            originalTitle: movieParams.originalTitle,
+            regionalTitles: movieParams.regionalTitles,
+            picture: movieParams.picture,
+            releaseDate: movieParams.releaseDate,
+            directors: movieParams.directors
+          })
+        );
+
         return { severity: 'success', message: 'Movie created!' };
-      else throw new Error(data.message);
+      } else throw new Error(data.message);
     } catch (error) {
       return { severity: 'error', message: error };
     }

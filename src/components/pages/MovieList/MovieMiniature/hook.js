@@ -1,39 +1,54 @@
-import { useEffect, useMemo, useState } from 'react';
-import { useDispatch } from 'react-redux';
-import {
-  getMovieTitleByRegion,
-  loadImageAsBlob
-} from '../../../../utils/helpers';
-import { getMovieMiniInfo } from '../../../../store/movieList/thunks';
+import { useMemo } from 'react';
+import { useSelector } from 'react-redux';
+import { getMovieTitleByRegion } from '../../../../utils/helpers';
+import { selectRegion } from '../../../../store/config/selector';
 
-export const useMovieMiniature = (movieId) => {
-  const dispatch = useDispatch();
+export const useMovieMiniature = (movieMiniInfos) => {
+  const regionLanguage = useSelector(selectRegion);
 
-  const [movieMiniInfos, setMovieMiniInfos] = useState(null);
-  const [blobUrl, setBlobUrl] = useState('');
-
-  useEffect(() => {
-    const getInfos = async (id) => {
-      const infos = await dispatch(getMovieMiniInfo(id));
-      const blob = await dispatch(loadImageAsBlob(infos.picture.url, id));
-
-      setMovieMiniInfos(infos);
-      setBlobUrl(blob);
-    };
-    getInfos(movieId);
-  }, [movieId]);
-
-  const movieTitleFrench = useMemo(
+  const movieTitleRegional = useMemo(
     () =>
       movieMiniInfos?.regionalTitles
-        ? getMovieTitleByRegion(movieMiniInfos.regionalTitles, 'FR')
+        ? getMovieTitleByRegion(movieMiniInfos.regionalTitles, regionLanguage)
         : '',
     [movieMiniInfos]
   );
 
+  // FIXME: code below to load blob image
+  /*
+  useEffect(() => {
+    setIsLoading(true);
+
+    const getBlob = async (id) => {
+      const blob = await dispatch(
+        loadImageAsBlob(movieMiniInfos.picture.url, id)
+      );
+      setBlobUrl(blob);
+      setIsLoading(false);
+    };
+
+    setBlobUrl(movieMiniInfos.picture.url);
+    setIsLoading(false);
+    // getBlob(movieMiniInfos.imdbId);
+  }, [movieMiniInfos]);
+  */
+
+  // code below to load movie mini-infos
+  /*
+  const [movieMiniInfos, setMovieMiniInfos] = useState('');
+  useEffect(() => {
+    const getInfos = async (id) => {
+      const infos = await dispatch(getMovieMiniInfo(id));
+      setMovieMiniInfos(infos);
+      const blob = await dispatch(loadImageAsBlob(infos.picture.url, id));
+      setBlobUrl(blob);
+    };
+    getInfos(movieId);
+  }, [movieId]);
+  */
+
   return {
-    movieMiniInfos,
-    movieTitleFrench,
-    blobUrl
+    movieTitleRegional,
+    isLoading: false
   };
 };
