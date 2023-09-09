@@ -27,7 +27,7 @@ const options = {
   url: 'https://moviesdatabase.p.rapidapi.com/titles/tt0082971',
   params: {info: 'base_info'},
   headers: {
-    'X-RapidAPI-Key': 'c3906cc624mshb325ef5eff66c21p111ea4jsn5475587a7b03',
+    'X-RapidAPI-Key': '',
     'X-RapidAPI-Host': 'moviesdatabase.p.rapidapi.com'
   }
 };
@@ -141,7 +141,7 @@ const options = {
     info: 'principalCast'
   },
   headers: {
-    'X-RapidAPI-Key': 'c3906cc624mshb325ef5eff66c21p111ea4jsn5475587a7b03',
+    'X-RapidAPI-Key': '',
     'X-RapidAPI-Host': 'moviesdatabase.p.rapidapi.com'
   }
 };
@@ -292,7 +292,7 @@ const options = {
     info: 'extendedCast'
   },
   headers: {
-    'X-RapidAPI-Key': 'c3906cc624mshb325ef5eff66c21p111ea4jsn5475587a7b03',
+    'X-RapidAPI-Key': '',
     'X-RapidAPI-Host': 'moviesdatabase.p.rapidapi.com'
   }
 };
@@ -838,7 +838,7 @@ const options = {
     info: 'creators_directors_writers'
   },
   headers: {
-    'X-RapidAPI-Key': 'c3906cc624mshb325ef5eff66c21p111ea4jsn5475587a7b03',
+    'X-RapidAPI-Key': '',
     'X-RapidAPI-Host': 'moviesdatabase.p.rapidapi.com'
   }
 };
@@ -945,7 +945,7 @@ const options = {
   url: 'https://moviesdatabase.p.rapidapi.com/titles/tt0082971',
   params: {info: 'mini_info'},
   headers: {
-    'X-RapidAPI-Key': 'c3906cc624mshb325ef5eff66c21p111ea4jsn5475587a7b03',
+    'X-RapidAPI-Key': '',
     'X-RapidAPI-Host': 'moviesdatabase.p.rapidapi.com'
   }
 };
@@ -1000,7 +1000,7 @@ const options = {
   method: 'GET',
   url: 'https://moviesdatabase.p.rapidapi.com/titles/tt0082971/aka',
   headers: {
-    'X-RapidAPI-Key': 'c3906cc624mshb325ef5eff66c21p111ea4jsn5475587a7b03',
+    'X-RapidAPI-Key': '',
     'X-RapidAPI-Host': 'moviesdatabase.p.rapidapi.com'
   }
 };
