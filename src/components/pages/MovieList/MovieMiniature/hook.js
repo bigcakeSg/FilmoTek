@@ -1,9 +1,11 @@
 import { useMemo } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getMovieTitleByRegion } from '../../../../utils/helpers';
 import { selectRegion } from '../../../../store/config/selector';
+import { updateSeenMovie } from '../../../../store/movieList/thunks';
 
 export const useMovieMiniature = (movieMiniInfos) => {
+  const dispatch = useDispatch();
   const regionLanguage = useSelector(selectRegion);
 
   const movieTitleRegional = useMemo(
@@ -13,6 +15,11 @@ export const useMovieMiniature = (movieMiniInfos) => {
         : '',
     [movieMiniInfos]
   );
+
+  const handleSeen = (e) => {
+    e.preventDefault();
+    dispatch(updateSeenMovie(movieMiniInfos.imdbId, !movieMiniInfos.seen));
+  };
 
   // FIXME: code below to load blob image
   /*
@@ -49,6 +56,7 @@ export const useMovieMiniature = (movieMiniInfos) => {
 
   return {
     movieTitleRegional,
-    isLoading: false
+    isLoading: false,
+    handleSeen
   };
 };

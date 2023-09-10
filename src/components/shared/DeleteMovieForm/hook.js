@@ -1,8 +1,8 @@
 import { useCallback, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { deleteMovieByImdbId } from '../../../store/movieInfos/thunks';
 import { useNavigate } from 'react-router-dom';
 import { addNotification } from '../../../store/notification/actions';
+import { deleteMovieByImdbId } from '../../../store/movieList/thunks';
 
 export const useDeleteMovieForm = (movieImdbId, setDeleteMovieOpen) => {
   const dispatch = useDispatch();

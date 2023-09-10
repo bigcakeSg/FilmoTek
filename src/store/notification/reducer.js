@@ -3,7 +3,7 @@ import { ADD_NOTIFICATION, REMOVE_NOTIFICATION } from './actions';
 const initialState = {
   open: false,
   message: '',
-  severity: ''
+  severity: 'info'
 };
 
 export default function reducer(state = initialState, action) {

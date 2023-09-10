@@ -61,7 +61,7 @@ export const useMovieList = () => {
   const searchTitle = useSelector(selectSearchTitle);
   const movieListLoading = useSelector(selectMovieListLoading);
   const regionLanguage = useSelector(selectRegion);
-
+  console.log(movieList);
   // Filter movies
   const moviesFiltered = useMemo(() => {
     if (searchTitle)

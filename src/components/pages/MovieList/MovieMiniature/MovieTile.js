@@ -1,7 +1,9 @@
 import { PropTypes } from 'prop-types';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { CircularProgress } from '@mui/material';
+import { CircularProgress, IconButton, Tooltip } from '@mui/material';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import { colorA, colorALight } from '../../../../utils/colors';
 import NoImg from '../../../../assets/noMovie.jpg';
 import { useMovieMiniature } from './hook';
@@ -77,6 +79,11 @@ const StyledMovieMiniature = styled.div`
       & .regional-title {
         font-weight: 300;
       }
+      & .seen {
+        position: absolute;
+        bottom: 3px;
+        left: 3px;
+      }
       & .year {
         text-align: right;
       }
@@ -105,7 +112,8 @@ const StyledLink = styled(Link)`
 `;
 
 const MovieTile = ({ movie }) => {
-  const { movieTitleRegional, isLoading } = useMovieMiniature(movie);
+  const { movieTitleRegional, isLoading, handleSeen } =
+    useMovieMiniature(movie);
 
   if (isLoading)
     return (
@@ -137,6 +145,29 @@ const MovieTile = ({ movie }) => {
             <div>
               <div className="original-title">{movie.originalTitle}</div>
               <div className="regional-title">{movieTitleRegional}</div>
+            </div>
+            <div className="seen">
+              {movie.seen ? (
+                <Tooltip title="Already seen">
+                  <IconButton
+                    aria-label="import"
+                    color="secondary"
+                    onClick={handleSeen}
+                  >
+                    <VisibilityIcon />
+                  </IconButton>
+                </Tooltip>
+              ) : (
+                <Tooltip title="Not yet seen">
+                  <IconButton
+                    aria-label="import"
+                    color="secondary"
+                    onClick={handleSeen}
+                  >
+                    <VisibilityOffIcon />
+                  </IconButton>
+                </Tooltip>
+              )}
             </div>
             <div className="year">{movie.releaseDate.year}</div>
           </div>

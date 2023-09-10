@@ -1,10 +1,10 @@
 import { useCallback, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { postMovieByImdbId } from '../../../store/movieInfos/thunks';
 import { selectCreationRedirect } from '../../../store/configMovieList/selectors';
 import { configRedirectMovieList } from '../../../store/configMovieList/actions';
 import { addNotification } from '../../../store/notification/actions';
+import { postMovieByImdbId } from '../../../store/movieList/thunks';
 
 export const useAddMovieForm = (setAddMovieOpen) => {
   const dispatch = useDispatch();
