@@ -1,10 +1,19 @@
 import { PropTypes } from 'prop-types';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { Divider, ListItem, ListItemButton, ListItemText } from '@mui/material';
+import {
+  Divider,
+  IconButton,
+  ListItem,
+  ListItemButton,
+  ListItemText,
+  Tooltip
+} from '@mui/material';
 import { colorA } from '../../../../utils/colors';
 import NoImg from '../../../../assets/noMovie.jpg';
 import { useMovieMiniature } from './hook';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 
 const miniWidth = 50;
 const miniHeight = 74;
@@ -38,6 +47,49 @@ const StyledMovieItem = styled.div`
     }
   }
 `;
+
+const StyledRightInfos = styled.div`
+  & .right-infos__item {
+    display: inline-block;
+  }
+`;
+
+const RightInfos = ({ movie }) => {
+  const { handleSeen } = useMovieMiniature(movie);
+
+  return (
+    <StyledRightInfos>
+      <div className="right-infos__item">{movie.releaseDate.year}</div>
+      <div className="right-infos__item seen">
+        {movie.seen ? (
+          <Tooltip title="Already seen">
+            <IconButton
+              aria-label="import"
+              color="secondary"
+              onClick={handleSeen}
+            >
+              <VisibilityIcon />
+            </IconButton>
+          </Tooltip>
+        ) : (
+          <Tooltip title="Not yet seen">
+            <IconButton
+              aria-label="import"
+              color="secondary"
+              onClick={handleSeen}
+            >
+              <VisibilityOffIcon />
+            </IconButton>
+          </Tooltip>
+        )}
+      </div>
+    </StyledRightInfos>
+  );
+};
+
+RightInfos.propTypes = {
+  movie: PropTypes.object.isRequired
+};
 
 const MovieListItem = ({ movie }) => {
   const { movieTitleRegional, isLoading } = useMovieMiniature(movie);
@@ -82,7 +134,7 @@ const MovieListItem = ({ movie }) => {
                 secondary={movieTitleRegional}
               />
               <ListItemText
-                secondary={movie.releaseDate.year}
+                secondary={<RightInfos movie={movie} />}
                 sx={{ textAlign: 'right' }}
               />
             </ListItemButton>
