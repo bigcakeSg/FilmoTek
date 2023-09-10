@@ -64,18 +64,22 @@ export const useMovieList = () => {
 
   // Filter movies
   const moviesFiltered = useMemo(() => {
-    return movieList.filter((movie) => {
-      const isOriginalTitle =
-        movie.originalTitle.toLowerCase().indexOf(searchTitle.toLowerCase()) !==
-        -1;
+    if (searchTitle)
+      return movieList.filter((movie) => {
+        const isOriginalTitle =
+          movie.originalTitle
+            .toLowerCase()
+            .indexOf(searchTitle.toLowerCase()) !== -1;
 
-      const isRegionalTitle =
-        getMovieTitleByRegion(movie.regionalTitles, regionLanguage)
-          .toLowerCase()
-          .indexOf(searchTitle.toLowerCase()) !== -1;
+        const isRegionalTitle =
+          getMovieTitleByRegion(movie.regionalTitles, regionLanguage)
+            .toLowerCase()
+            .indexOf(searchTitle.toLowerCase()) !== -1;
 
-      return isOriginalTitle || isRegionalTitle;
-    });
+        return isOriginalTitle || isRegionalTitle;
+      });
+
+    return movieList;
   }, [movieList, searchTitle]);
 
   // Sort movies

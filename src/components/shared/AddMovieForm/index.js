@@ -1,7 +1,7 @@
 import { PropTypes } from 'prop-types';
+import styled from 'styled-components';
 
 import {
-  Alert,
   Backdrop,
   Button,
   CircularProgress,
@@ -11,12 +11,10 @@ import {
   DialogContentText,
   DialogTitle,
   FormControlLabel,
-  Snackbar,
   Switch,
   TextField
 } from '@mui/material';
 import { useAddMovieForm } from './hook';
-import styled from 'styled-components';
 
 const StyledLoader = styled(Backdrop)`
   & .loader {
@@ -41,10 +39,7 @@ const AddMovieForm = ({ addMovieOpen, setAddMovieOpen }) => {
     handleAddMovie,
     isMovieCreation,
     creationRedirect,
-    handleRedirect,
-    isSnackOpen,
-    setIsSnackOpen,
-    resultMessage
+    handleRedirect
   } = useAddMovieForm(setAddMovieOpen);
 
   return (
@@ -98,19 +93,6 @@ const AddMovieForm = ({ addMovieOpen, setAddMovieOpen }) => {
           </div>
         </StyledLoader>
       </Dialog>
-      <Snackbar
-        open={isSnackOpen}
-        autoHideDuration={6000}
-        onClose={() => setIsSnackOpen(false)}
-      >
-        <Alert
-          onClose={() => setIsSnackOpen(false)}
-          severity={resultMessage.severity}
-          sx={{ width: '100%' }}
-        >
-          {resultMessage.message}
-        </Alert>
-      </Snackbar>
     </>
   );
 };

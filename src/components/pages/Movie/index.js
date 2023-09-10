@@ -66,11 +66,9 @@ const Movie = () => {
       <MovieBanner movieInfos={movieInfos} loading={movieInfosLoading} />
       <div className="main-content">
         <div className="inner-content">
-          <MovieActions
-            onEdit={() => null}
-            onImport={() => null}
-            onDelete={() => null}
-          />
+          {movieInfos.imdbId ? (
+            <MovieActions movieImdbId={movieInfos.imdbId} />
+          ) : null}
           <MoviePicture
             id={movieInfos?.imdbId}
             movieUrl={movieInfos?.picture?.url}

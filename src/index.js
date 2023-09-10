@@ -18,6 +18,9 @@ import { headerHeight, footerHeight } from './utils/theme';
 
 const StyledRoot = styled.div`
   & h1 {
+    border: solid 1px #fff;
+    padding: 3px 8px;
+    border-radius: 8px;
     font-weight: 300;
     color: #fff;
     font-size: 24px;

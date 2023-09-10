@@ -2,12 +2,16 @@ import axios from 'axios';
 import {
   movieInfosLoading,
   movieInfosSuccess,
-  movieInfosFailure
+  movieInfosFailure,
+  movieAddFailure,
+  movieAddSuccess,
+  movieRemoveSuccess,
+  movieRemoveFailure
 } from './actions';
 
 import { selectMovieId } from './selectors';
-import { movieList } from '../../mocks/mocks';
-import { movieLisAddMovie } from '../movieList/actions';
+// import { movieList } from '../../mocks/mocks';
+import { movieLisAddMovie, movieLisRemoveMovie } from '../movieList/actions';
 
 // Movie infos importation
 export const getMovieInfos = (movieId) => {
@@ -145,9 +149,10 @@ export const postMovieByImdbId = (movieId) => {
         movieParams
       );
 
-      if (status === 200)
+      if (status === 200) {
+        dispatch(movieAddFailure);
         return { severity: 'warning', message: 'Movie already exists!' };
-      else if (status === 201) {
+      } else if (status === 201) {
         dispatch(
           movieLisAddMovie({
             imdbId: movieId,
@@ -159,24 +164,43 @@ export const postMovieByImdbId = (movieId) => {
           })
         );
 
+        dispatch(movieAddSuccess);
         return { severity: 'success', message: 'Movie created!' };
       } else throw new Error(data.message);
     } catch (error) {
+      dispatch(movieAddFailure);
       return { severity: 'error', message: error };
     }
   };
 };
 
 // Movie list creation
-export const postMovieListByImdbId = () => {
-  return async (dispatch, getState) => {
+// export const postMovieListByImdbId = () => {
+//   return async (dispatch, getState) => {
+//     try {
+//       const movies = getState().movieList.data.map((movie) => movie.imdbId);
+//       for (const movie of movieList) {
+//         if (!movies.includes(movie)) await dispatch(postMovieByImdbId(movie));
+//       }
+//     } catch (error) {
+//       dispatch(movieInfosFailure(error.message));
+//     }
+//   };
+// };
+
+// Movie deletion
+export const deleteMovieByImdbId = (imdbId) => {
+  return async (dispatch) => {
     try {
-      const movies = getState().movieList.data.map((movie) => movie.imdbId);
-      for (const movie of movieList) {
-        if (!movies.includes(movie)) await dispatch(postMovieByImdbId(movie));
-      }
+      await axios.delete(`http://localhost:5000/movie/${imdbId}`);
+
+      dispatch(movieLisRemoveMovie(imdbId));
+
+      dispatch(movieRemoveSuccess);
+      return { severity: 'success', message: 'Movie deleted!' };
     } catch (error) {
-      dispatch(movieInfosFailure(error.message));
+      dispatch(movieRemoveFailure);
+      return { severity: 'error', message: error };
     }
   };
 };
