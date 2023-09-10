@@ -5,7 +5,7 @@ import {
   selectMovieInfosLoading
 } from '../../../store/movieInfos/selectors';
 import { getMovieTitleByRegion } from '../../../utils/helpers';
-import { selectRegion } from '../../../store/config/selector';
+import { selectRegion } from '../../../store/config/selectors';
 
 export const useMovie = () => {
   const movieInfos = useSelector(selectMovieInfosData);

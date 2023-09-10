@@ -2,15 +2,17 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
   configDisplayMovieList,
   configSearchTitleMovieList,
+  configSeenfilterMovieList,
   configSortMovieList
 } from '../../../../store/configMovieList/actions';
 import {
   selecSort,
   selectDisplayType,
-  selectSearchTitle
+  selectSearchTitle,
+  selectSeenFilter
 } from '../../../../store/configMovieList/selectors';
-import { selectRegion } from '../../../../store/config/selector';
-import { debounce } from '../../../../utils/helpers';
+import { selectRegion } from '../../../../store/config/selectors';
+// import { debounce } from '../../../../utils/helpers';
 import { useMemo } from 'react';
 
 export const useMovieListActionsButtons = () => {
@@ -20,6 +22,15 @@ export const useMovieListActionsButtons = () => {
   const displayType = useSelector(selectDisplayType);
   const searchTitle = useSelector(selectSearchTitle);
   const regionLanguage = useSelector(selectRegion);
+  const seenFilterValues = useSelector(selectSeenFilter);
+
+  const handleSeenCheck = (event) => {
+    const {
+      target: { value }
+    } = event;
+
+    dispatch(configSeenfilterMovieList(value));
+  };
 
   const handleDisplayChange = (_, newDisplay) => {
     dispatch(configDisplayMovieList(newDisplay));
@@ -30,9 +41,9 @@ export const useMovieListActionsButtons = () => {
   };
 
   // FIXME: debounce
-  const filterTitle = debounce((value) => {
-    dispatch(configSearchTitleMovieList(value));
-  }, 500);
+  // const filterTitle = debounce((value) => {
+  //   dispatch(configSearchTitleMovieList(value));
+  // }, 500);
 
   const handleSearchTitleChange = (event) => {
     // filterTitle(event.target.value);
@@ -56,6 +67,8 @@ export const useMovieListActionsButtons = () => {
     displayType,
     searchTitle,
     handleClearTitleFilter,
-    country
+    country,
+    seenFilterValues,
+    handleSeenCheck
   };
 };

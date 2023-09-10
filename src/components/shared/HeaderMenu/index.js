@@ -65,7 +65,7 @@ const HeaderMenu = ({ noMenu }) => {
                   </Button>
                 </Link>
               </li>
-              <li>
+              {/* <li>
                 <Button
                   variant="text"
                   color="secondary"
@@ -73,7 +73,7 @@ const HeaderMenu = ({ noMenu }) => {
                 >
                   Statistics
                 </Button>
-              </li>
+              </li> */}
               <li>
                 <Button
                   variant="text"

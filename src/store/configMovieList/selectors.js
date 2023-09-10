@@ -26,3 +26,8 @@ export const selectSearchTitle = createSelector(
   configMovieListStore,
   (store) => store.searchTitle
 );
+
+export const selectSeenFilter = createSelector(
+  configMovieListStore,
+  (store) => store.seenFilter
+);

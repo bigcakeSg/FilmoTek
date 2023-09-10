@@ -26,7 +26,7 @@ const MovieActions = ({ movieImdbId }) => {
   return (
     <>
       <StyledMovieActions>
-        <Tooltip title="Edit">
+        {/* <Tooltip title="Edit">
           <IconButton aria-label="edit" color="secondary">
             <Edit />
           </IconButton>
@@ -35,7 +35,7 @@ const MovieActions = ({ movieImdbId }) => {
           <IconButton aria-label="delete" color="secondary">
             <Download />
           </IconButton>
-        </Tooltip>
+        </Tooltip> */}
         <Tooltip title="Delete">
           <IconButton
             aria-label="import"

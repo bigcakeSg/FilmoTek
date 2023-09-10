@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getMovieTitleByRegion } from '../../../../utils/helpers';
-import { selectRegion } from '../../../../store/config/selector';
+import { selectRegion } from '../../../../store/config/selectors';
 import { updateSeenMovie } from '../../../../store/movieList/thunks';
 
 export const useMovieMiniature = (movieMiniInfos) => {

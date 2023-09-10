@@ -8,7 +8,6 @@ Gestionnaire de vidéothèque (partie front - React)
 - Lazy loading
 - Options de filtre (par réalisateur)
 - Affichage des formats vidéo
-- Affichage des infos de backlog
 - Synchronisation IMDB
 - Edition d'une fiche
 - Statistiques

@@ -3,7 +3,8 @@ import {
   CONFIG_DISPLAY_MOVIELIST,
   CONFIG_PAGE_MOVIELIST,
   CONFIG_REDIRECT_MOVIELIST,
-  CONFIG_SEARCHTITLE_MOVIELIST
+  CONFIG_SEARCHTITLE_MOVIELIST,
+  CONFIG_SEEN_FILTER_MOVIELIST
 } from './actions';
 
 const initialState = {
@@ -11,7 +12,8 @@ const initialState = {
   displayType: 'TILES',
   page: 1,
   creationRedirect: false,
-  searchTitle: ''
+  searchTitle: '',
+  seenFilter: []
 };
 
 export default function reducer(state = initialState, action) {
@@ -26,6 +28,8 @@ export default function reducer(state = initialState, action) {
       return { ...state, creationRedirect: action.payload };
     case CONFIG_SEARCHTITLE_MOVIELIST:
       return { ...state, searchTitle: action.payload };
+    case CONFIG_SEEN_FILTER_MOVIELIST:
+      return { ...state, seenFilter: action.payload };
     default:
       return { ...state };
   }

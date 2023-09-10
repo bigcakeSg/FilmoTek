@@ -1,23 +1,18 @@
 import styled from 'styled-components';
 import {
+  Checkbox,
   FormControl,
   IconButton,
   InputAdornment,
   InputLabel,
+  ListItemText,
   MenuItem,
   OutlinedInput,
   Select,
-  TextField,
   ToggleButton,
   ToggleButtonGroup
 } from '@mui/material';
-import {
-  Apps,
-  Search,
-  List,
-  Visibility,
-  DisabledByDefault
-} from '@mui/icons-material';
+import { Apps, Search, List, DisabledByDefault } from '@mui/icons-material';
 import { useMovieListActionsButtons } from './hook';
 
 const StyledMovieListActionsButtons = styled.div`
@@ -25,16 +20,25 @@ const StyledMovieListActionsButtons = styled.div`
   right: 20px;
   & .movie-list__actions {
     display: flex;
-    &__filter {
+    /* &__filter {
       position: relative;
       margin-right: 10px;
-    }
+    } */
     &__sort {
       position: relative;
       margin-right: 10px;
     }
   }
+  & .filter-component {
+    display: inline-block;
+    margin-left: 10px;
+  }
 `;
+
+const seenValues = [
+  { label: 'Seen', value: true },
+  { label: 'Not seen', value: false }
+];
 
 const MovieListActionsButtons = () => {
   const {
@@ -45,43 +49,75 @@ const MovieListActionsButtons = () => {
     displayType,
     searchTitle,
     handleClearTitleFilter,
-    country
+    country,
+    seenFilterValues,
+    handleSeenCheck
   } = useMovieListActionsButtons();
 
   return (
     <StyledMovieListActionsButtons>
-      <FormControl size="small">
-        <div className="movie-list__actions">
-          <div className="movie-list__actions__filter">
-            <InputLabel htmlFor="search-title-textfield">
-              Search title
-            </InputLabel>
-            <OutlinedInput
-              id="search-title-textfield"
-              type="text"
-              onChange={handleSearchTitleChange}
-              value={searchTitle}
-              startAdornment={
-                <InputAdornment position="start">
-                  <Search />
-                </InputAdornment>
-              }
-              endAdornment={
-                <InputAdornment position="end">
-                  <IconButton
-                    aria-label="Clear search title filter"
-                    onClick={handleClearTitleFilter}
-                    edge="end"
-                  >
-                    <DisabledByDefault />
-                  </IconButton>
-                </InputAdornment>
-              }
-              label="Search title"
-            />
+      <div className="filter-component">
+        <FormControl sx={{ width: 200 }} size="small">
+          <InputLabel id="seen-multiple-checkbox-label">Seen</InputLabel>
+          <Select
+            labelId="seen-multiple-checkbox-label"
+            id="seen-multiple-checkbox"
+            multiple
+            value={seenFilterValues}
+            onChange={handleSeenCheck}
+            input={<OutlinedInput label="Seen" />}
+            renderValue={(selected) =>
+              selected
+                .map(
+                  (sel) => seenValues.find(({ value }) => value === sel).label
+                )
+                .join(', ')
+            }
+          >
+            {seenValues.map((seen) => (
+              <MenuItem key={`seen-${seen.value}`} value={seen.value}>
+                <Checkbox checked={seenFilterValues.includes(seen.value)} />
+                <ListItemText primary={seen.label} />
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+      </div>
+      <div className="filter-component">
+        <FormControl size="small">
+          <div className="movie-list__actions">
+            <div className="movie-list__actions__filter">
+              <InputLabel htmlFor="search-title-textfield">
+                Search title
+              </InputLabel>
+              <OutlinedInput
+                id="search-title-textfield"
+                type="text"
+                onChange={handleSearchTitleChange}
+                value={searchTitle}
+                startAdornment={
+                  <InputAdornment position="start">
+                    <Search />
+                  </InputAdornment>
+                }
+                endAdornment={
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label="Clear search title filter"
+                      onClick={handleClearTitleFilter}
+                      edge="end"
+                    >
+                      <DisabledByDefault />
+                    </IconButton>
+                  </InputAdornment>
+                }
+                label="Search title"
+              />
+            </div>
           </div>
-        </div>
-      </FormControl>
+        </FormControl>
+      </div>
+
       {/* <div className="movie-list__actions__filter">
             <TextField
               id="input-with-icon-textfield"
@@ -128,38 +164,40 @@ const MovieListActionsButtons = () => {
               <MenuItem value="test">test</MenuItem>
             </Select>
           </div> */}
-      <FormControl size="small">
-        <div className="movie-list__actions">
-          <div className="movie-list__actions__sort">
-            <InputLabel id="movie-list-sort-by-label">Sort by</InputLabel>
-            <Select
-              labelId="movie-list-sort-by-label"
-              id="movie-list-sort-by"
-              value={sortType}
-              onChange={handleSortChange}
-              label="Sort by"
-              sx={{ minWidth: 150 }}
+      <div className="filter-component">
+        <FormControl size="small">
+          <div className="movie-list__actions">
+            <div className="movie-list__actions__sort">
+              <InputLabel id="movie-list-sort-by-label">Sort by</InputLabel>
+              <Select
+                labelId="movie-list-sort-by-label"
+                id="movie-list-sort-by"
+                value={sortType}
+                onChange={handleSortChange}
+                label="Sort by"
+                sx={{ minWidth: 150 }}
+              >
+                <MenuItem value="ALPHA">Title</MenuItem>
+                <MenuItem value="ALPHA_FRENCH">{country} title</MenuItem>
+                <MenuItem value="CHRONO">Release date</MenuItem>
+              </Select>
+            </div>
+            <ToggleButtonGroup
+              value={displayType}
+              exclusive
+              onChange={handleDisplayChange}
+              aria-label="text alignment"
             >
-              <MenuItem value="ALPHA">Title</MenuItem>
-              <MenuItem value="ALPHA_FRENCH">{country} title</MenuItem>
-              <MenuItem value="CHRONO">Release date</MenuItem>
-            </Select>
+              <ToggleButton value="TILES" size="small" aria-label="Tiles">
+                <Apps />
+              </ToggleButton>
+              <ToggleButton value="LIST" size="small" aria-label="List">
+                <List />
+              </ToggleButton>
+            </ToggleButtonGroup>
           </div>
-          <ToggleButtonGroup
-            value={displayType}
-            exclusive
-            onChange={handleDisplayChange}
-            aria-label="text alignment"
-          >
-            <ToggleButton value="TILES" size="small" aria-label="Tiles">
-              <Apps />
-            </ToggleButton>
-            <ToggleButton value="LIST" size="small" aria-label="List">
-              <List />
-            </ToggleButton>
-          </ToggleButtonGroup>
-        </div>
-      </FormControl>
+        </FormControl>
+      </div>
     </StyledMovieListActionsButtons>
   );
 };

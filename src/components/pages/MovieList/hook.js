@@ -14,9 +14,10 @@ import {
   selecSort,
   selectDisplayType,
   selectPage,
-  selectSearchTitle
+  selectSearchTitle,
+  selectSeenFilter
 } from '../../../store/configMovieList/selectors';
-import { selectRegion } from '../../../store/config/selector';
+import { selectRegion } from '../../../store/config/selectors';
 
 const sliceList = (page, count, list) => {
   const newList = [...list];
@@ -59,28 +60,39 @@ export const useMovieList = () => {
 
   const movieList = useSelector(selectMovieIdList);
   const searchTitle = useSelector(selectSearchTitle);
+  const seenFilter = useSelector(selectSeenFilter);
   const movieListLoading = useSelector(selectMovieListLoading);
   const regionLanguage = useSelector(selectRegion);
-  console.log(movieList);
+
   // Filter movies
   const moviesFiltered = useMemo(() => {
-    if (searchTitle)
-      return movieList.filter((movie) => {
-        const isOriginalTitle =
+    let newMovieList = movieList;
+
+    newMovieList = movieList.filter((movie) => {
+      let isOriginalTitle = true;
+      let isRegionalTitle = true;
+
+      if (searchTitle) {
+        isOriginalTitle =
           movie.originalTitle
             .toLowerCase()
             .indexOf(searchTitle.toLowerCase()) !== -1;
 
-        const isRegionalTitle =
+        isRegionalTitle =
           getMovieTitleByRegion(movie.regionalTitles, regionLanguage)
             .toLowerCase()
             .indexOf(searchTitle.toLowerCase()) !== -1;
+      }
 
-        return isOriginalTitle || isRegionalTitle;
-      });
+      const seenFilterValidate = seenFilter.length
+        ? seenFilter.includes(movie.seen)
+        : true;
 
-    return movieList;
-  }, [movieList, searchTitle]);
+      return (isOriginalTitle || isRegionalTitle) && seenFilterValidate;
+    });
+
+    return newMovieList;
+  }, [movieList, searchTitle, seenFilter]);
 
   // Sort movies
   const moviesSorted = useMemo(() => {
