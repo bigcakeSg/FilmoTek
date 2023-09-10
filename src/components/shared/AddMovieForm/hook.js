@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { postMovieByImdbId } from '../../../store/movieInfos/thunks';
 import { selectCreationRedirect } from '../../../store/configMovieList/selectors';
 import { configRedirectMovieList } from '../../../store/configMovieList/actions';
+import { addNotification } from '../../../store/notification/actions';
 
 export const useAddMovieForm = (setAddMovieOpen) => {
   const dispatch = useDispatch();
@@ -11,11 +12,6 @@ export const useAddMovieForm = (setAddMovieOpen) => {
 
   const [newMovie, setNewMovie] = useState('');
   const [isMovieCreation, setIsMovieCreation] = useState(false);
-  const [isSnackOpen, setIsSnackOpen] = useState(false);
-  const [resultMessage, setResultMessage] = useState({
-    severity: 'success',
-    message: ''
-  });
 
   const creationRedirect = useSelector(selectCreationRedirect);
 
@@ -30,14 +26,18 @@ export const useAddMovieForm = (setAddMovieOpen) => {
 
       const result = await dispatch(postMovieByImdbId(newMovie));
 
-      setResultMessage(result);
-
       setAddMovieOpen(false);
       setIsMovieCreation(false);
       setNewMovie('');
       if (creationRedirect && result.severity !== 'error')
         navigate(`/movie/${newMovie}`);
-      setIsSnackOpen(true);
+
+      dispatch(
+        addNotification({
+          open: true,
+          ...result
+        })
+      );
     },
     [newMovie, creationRedirect]
   );
@@ -48,9 +48,6 @@ export const useAddMovieForm = (setAddMovieOpen) => {
     handleAddMovie,
     isMovieCreation,
     creationRedirect,
-    handleRedirect,
-    isSnackOpen,
-    setIsSnackOpen,
-    resultMessage
+    handleRedirect
   };
 };

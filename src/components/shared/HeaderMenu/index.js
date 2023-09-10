@@ -9,6 +9,7 @@ import { colorA } from '../../../utils/colors';
 import { headerHeight } from '../../../utils/theme';
 import AddMovieForm from '../AddMovieForm';
 import { useHeaderMenu } from './hook';
+import NotificationToaster from '../NotificationToaster';
 
 const Header = styled.header`
   position: fixed;
@@ -93,6 +94,7 @@ const HeaderMenu = ({ noMenu }) => {
         addMovieOpen={addMovieOpen}
         setAddMovieOpen={setAddMovieOpen}
       />
+      <NotificationToaster />
     </>
   );
 };
