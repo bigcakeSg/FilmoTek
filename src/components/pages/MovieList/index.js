@@ -61,6 +61,7 @@ const MovieList = () => {
     displayType,
     movieListLoading
   } = useMovieList();
+
   return (
     <StyledMovieList>
       <div className="main-content">

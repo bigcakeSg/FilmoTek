@@ -35,6 +35,14 @@ const StyledMovieListActionsButtons = styled.div`
   }
 `;
 
+const videoFormatValues = [
+  { label: 'VHS', value: 'vhs' },
+  { label: 'Laserdisc', value: 'ld' },
+  { label: 'DVD', value: 'dvd' },
+  { label: 'Blu-Ray', value: 'bd' },
+  { label: 'Blu-Ray UHD', value: 'uhd' }
+];
+
 const seenValues = [
   { label: 'Seen', value: true },
   { label: 'Not seen', value: false }
@@ -51,11 +59,45 @@ const MovieListActionsButtons = () => {
     handleClearTitleFilter,
     country,
     seenFilterValues,
-    handleSeenCheck
+    handleSeenCheck,
+    videoFormatFilterValues,
+    handleVideoFormatCheck
   } = useMovieListActionsButtons();
 
   return (
     <StyledMovieListActionsButtons>
+      <div className="filter-component">
+        <FormControl sx={{ width: 200 }} size="small">
+          <InputLabel id="format-multiple-checkbox-label">
+            Video format
+          </InputLabel>
+          <Select
+            labelId="format-multiple-checkbox-label"
+            id="format-multiple-checkbox"
+            multiple
+            value={videoFormatFilterValues}
+            onChange={handleVideoFormatCheck}
+            input={<OutlinedInput label="Video format" />}
+            renderValue={(selected) =>
+              selected
+                .map(
+                  (sel) =>
+                    videoFormatValues.find(({ value }) => value === sel).label
+                )
+                .join(', ')
+            }
+          >
+            {videoFormatValues.map((format) => (
+              <MenuItem key={`seen-${format.value}`} value={format.value}>
+                <Checkbox
+                  checked={videoFormatFilterValues.includes(format.value)}
+                />
+                <ListItemText primary={format.label} />
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+      </div>
       <div className="filter-component">
         <FormControl sx={{ width: 200 }} size="small">
           <InputLabel id="seen-multiple-checkbox-label">Seen</InputLabel>

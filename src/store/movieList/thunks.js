@@ -216,7 +216,7 @@ export const updateSeenMovie = (imdbId, seen) => {
         `http://localhost:5000/movie/${imdbId}/seen`,
         { seen }
       );
-      console.log(data);
+
       dispatch(movieLisUpdateMovieSuccess(data));
 
       return { severity: 'success', message: 'Movie updated!' };
