@@ -123,7 +123,7 @@ const VideoSupportForm = ({ movieId, editSupportOpen, setEditSupportOpen }) => {
           open={isSupportEdition}
         >
           <div className="loader">
-            <div className="loader__text">Deletion, please wait...</div>
+            <div className="loader__text">Update, please wait...</div>
             <CircularProgress color="inherit" />
           </div>
         </StyledLoader>

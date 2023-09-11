@@ -100,14 +100,14 @@ const MovieListActionsButtons = () => {
       </div>
       <div className="filter-component">
         <FormControl sx={{ width: 200 }} size="small">
-          <InputLabel id="seen-multiple-checkbox-label">Seen</InputLabel>
+          <InputLabel id="seen-multiple-checkbox-label">Status</InputLabel>
           <Select
             labelId="seen-multiple-checkbox-label"
             id="seen-multiple-checkbox"
             multiple
             value={seenFilterValues}
             onChange={handleSeenCheck}
-            input={<OutlinedInput label="Seen" />}
+            input={<OutlinedInput label="Status" />}
             renderValue={(selected) =>
               selected
                 .map(
