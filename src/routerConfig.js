@@ -4,15 +4,25 @@ import { useDispatch } from 'react-redux';
 import App from './App';
 import MovieList from './components/pages/MovieList';
 import Movie from './components/pages/Movie';
-import { getMovieList } from './store/movieList/thunks';
 import { getMovieInfos } from './store/movieInfos/thunks';
 import Error from './components/pages/Error';
+import {
+  getSupportBd,
+  getSupportDvd,
+  getSupportLd,
+  getSupportUhd,
+  getSupportVhs
+} from './store/videoSupports/thunks';
 
 const Root = () => {
   const dispatch = useDispatch();
 
   const loadMovieList = () => {
-    // dispatch(getMovieList());
+    dispatch(getSupportVhs());
+    dispatch(getSupportLd());
+    dispatch(getSupportDvd());
+    dispatch(getSupportBd());
+    dispatch(getSupportUhd());
     return false;
   };
 
