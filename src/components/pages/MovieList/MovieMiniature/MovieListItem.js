@@ -48,7 +48,7 @@ const StyledMovieItem = styled.div`
   }
 `;
 
-const StyledRightInfos = styled.div`
+const StyledRightInfos = styled.span`
   & .right-infos__item {
     display: inline-block;
   }
@@ -59,8 +59,8 @@ const RightInfos = ({ movie }) => {
 
   return (
     <StyledRightInfos>
-      <div className="right-infos__item">{movie.releaseDate.year}</div>
-      <div className="right-infos__item seen">
+      <span className="right-infos__item">{movie.releaseDate.year}</span>
+      <span className="right-infos__item seen">
         {movie.seen ? (
           <Tooltip title="Already seen">
             <IconButton
@@ -82,7 +82,7 @@ const RightInfos = ({ movie }) => {
             </IconButton>
           </Tooltip>
         )}
-      </div>
+      </span>
     </StyledRightInfos>
   );
 };

@@ -23,7 +23,8 @@ export const getMovieInfos = (movieId) => {
         dispatch(movieInfosSuccess(data));
       }
     } catch (error) {
-      dispatch(movieInfosFailure(error.message));
+      const message = error?.response?.data?.message || error.message;
+      dispatch(movieInfosFailure(message));
     }
   };
 };

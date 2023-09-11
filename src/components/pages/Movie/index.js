@@ -61,64 +61,67 @@ const StyledMovie = styled.div`
 const Movie = () => {
   const { movieInfos, movieRegionTitle, movieInfosLoading } = useMovie();
 
-  return (
-    <StyledMovie>
-      <MovieBanner movieInfos={movieInfos} loading={movieInfosLoading} />
-      <div className="main-content">
-        <div className="inner-content">
-          {movieInfos.imdbId ? (
-            <MovieActions movieImdbId={movieInfos.imdbId} />
-          ) : null}
-          <MoviePicture
-            id={movieInfos?.imdbId}
-            movieUrl={movieInfos?.picture?.url}
-            originalTitle={movieInfos.originalTitle}
-            loading={movieInfosLoading}
-          />
-          <div className="movie__main-info">
-            <MovieMainInfo
-              movieInfos={movieInfos}
-              movieRegionTitle={movieRegionTitle}
+  if (!Object.keys(movieInfos).length) {
+    return null;
+  } else
+    return (
+      <StyledMovie>
+        <MovieBanner movieInfos={movieInfos} loading={movieInfosLoading} />
+        <div className="main-content">
+          <div className="inner-content">
+            {movieInfos.imdbId ? (
+              <MovieActions movieImdbId={movieInfos.imdbId} />
+            ) : null}
+            <MoviePicture
+              id={movieInfos?.imdbId}
+              movieUrl={movieInfos?.picture?.url}
+              originalTitle={movieInfos.originalTitle}
               loading={movieInfosLoading}
             />
-          </div>
-          <div className="movie__container">
-            <div className="movie__info">
-              <MovieInfo
+            <div className="movie__main-info">
+              <MovieMainInfo
                 movieInfos={movieInfos}
-                movieCreators={{
-                  directors: movieInfos.directors,
-                  writers: movieInfos.writers
-                }}
+                movieRegionTitle={movieRegionTitle}
                 loading={movieInfosLoading}
               />
             </div>
-            <div className="movie__casting">
-              <h2>Casting</h2>
-              {movieInfosLoading ? (
-                <div className="loader">
-                  <div className="loading">Loading</div>
-                  <CircularProgress color="secondary" />
-                </div>
-              ) : (
-                <div className="movie__casting-list">
-                  <MovieCasting
-                    casting={movieInfos.casting.principal}
-                    loading={movieInfosLoading}
-                    principal
-                  />
-                  <MovieCasting
-                    casting={movieInfos.casting.extended}
-                    loading={movieInfosLoading}
-                  />
-                </div>
-              )}
+            <div className="movie__container">
+              <div className="movie__info">
+                <MovieInfo
+                  movieInfos={movieInfos}
+                  movieCreators={{
+                    directors: movieInfos.directors,
+                    writers: movieInfos.writers
+                  }}
+                  loading={movieInfosLoading}
+                />
+              </div>
+              <div className="movie__casting">
+                <h2>Casting</h2>
+                {movieInfosLoading ? (
+                  <div className="loader">
+                    <div className="loading">Loading</div>
+                    <CircularProgress color="secondary" />
+                  </div>
+                ) : (
+                  <div className="movie__casting-list">
+                    <MovieCasting
+                      casting={movieInfos.casting.principal}
+                      loading={movieInfosLoading}
+                      principal
+                    />
+                    <MovieCasting
+                      casting={movieInfos.casting.extended}
+                      loading={movieInfosLoading}
+                    />
+                  </div>
+                )}
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </StyledMovie>
-  );
+      </StyledMovie>
+    );
 };
 
 export default Movie;

@@ -17,7 +17,7 @@ const MovieListGrid = ({ movieList }) => {
           <MovieMiniature
             movie={movie}
             miniatureType="LIST"
-            key={`movie-${movie}`}
+            key={`movie-${movie.imdbId}`}
           />
         ))}
       </List>

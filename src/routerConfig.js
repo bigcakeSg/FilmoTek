@@ -38,6 +38,10 @@ const Root = () => {
           loader: ({ params }) => loadMovieInfos(params.movieId)
         }
       ]
+    },
+    {
+      path: '/not-found',
+      element: <Error />
     }
   ]);
 

@@ -16,3 +16,8 @@ export const selectMovieId = createSelector(
   selectMovieInfosData,
   (data) => data.id
 );
+
+export const selectMovieInfosError = createSelector(
+  movieInfosStore,
+  (store) => store.error
+);
