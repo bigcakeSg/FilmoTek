@@ -5,9 +5,9 @@ import MoviePicture from './MoviePicture';
 import MovieMainInfo from './MovieMainInfo';
 import MovieInfo from './MovieInfo';
 import MovieCasting from './MovieCasting';
+import MovieActions from './MovieActions';
 import { useMovie } from './hook';
 import { bannerHeight } from '../../../utils/theme';
-import MovieActions from './MovieActions';
 import { CircularProgress } from '@mui/material';
 import { colorA } from '../../../utils/colors';
 
@@ -70,7 +70,10 @@ const Movie = () => {
         <div className="main-content">
           <div className="inner-content">
             {movieInfos.imdbId ? (
-              <MovieActions movieImdbId={movieInfos.imdbId} />
+              <MovieActions
+                movieId={movieInfos._id}
+                movieImdbId={movieInfos.imdbId}
+              />
             ) : null}
             <MoviePicture
               id={movieInfos?.imdbId}

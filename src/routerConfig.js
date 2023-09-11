@@ -6,23 +6,17 @@ import MovieList from './components/pages/MovieList';
 import Movie from './components/pages/Movie';
 import { getMovieInfos } from './store/movieInfos/thunks';
 import Error from './components/pages/Error';
-import {
-  getSupportBd,
-  getSupportDvd,
-  getSupportLd,
-  getSupportUhd,
-  getSupportVhs
-} from './store/videoSupports/thunks';
+import { getAllSupports } from './store/videoSupports/thunks';
 
 const Root = () => {
   const dispatch = useDispatch();
 
+  const initApp = () => {
+    dispatch(getAllSupports());
+    return false;
+  };
+
   const loadMovieList = () => {
-    dispatch(getSupportVhs());
-    dispatch(getSupportLd());
-    dispatch(getSupportDvd());
-    dispatch(getSupportBd());
-    dispatch(getSupportUhd());
     return false;
   };
 
@@ -36,6 +30,7 @@ const Root = () => {
       path: '/',
       element: <App />,
       errorElement: <Error />,
+      loader: initApp,
       children: [
         {
           path: '',

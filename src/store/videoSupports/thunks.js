@@ -46,3 +46,28 @@ export const getSupportUhd = () => {
     dispatch(supportUhdSuccess(data));
   };
 };
+
+export const getAllSupports = () => {
+  return (dispatch) => {
+    dispatch(getSupportVhs());
+    dispatch(getSupportLd());
+    dispatch(getSupportDvd());
+    dispatch(getSupportBd());
+    dispatch(getSupportUhd());
+  };
+};
+
+export const patchSupports = (movieId, supports) => {
+  return async (dispatch) => {
+    try {
+      const { data } = await axios.patch(
+        `http://localhost:5000/support/movie/${movieId}`,
+        supports
+      );
+
+      dispatch(getAllSupports());
+    } catch (error) {
+      //
+    }
+  };
+};

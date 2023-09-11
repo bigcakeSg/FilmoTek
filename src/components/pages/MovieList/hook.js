@@ -126,7 +126,10 @@ export const useMovieList = () => {
     searchTitle,
     seenFilter,
     supportBd,
+    supportDvd,
+    supportLd,
     supportUhd,
+    supportVhs,
     videoFormatsFilter
   ]);
 
