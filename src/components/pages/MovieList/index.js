@@ -9,8 +9,7 @@ import MovieListActionsButtons from './MovieListActionsButtons';
 const StyledMovieList = styled.div`
   & .movie-list {
     &__count {
-      margin-top: -10px;
-      margin-bottom: 10px;
+      margin: -10px 10px 10px 0;
       text-transform: uppercase;
       text-align: right;
       font-size: 14px;
@@ -23,7 +22,6 @@ const StyledMovieList = styled.div`
     &__container {
       display: flex;
       flex-wrap: wrap;
-      margin: 0 -10px;
       flex: 1;
       overflow: auto;
       align-content: flex-start;

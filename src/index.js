@@ -73,7 +73,7 @@ const StyledRoot = styled.div`
       height: 100%;
       max-width: 1820px;
       margin: 0 auto 0 auto;
-      padding: 20px 0px 0 30px;
+      padding: 20px 0 0 30px;
     }
   }
 `;
