@@ -5,12 +5,11 @@ import { Skeleton } from '@mui/material';
 
 const StyledMovieMainInfo = styled.div`
   font-size: 16px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  height: 100%;
   & .movie__info-item {
     margin-bottom: 5px;
+  }
+  & .movie__info-creators {
+    margin-bottom: 30px;
   }
   & .movie__label {
     font-weight: 700;
@@ -37,7 +36,7 @@ const StyledMovieMainInfo = styled.div`
 const MovieInfo = ({ movieInfos, movieCreators, loading }) => {
   return (
     <StyledMovieMainInfo>
-      <div>
+      <div className="movie__info-creators">
         <div className="movie__info-item movie__directors">
           <span className="movie__label">
             Director

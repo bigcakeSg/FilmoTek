@@ -35,6 +35,10 @@ const StyledRoot = styled.div`
     border-bottom: solid 1px ${colorA};
   }
 
+  & h3 {
+    border-bottom: dotted 1px ${colorA};
+  }
+
   & main {
     position: fixed;
     top: ${headerHeight}px;

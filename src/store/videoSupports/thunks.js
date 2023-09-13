@@ -48,24 +48,41 @@ export const getSupportUhd = () => {
 };
 
 export const getAllSupports = () => {
-  return (dispatch) => {
-    dispatch(getSupportVhs());
-    dispatch(getSupportLd());
-    dispatch(getSupportDvd());
-    dispatch(getSupportBd());
-    dispatch(getSupportUhd());
+  return async (dispatch) => {
+    await Promise.all([
+      dispatch(getSupportVhs()),
+      dispatch(getSupportLd()),
+      dispatch(getSupportDvd()),
+      dispatch(getSupportBd()),
+      dispatch(getSupportUhd())
+    ]);
   };
 };
 
 export const patchSupports = (movieId, supports) => {
   return async (dispatch) => {
     try {
-      const { data } = await axios.patch(
+      await axios.patch(
         `http://localhost:5000/support/movie/${movieId}`,
         supports
       );
 
       dispatch(getAllSupports());
+    } catch (error) {
+      //
+    }
+  };
+};
+
+export const patchSingleSupports = (movieId, support, alreadyExists) => {
+  return async (dispatch) => {
+    try {
+      await axios.patch(
+        `http://localhost:5000/support/movie/${movieId}/support/${support}`,
+        { alreadyExists }
+      );
+
+      await dispatch(getAllSupports());
     } catch (error) {
       //
     }

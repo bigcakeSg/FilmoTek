@@ -25,6 +25,7 @@ export const useVideoSupportForm = (movieId, setEditSupportOpen) => {
 
   const [isSupportEdition, setIsSupportEdition] = useState(false);
   const [supportsSelection, setSupportsSelection] = useState([]);
+  const [initialSupports, setInitialSupports] = useState([]);
 
   const supportVhs = useSelector(selectSupportVhs);
   const supportLd = useSelector(selectSupportLd);
@@ -33,16 +34,21 @@ export const useVideoSupportForm = (movieId, setEditSupportOpen) => {
   const supportUhd = useSelector(selectSupportUhd);
 
   useEffect(() => {
+    let supports = [];
+
     if (supportVhs.includes(movieId))
-      setSupportsSelection((prevState) => storeInArray(prevState, 'vhs', true));
+      supports = storeInArray(supports, 'vhs', true);
     if (supportLd.includes(movieId))
-      setSupportsSelection((prevState) => storeInArray(prevState, 'ld', true));
+      supports = storeInArray(supports, 'ld', true);
     if (supportDvd.includes(movieId))
-      setSupportsSelection((prevState) => storeInArray(prevState, 'dvd', true));
+      supports = storeInArray(supports, 'dvd', true);
     if (supportBd.includes(movieId))
-      setSupportsSelection((prevState) => storeInArray(prevState, 'bd', true));
+      supports = storeInArray(supports, 'bd', true);
     if (supportUhd.includes(movieId))
-      setSupportsSelection((prevState) => storeInArray(prevState, 'uhd', true));
+      supports = storeInArray(supports, 'uhd', true);
+
+    setSupportsSelection(supports);
+    setInitialSupports(supports);
   }, [movieId, supportBd, supportDvd, supportLd, supportUhd, supportVhs]);
 
   const handleChangeSupportSelection = (event) => {
@@ -73,10 +79,16 @@ export const useVideoSupportForm = (movieId, setEditSupportOpen) => {
     [movieId, supportsSelection]
   );
 
+  const handleCancelEditSupport = useCallback(() => {
+    setEditSupportOpen(false);
+    setSupportsSelection(initialSupports);
+  }, [initialSupports]);
+
   return {
     handleEditSupport,
     isSupportEdition,
     supportsSelection,
-    handleChangeSupportSelection
+    handleChangeSupportSelection,
+    handleCancelEditSupport
   };
 };

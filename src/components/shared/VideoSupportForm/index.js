@@ -38,7 +38,8 @@ const VideoSupportForm = ({ movieId, editSupportOpen, setEditSupportOpen }) => {
     handleEditSupport,
     isSupportEdition,
     supportsSelection,
-    handleChangeSupportSelection
+    handleChangeSupportSelection,
+    handleCancelEditSupport
   } = useVideoSupportForm(movieId, setEditSupportOpen);
 
   return (
@@ -108,13 +109,7 @@ const VideoSupportForm = ({ movieId, editSupportOpen, setEditSupportOpen }) => {
             </FormControl>
           </DialogContent>
           <DialogActions>
-            <Button
-              onClick={() => {
-                setEditSupportOpen(false);
-              }}
-            >
-              Cancel
-            </Button>
+            <Button onClick={handleCancelEditSupport}>Cancel</Button>
             <Button type="submit">Save</Button>
           </DialogActions>
         </form>

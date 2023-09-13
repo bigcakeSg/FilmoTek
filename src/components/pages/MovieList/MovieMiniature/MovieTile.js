@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { CircularProgress, IconButton, Tooltip } from '@mui/material';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import AlbumIcon from '@mui/icons-material/Album';
 import { colorA, colorALight } from '../../../../utils/colors';
 import NoImg from '../../../../assets/noMovie.jpg';
 import { useMovieMiniature } from './hook';
@@ -111,7 +112,7 @@ const StyledLink = styled(Link)`
   text-decoration: none;
 `;
 
-const MovieTile = ({ movie }) => {
+const MovieTile = ({ movie, handleEditSupport }) => {
   const { movieTitleRegional, isLoading, handleSeen } =
     useMovieMiniature(movie);
 
@@ -168,6 +169,15 @@ const MovieTile = ({ movie }) => {
                   </IconButton>
                 </Tooltip>
               )}
+              <Tooltip title="Edit video support">
+                <IconButton
+                  aria-label="import"
+                  color="secondary"
+                  onClick={handleEditSupport}
+                >
+                  <AlbumIcon />
+                </IconButton>
+              </Tooltip>
             </div>
             <div className="year">{movie.releaseDate.year}</div>
           </div>
@@ -177,7 +187,12 @@ const MovieTile = ({ movie }) => {
 };
 
 MovieTile.propTypes = {
-  movie: PropTypes.object.isRequired
+  movie: PropTypes.object.isRequired,
+  handleEditSupport: PropTypes.func
+};
+
+MovieTile.defaultProps = {
+  handleEditSupport: () => null
 };
 
 export default MovieTile;
