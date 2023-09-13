@@ -50,10 +50,6 @@ const StyledMovie = styled.div`
       width: 300px;
       margin-top: 230px;
       position: fixed;
-      h3 {
-        margin-bottom: 5px;
-        color: ${colorA};
-      }
       & p {
         font-size: 18px;
         line-height: 26px;

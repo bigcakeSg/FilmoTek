@@ -63,11 +63,16 @@ const StyledMovieMiniature = styled.div`
     }
     &__action-buttons {
       position: absolute;
-      bottom: 0;
-      left: 0px;
+      bottom: 6px;
+      left: -10px;
       right: 0;
       padding: 3px;
-      background-color: ${colorA};
+      background: linear-gradient(
+        90deg,
+        rgba(38, 50, 56, 1) 0%,
+        rgba(38, 50, 56, 1) 50%,
+        rgba(38, 50, 56, 0) 100%
+      );
     }
     &__infos {
       display: none;
@@ -90,8 +95,8 @@ const StyledMovieMiniature = styled.div`
       & .year {
         position: absolute;
         text-align: right;
-        bottom: 35px;
-        right: 6px;
+        bottom: 45px;
+        right: 10px;
       }
     }
   }

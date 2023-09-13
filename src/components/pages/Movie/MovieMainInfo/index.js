@@ -12,21 +12,29 @@ const StyledMovieMainInfo = styled.div`
   height: 100%;
   & .movie {
     &__title {
-      border-bottom: solid 1px #fff;
-      padding-bottom: 10px;
-      margin-bottom: 10px;
+      margin-bottom: 20px;
       &--original {
         font-weight: 700;
         font-size: 30px;
-        margin-bottom: 5px;
+        margin: 0 50px 5px -20px;
+        padding: 3px 20px;
+        background: linear-gradient(
+          90deg,
+          rgba(38, 50, 56, 1) 0%,
+          rgba(38, 50, 56, 1) 50%,
+          rgba(38, 50, 56, 0) 100%
+        );
       }
       &--region {
         font-weight: 300;
         font-size: 18px;
+        margin-left: 10px;
+        font-style: italic;
       }
     }
     &__year-duration {
       font-size: 20px;
+      margin-left: 10px;
       & .year {
         display: inline-block;
         font-weight: 500;

@@ -1,8 +1,10 @@
-import { useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
+import { render } from 'react-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getMovieTitleByRegion } from '../../../../utils/helpers';
 import { selectRegion } from '../../../../store/config/selectors';
 import { updateSeenMovie } from '../../../../store/movieList/thunks';
+import VideoSupportForm from '../../../shared/VideoSupportForm';
 
 export const useMovieMiniature = (movieMiniInfos) => {
   const dispatch = useDispatch();
@@ -54,9 +56,37 @@ export const useMovieMiniature = (movieMiniInfos) => {
   }, [movieId]);
   */
 
+  const [editSupportOpen, setEditSupportOpen] = useState(false);
+
+  const handleCancelEditSupport = () => {
+    // const modalContainer = document.getElementById('modal-container');
+    // render('', modalContainer);
+    // setEditSupportOpen(false);
+  };
+  // console.log(editSupportOpen);
+  const handleEditSupport = (e) => {
+    e.preventDefault();
+
+    // const modalContainer = document.getElementById('modal-container');
+
+    // render(
+    //   <VideoSupportForm
+    //     movieId={movieMiniInfos._id}
+    //     handleEditSupport={() => null}
+    //     handleCancelEditSupport={handleCancelEditSupport}
+    //     editSupportOpen={editSupportOpen}
+    //     setEditSupportOpen={() => null}
+    //     isSupportEdition={false}
+    //   />,
+    //   modalContainer,
+    //   () => setEditSupportOpen(true)
+    // );
+  };
+
   return {
     movieTitleRegional,
     isLoading: false,
-    handleSeen
+    handleSeen,
+    handleEditSupport
   };
 };
