@@ -27,7 +27,7 @@ const StyledMovie = styled.div`
     &__info {
       position: relative;
       top: 10px;
-      width: calc(100% - 370px);
+      width: 100%;
       height: 100px;
       vertical-align: text-bottom;
     }
@@ -44,6 +44,7 @@ const StyledMovie = styled.div`
     }
     &__container-info {
       margin-left: 330px;
+      padding-right: 10px;
     }
     &__detail {
       width: 300px;

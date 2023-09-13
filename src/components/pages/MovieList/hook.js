@@ -57,7 +57,7 @@ const sortChrono = (a, b) => {
   return 0;
 };
 
-const moviesPerPage = 30;
+const moviesPerPage = 24;
 
 export const useMovieList = () => {
   const dispatch = useDispatch();
@@ -117,6 +117,15 @@ export const useMovieList = () => {
         (videoFormatsFilter.includes('uhd') && supportUhd.includes(movie._id));
 
       return titleValidate && seenFilterValidate && formatValidate;
+
+      // To return movies with no support
+      // return (
+      //   !supportVhs.includes(movie._id) &&
+      //   !supportLd.includes(movie._id) &&
+      //   !supportDvd.includes(movie._id) &&
+      //   !supportBd.includes(movie._id) &&
+      //   !supportUhd.includes(movie._id)
+      // );
     });
 
     return newMovieList;

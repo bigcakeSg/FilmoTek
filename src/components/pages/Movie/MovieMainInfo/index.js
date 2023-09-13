@@ -66,7 +66,11 @@ const MovieMainInfo = ({ movieInfos, movieRegionTitle, loading }) => {
             <div className="movie__title--original">
               {movieInfos.originalTitle}
             </div>
-            <div className="movie__title--region">{movieRegionTitle}</div>
+            <div className="movie__title--region">
+              {movieInfos.originalTitle !== movieRegionTitle
+                ? movieRegionTitle
+                : null}
+            </div>
           </>
         )}
       </div>

@@ -61,6 +61,14 @@ const StyledMovieMiniature = styled.div`
       width: ${miniWidth}px;
       height: ${miniHeight}px;
     }
+    &__action-buttons {
+      position: absolute;
+      bottom: 0;
+      left: 0px;
+      right: 0;
+      padding: 3px;
+      background-color: ${colorA};
+    }
     &__infos {
       display: none;
       position: absolute;
@@ -74,19 +82,16 @@ const StyledMovieMiniature = styled.div`
       justify-content: space-between;
       & .original-title {
         font-weight: 700;
-        margin-top: 25px;
         margin-bottom: 5px;
       }
       & .regional-title {
         font-weight: 300;
       }
-      & .seen {
-        position: absolute;
-        bottom: 3px;
-        left: 3px;
-      }
       & .year {
+        position: absolute;
         text-align: right;
+        bottom: 35px;
+        right: 6px;
       }
     }
   }
@@ -112,8 +117,8 @@ const StyledLink = styled(Link)`
   text-decoration: none;
 `;
 
-const MovieTile = ({ movie, handleEditSupport }) => {
-  const { movieTitleRegional, isLoading, handleSeen } =
+const MovieTile = ({ movie }) => {
+  const { movieTitleRegional, isLoading, handleSeen, handleEditSupport } =
     useMovieMiniature(movie);
 
   if (isLoading)
@@ -145,17 +150,22 @@ const MovieTile = ({ movie, handleEditSupport }) => {
           <div className="movie__infos">
             <div>
               <div className="original-title">{movie.originalTitle}</div>
-              <div className="regional-title">{movieTitleRegional}</div>
+              <div className="regional-title">
+                {movie.originalTitle !== movieTitleRegional
+                  ? movieTitleRegional
+                  : null}
+              </div>
             </div>
-            <div className="seen">
+            <div className="movie__action-buttons">
               {movie.seen ? (
                 <Tooltip title="Already seen">
                   <IconButton
                     aria-label="import"
                     color="secondary"
                     onClick={handleSeen}
+                    size="small"
                   >
-                    <VisibilityIcon />
+                    <VisibilityIcon fontSize="inherit" />
                   </IconButton>
                 </Tooltip>
               ) : (
@@ -164,8 +174,9 @@ const MovieTile = ({ movie, handleEditSupport }) => {
                     aria-label="import"
                     color="secondary"
                     onClick={handleSeen}
+                    size="small"
                   >
-                    <VisibilityOffIcon />
+                    <VisibilityOffIcon fontSize="inherit" />
                   </IconButton>
                 </Tooltip>
               )}
@@ -174,8 +185,9 @@ const MovieTile = ({ movie, handleEditSupport }) => {
                   aria-label="import"
                   color="secondary"
                   onClick={handleEditSupport}
+                  size="small"
                 >
-                  <AlbumIcon />
+                  <AlbumIcon fontSize="inherit" />
                 </IconButton>
               </Tooltip>
             </div>
@@ -187,8 +199,7 @@ const MovieTile = ({ movie, handleEditSupport }) => {
 };
 
 MovieTile.propTypes = {
-  movie: PropTypes.object.isRequired,
-  handleEditSupport: PropTypes.func
+  movie: PropTypes.object.isRequired
 };
 
 MovieTile.defaultProps = {
