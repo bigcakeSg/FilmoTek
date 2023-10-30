@@ -19,7 +19,7 @@ const StyledFooter = styled.footer`
 `;
 
 const Footer = () => {
-  return <StyledFooter>&copy;Sébastien Girard</StyledFooter>;
+  return <StyledFooter>V0.9 - &copy;Sébastien Girard</StyledFooter>;
 };
 
 export default Footer;

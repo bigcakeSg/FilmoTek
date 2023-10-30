@@ -15,9 +15,17 @@ import {
   selectDisplayType,
   selectPage,
   selectSearchTitle,
-  selectSeenFilter
+  selectSeenFilter,
+  selectVideoFormatsFilter
 } from '../../../store/configMovieList/selectors';
 import { selectRegion } from '../../../store/config/selectors';
+import {
+  selectSupportBd,
+  selectSupportDvd,
+  selectSupportLd,
+  selectSupportUhd,
+  selectSupportVhs
+} from '../../../store/videoSupports/selectors';
 
 const sliceList = (page, count, list) => {
   const newList = [...list];
@@ -49,7 +57,7 @@ const sortChrono = (a, b) => {
   return 0;
 };
 
-const moviesPerPage = 30;
+const moviesPerPage = 24;
 
 export const useMovieList = () => {
   const dispatch = useDispatch();
@@ -61,8 +69,16 @@ export const useMovieList = () => {
   const movieList = useSelector(selectMovieIdList);
   const searchTitle = useSelector(selectSearchTitle);
   const seenFilter = useSelector(selectSeenFilter);
+  const videoFormatsFilter = useSelector(selectVideoFormatsFilter);
+
   const movieListLoading = useSelector(selectMovieListLoading);
   const regionLanguage = useSelector(selectRegion);
+
+  const supportVhs = useSelector(selectSupportVhs);
+  const supportLd = useSelector(selectSupportLd);
+  const supportDvd = useSelector(selectSupportDvd);
+  const supportBd = useSelector(selectSupportBd);
+  const supportUhd = useSelector(selectSupportUhd);
 
   // Filter movies
   const moviesFiltered = useMemo(() => {
@@ -84,15 +100,47 @@ export const useMovieList = () => {
             .indexOf(searchTitle.toLowerCase()) !== -1;
       }
 
+      const titleValidate = isOriginalTitle || isRegionalTitle;
+
       const seenFilterValidate = seenFilter.length
         ? seenFilter.includes(movie.seen)
         : true;
 
-      return (isOriginalTitle || isRegionalTitle) && seenFilterValidate;
+      const formatValidate =
+        !videoFormatsFilter.length ||
+        (videoFormatsFilter.includes('vhs') &&
+          supportVhs.includes(movie._id)) ||
+        (videoFormatsFilter.includes('ld') && supportLd.includes(movie._id)) ||
+        (videoFormatsFilter.includes('dvd') &&
+          supportDvd.includes(movie._id)) ||
+        (videoFormatsFilter.includes('bd') && supportBd.includes(movie._id)) ||
+        (videoFormatsFilter.includes('uhd') && supportUhd.includes(movie._id));
+
+      return titleValidate && seenFilterValidate && formatValidate;
+
+      // To return movies with no support
+      // return (
+      //   !supportVhs.includes(movie._id) &&
+      //   !supportLd.includes(movie._id) &&
+      //   !supportDvd.includes(movie._id) &&
+      //   !supportBd.includes(movie._id) &&
+      //   !supportUhd.includes(movie._id)
+      // );
     });
 
     return newMovieList;
-  }, [movieList, searchTitle, seenFilter]);
+  }, [
+    movieList,
+    regionLanguage,
+    searchTitle,
+    seenFilter,
+    supportBd,
+    supportDvd,
+    supportLd,
+    supportUhd,
+    supportVhs,
+    videoFormatsFilter
+  ]);
 
   // Sort movies
   const moviesSorted = useMemo(() => {

@@ -1,12 +1,11 @@
 import { PropTypes } from 'prop-types';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { CircularProgress, IconButton, Tooltip } from '@mui/material';
-import VisibilityIcon from '@mui/icons-material/Visibility';
-import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import { CircularProgress } from '@mui/material';
 import { colorA, colorALight } from '../../../../utils/colors';
 import NoImg from '../../../../assets/noMovie.jpg';
 import { useMovieMiniature } from './hook';
+import MovieTools from '../MovieTools';
 
 const miniWidth = 200;
 const miniHeight = 294;
@@ -73,19 +72,16 @@ const StyledMovieMiniature = styled.div`
       justify-content: space-between;
       & .original-title {
         font-weight: 700;
-        margin-top: 25px;
         margin-bottom: 5px;
       }
       & .regional-title {
         font-weight: 300;
       }
-      & .seen {
-        position: absolute;
-        bottom: 3px;
-        left: 3px;
-      }
       & .year {
+        position: absolute;
         text-align: right;
+        bottom: 45px;
+        right: 10px;
       }
     }
   }
@@ -112,8 +108,7 @@ const StyledLink = styled(Link)`
 `;
 
 const MovieTile = ({ movie }) => {
-  const { movieTitleRegional, isLoading, handleSeen } =
-    useMovieMiniature(movie);
+  const { movieTitleRegional, isLoading } = useMovieMiniature(movie);
 
   if (isLoading)
     return (
@@ -144,31 +139,13 @@ const MovieTile = ({ movie }) => {
           <div className="movie__infos">
             <div>
               <div className="original-title">{movie.originalTitle}</div>
-              <div className="regional-title">{movieTitleRegional}</div>
+              <div className="regional-title">
+                {movie.originalTitle !== movieTitleRegional
+                  ? movieTitleRegional
+                  : null}
+              </div>
             </div>
-            <div className="seen">
-              {movie.seen ? (
-                <Tooltip title="Already seen">
-                  <IconButton
-                    aria-label="import"
-                    color="secondary"
-                    onClick={handleSeen}
-                  >
-                    <VisibilityIcon />
-                  </IconButton>
-                </Tooltip>
-              ) : (
-                <Tooltip title="Not yet seen">
-                  <IconButton
-                    aria-label="import"
-                    color="secondary"
-                    onClick={handleSeen}
-                  >
-                    <VisibilityOffIcon />
-                  </IconButton>
-                </Tooltip>
-              )}
-            </div>
+            <MovieTools movie={movie} />
             <div className="year">{movie.releaseDate.year}</div>
           </div>
         </StyledMovieMiniature>
@@ -178,6 +155,10 @@ const MovieTile = ({ movie }) => {
 
 MovieTile.propTypes = {
   movie: PropTypes.object.isRequired
+};
+
+MovieTile.defaultProps = {
+  handleEditSupport: () => null
 };
 
 export default MovieTile;

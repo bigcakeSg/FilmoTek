@@ -4,6 +4,7 @@ export const CONFIG_PAGE_MOVIELIST = 'Config Movie List: Page';
 export const CONFIG_REDIRECT_MOVIELIST = 'Config Movie List: Redirect';
 export const CONFIG_SEARCHTITLE_MOVIELIST = 'Config Movie List: Search title';
 export const CONFIG_SEEN_FILTER_MOVIELIST = 'Config Movie List: Seen filter';
+export const CONFIG_VIDEO_FORMATS_MOVIELIST = 'Config Movie List: Video format';
 
 export const configSortMovieList = (data) => ({
   type: CONFIG_SORT_MOVIELIST,
@@ -32,5 +33,10 @@ export const configSearchTitleMovieList = (data) => ({
 
 export const configSeenfilterMovieList = (data) => ({
   type: CONFIG_SEEN_FILTER_MOVIELIST,
+  payload: data
+});
+
+export const configVideoFormatMovieList = (data) => ({
+  type: CONFIG_VIDEO_FORMATS_MOVIELIST,
   payload: data
 });

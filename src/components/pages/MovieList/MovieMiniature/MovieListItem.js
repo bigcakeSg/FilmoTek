@@ -131,7 +131,11 @@ const MovieListItem = ({ movie }) => {
               ></div> */}
               <ListItemText
                 primary={movie.originalTitle}
-                secondary={movieTitleRegional}
+                secondary={
+                  movie.originalTitle !== movieTitleRegional
+                    ? movieTitleRegional
+                    : null
+                }
               />
               <ListItemText
                 secondary={<RightInfos movie={movie} />}

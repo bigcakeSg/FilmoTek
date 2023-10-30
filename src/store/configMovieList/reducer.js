@@ -4,7 +4,8 @@ import {
   CONFIG_PAGE_MOVIELIST,
   CONFIG_REDIRECT_MOVIELIST,
   CONFIG_SEARCHTITLE_MOVIELIST,
-  CONFIG_SEEN_FILTER_MOVIELIST
+  CONFIG_SEEN_FILTER_MOVIELIST,
+  CONFIG_VIDEO_FORMATS_MOVIELIST
 } from './actions';
 
 const initialState = {
@@ -13,7 +14,8 @@ const initialState = {
   page: 1,
   creationRedirect: false,
   searchTitle: '',
-  seenFilter: []
+  seenFilter: [],
+  videoFormats: []
 };
 
 export default function reducer(state = initialState, action) {
@@ -30,6 +32,8 @@ export default function reducer(state = initialState, action) {
       return { ...state, searchTitle: action.payload };
     case CONFIG_SEEN_FILTER_MOVIELIST:
       return { ...state, seenFilter: action.payload };
+    case CONFIG_VIDEO_FORMATS_MOVIELIST:
+      return { ...state, videoFormats: action.payload };
     default:
       return { ...state };
   }

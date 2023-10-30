@@ -3,13 +3,15 @@ import {
   configDisplayMovieList,
   configSearchTitleMovieList,
   configSeenfilterMovieList,
-  configSortMovieList
+  configSortMovieList,
+  configVideoFormatMovieList
 } from '../../../../store/configMovieList/actions';
 import {
   selecSort,
   selectDisplayType,
   selectSearchTitle,
-  selectSeenFilter
+  selectSeenFilter,
+  selectVideoFormatsFilter
 } from '../../../../store/configMovieList/selectors';
 import { selectRegion } from '../../../../store/config/selectors';
 // import { debounce } from '../../../../utils/helpers';
@@ -23,6 +25,7 @@ export const useMovieListActionsButtons = () => {
   const searchTitle = useSelector(selectSearchTitle);
   const regionLanguage = useSelector(selectRegion);
   const seenFilterValues = useSelector(selectSeenFilter);
+  const videoFormatFilterValues = useSelector(selectVideoFormatsFilter);
 
   const handleSeenCheck = (event) => {
     const {
@@ -30,6 +33,14 @@ export const useMovieListActionsButtons = () => {
     } = event;
 
     dispatch(configSeenfilterMovieList(value));
+  };
+
+  const handleVideoFormatCheck = (event) => {
+    const {
+      target: { value }
+    } = event;
+
+    dispatch(configVideoFormatMovieList(value));
   };
 
   const handleDisplayChange = (_, newDisplay) => {
@@ -69,6 +80,8 @@ export const useMovieListActionsButtons = () => {
     handleClearTitleFilter,
     country,
     seenFilterValues,
-    handleSeenCheck
+    handleSeenCheck,
+    videoFormatFilterValues,
+    handleVideoFormatCheck
   };
 };

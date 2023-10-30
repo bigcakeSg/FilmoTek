@@ -2,9 +2,9 @@ import { useCallback, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { addNotification } from '../../../store/notification/actions';
-import { deleteMovieByImdbId } from '../../../store/movieList/thunks';
+import { deleteMovieById } from '../../../store/movieList/thunks';
 
-export const useDeleteMovieForm = (movieImdbId, setDeleteMovieOpen) => {
+export const useDeleteMovieForm = (movieId, setDeleteMovieOpen) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -14,7 +14,7 @@ export const useDeleteMovieForm = (movieImdbId, setDeleteMovieOpen) => {
     e.preventDefault();
     setIsMovieDeletion(true);
 
-    const result = await dispatch(deleteMovieByImdbId(movieImdbId));
+    const result = await dispatch(deleteMovieById(movieId));
 
     setDeleteMovieOpen(false);
     setIsMovieDeletion(false);

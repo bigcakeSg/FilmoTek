@@ -31,3 +31,8 @@ export const selectSeenFilter = createSelector(
   configMovieListStore,
   (store) => store.seenFilter
 );
+
+export const selectVideoFormatsFilter = createSelector(
+  configMovieListStore,
+  (store) => store.videoFormats
+);

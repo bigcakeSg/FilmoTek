@@ -35,6 +35,20 @@ const StyledRoot = styled.div`
     border-bottom: solid 1px ${colorA};
   }
 
+  & h3 {
+    font-size: 18px;
+    padding: 3px 10px;
+    margin: 0 10px 10px -20px;
+    background: linear-gradient(
+      90deg,
+      rgba(38, 50, 56, 1) 0%,
+      rgba(38, 50, 56, 1) 50%,
+      rgba(38, 50, 56, 0) 100%
+    );
+    color: #fff;
+    font-weight: 100;
+  }
+
   & main {
     position: fixed;
     top: ${headerHeight}px;
@@ -59,7 +73,7 @@ const StyledRoot = styled.div`
       height: 100%;
       max-width: 1820px;
       margin: 0 auto 0 auto;
-      padding: 20px 20px 0 20px;
+      padding: 20px 0 0 30px;
     }
   }
 `;

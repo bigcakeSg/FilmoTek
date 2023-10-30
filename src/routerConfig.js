@@ -4,15 +4,19 @@ import { useDispatch } from 'react-redux';
 import App from './App';
 import MovieList from './components/pages/MovieList';
 import Movie from './components/pages/Movie';
-import { getMovieList } from './store/movieList/thunks';
 import { getMovieInfos } from './store/movieInfos/thunks';
 import Error from './components/pages/Error';
+import { getAllSupports } from './store/videoSupports/thunks';
 
 const Root = () => {
   const dispatch = useDispatch();
 
+  const initApp = () => {
+    dispatch(getAllSupports());
+    return false;
+  };
+
   const loadMovieList = () => {
-    // dispatch(getMovieList());
     return false;
   };
 
@@ -26,6 +30,7 @@ const Root = () => {
       path: '/',
       element: <App />,
       errorElement: <Error />,
+      loader: initApp,
       children: [
         {
           path: '',

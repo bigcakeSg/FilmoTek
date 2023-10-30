@@ -29,13 +29,9 @@ const StyledLoader = styled(Backdrop)`
   }
 `;
 
-const DeleteMovieForm = ({
-  movieImdbId,
-  deleteMovieOpen,
-  setDeleteMovieOpen
-}) => {
+const DeleteMovieForm = ({ movieId, deleteMovieOpen, setDeleteMovieOpen }) => {
   const { handleDeleteMovie, isMovieDeletion } = useDeleteMovieForm(
-    movieImdbId,
+    movieId,
     setDeleteMovieOpen
   );
 
