@@ -4,7 +4,6 @@ Gestionnaire de vidéothèque (partie front - React)
 
 ## Roadmap
 
-- Résumé
 - Lazy loading
 - Options de filtre (par réalisateur)
 - Affichage des formats vidéo
