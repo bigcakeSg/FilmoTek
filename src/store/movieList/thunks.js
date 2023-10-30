@@ -10,13 +10,14 @@ import {
   movieLisUpdateMovieSuccess,
   movieLisUpdateMovieFailure
 } from './actions';
+import { patchSupports } from '../videoSupports/thunks';
 
 export const getMovieList = () => {
   return async (dispatch) => {
     try {
       dispatch(movieListLoading());
 
-      const { data } = await axios.get('http://localhost:5000/movie/list');
+      const { data } = await axios.get(`http://localhost:5000/movie/list`);
 
       dispatch(movieListSuccess(data));
     } catch (error) {
@@ -147,7 +148,8 @@ export const postMovieByImdbId = (movieId) => {
             characters: node.characters?.map((char) => char.name) || [],
             attributes: node?.attributes?.map((attr) => attr.text) || []
           }))
-        }
+        },
+        seen: false
       };
 
       const { data, status } = await axios.post(
@@ -166,7 +168,8 @@ export const postMovieByImdbId = (movieId) => {
             regionalTitles: movieParams.regionalTitles,
             picture: movieParams.picture,
             releaseDate: movieParams.releaseDate,
-            directors: movieParams.directors
+            directors: movieParams.directors,
+            seen: false
           })
         );
 
@@ -194,12 +197,13 @@ export const postMovieByImdbId = (movieId) => {
 // };
 
 // Movie deletion
-export const deleteMovieByImdbId = (imdbId) => {
+export const deleteMovieById = (movieId) => {
   return async (dispatch) => {
     try {
-      await axios.delete(`http://localhost:5000/movie/${imdbId}`);
+      await axios.delete(`http://localhost:5000/movie/${movieId}`);
+      await dispatch(patchSupports(movieId, []));
 
-      dispatch(movieLisRemoveMovieSuccess(imdbId));
+      dispatch(movieLisRemoveMovieSuccess(movieId));
       return { severity: 'success', message: 'Movie deleted!' };
     } catch (error) {
       dispatch(movieLisRemoveMovieFailure(error));
@@ -209,11 +213,11 @@ export const deleteMovieByImdbId = (imdbId) => {
 };
 
 // Movie update seen
-export const updateSeenMovie = (imdbId, seen) => {
+export const updateSeenMovie = (movieId, seen) => {
   return async (dispatch) => {
     try {
       const { data } = await axios.patch(
-        `http://localhost:5000/movie/${imdbId}/seen`,
+        `http://localhost:5000/movie/${movieId}/seen`,
         { seen }
       );
 

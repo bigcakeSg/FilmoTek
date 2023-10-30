@@ -31,7 +31,7 @@ export default function reducer(state = initialState, action) {
       let newSate = [];
 
       for (const movie of state.data) {
-        if (movie.imdbId !== action.payload) newSate.push(movie);
+        if (movie._id !== action.payload) newSate.push(movie);
       }
 
       return {

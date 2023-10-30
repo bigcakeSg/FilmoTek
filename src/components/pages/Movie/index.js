@@ -89,10 +89,7 @@ const Movie = () => {
         <div className="main-content">
           <div className="inner-content">
             {movieInfos.imdbId ? (
-              <MovieActions
-                movieId={movieInfos._id}
-                movieImdbId={movieInfos.imdbId}
-              />
+              <MovieActions movieId={movieInfos._id} />
             ) : null}
             <MoviePicture
               id={movieInfos?.imdbId}

@@ -1,13 +1,11 @@
 import { PropTypes } from 'prop-types';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { CircularProgress, IconButton, Tooltip } from '@mui/material';
-import VisibilityIcon from '@mui/icons-material/Visibility';
-import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
-import AlbumIcon from '@mui/icons-material/Album';
+import { CircularProgress } from '@mui/material';
 import { colorA, colorALight } from '../../../../utils/colors';
 import NoImg from '../../../../assets/noMovie.jpg';
 import { useMovieMiniature } from './hook';
+import MovieTools from '../MovieTools';
 
 const miniWidth = 200;
 const miniHeight = 294;
@@ -61,19 +59,6 @@ const StyledMovieMiniature = styled.div`
       width: ${miniWidth}px;
       height: ${miniHeight}px;
     }
-    &__action-buttons {
-      position: absolute;
-      bottom: 6px;
-      left: -10px;
-      right: 0;
-      padding: 3px;
-      background: linear-gradient(
-        90deg,
-        rgba(38, 50, 56, 1) 0%,
-        rgba(38, 50, 56, 1) 50%,
-        rgba(38, 50, 56, 0) 100%
-      );
-    }
     &__infos {
       display: none;
       position: absolute;
@@ -123,8 +108,7 @@ const StyledLink = styled(Link)`
 `;
 
 const MovieTile = ({ movie }) => {
-  const { movieTitleRegional, isLoading, handleSeen, handleEditSupport } =
-    useMovieMiniature(movie);
+  const { movieTitleRegional, isLoading } = useMovieMiniature(movie);
 
   if (isLoading)
     return (
@@ -161,41 +145,7 @@ const MovieTile = ({ movie }) => {
                   : null}
               </div>
             </div>
-            <div className="movie__action-buttons">
-              {movie.seen ? (
-                <Tooltip title="Already seen">
-                  <IconButton
-                    aria-label="import"
-                    color="secondary"
-                    onClick={handleSeen}
-                    size="small"
-                  >
-                    <VisibilityIcon fontSize="inherit" />
-                  </IconButton>
-                </Tooltip>
-              ) : (
-                <Tooltip title="Not yet seen">
-                  <IconButton
-                    aria-label="import"
-                    color="secondary"
-                    onClick={handleSeen}
-                    size="small"
-                  >
-                    <VisibilityOffIcon fontSize="inherit" />
-                  </IconButton>
-                </Tooltip>
-              )}
-              <Tooltip title="Edit video support">
-                <IconButton
-                  aria-label="import"
-                  color="secondary"
-                  onClick={handleEditSupport}
-                  size="small"
-                >
-                  <AlbumIcon fontSize="inherit" />
-                </IconButton>
-              </Tooltip>
-            </div>
+            <MovieTools movie={movie} />
             <div className="year">{movie.releaseDate.year}</div>
           </div>
         </StyledMovieMiniature>

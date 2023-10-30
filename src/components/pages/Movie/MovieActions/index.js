@@ -21,7 +21,7 @@ const StyledMovieActions = styled.div`
   }
 `;
 
-const MovieActions = ({ movieId, movieImdbId }) => {
+const MovieActions = ({ movieId }) => {
   const {
     handleDelete,
     deleteMovieOpen,
@@ -69,7 +69,7 @@ const MovieActions = ({ movieId, movieImdbId }) => {
         setEditSupportOpen={setEditSupportOpen}
       />
       <DeleteMovieForm
-        movieImdbId={movieImdbId}
+        movieId={movieId}
         deleteMovieOpen={deleteMovieOpen}
         setDeleteMovieOpen={setDeleteMovieOpen}
       />
@@ -80,6 +80,5 @@ const MovieActions = ({ movieId, movieImdbId }) => {
 export default MovieActions;
 
 MovieActions.propTypes = {
-  movieId: PropTypes.string.isRequired,
-  movieImdbId: PropTypes.string.isRequired
+  movieId: PropTypes.string.isRequired
 };
