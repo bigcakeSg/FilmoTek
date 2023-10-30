@@ -1,4 +1,3 @@
-import axios from 'axios';
 import {
   supportBdSuccess,
   supportDvdSuccess,
@@ -6,10 +5,11 @@ import {
   supportUhdSuccess,
   supportVhsSuccess
 } from './actions';
+import { axiosInst } from '../../axiosConfig';
 
 export const getSupportVhs = () => {
   return async (dispatch) => {
-    const { data } = await axios.get('http://localhost:5000/support/vhs');
+    const { data } = await axiosInst.get('support/vhs');
 
     dispatch(supportVhsSuccess(data));
   };
@@ -17,7 +17,7 @@ export const getSupportVhs = () => {
 
 export const getSupportLd = () => {
   return async (dispatch) => {
-    const { data } = await axios.get('http://localhost:5000/support/ld');
+    const { data } = await axiosInst.get('support/ld');
 
     dispatch(supportLdSuccess(data));
   };
@@ -25,7 +25,7 @@ export const getSupportLd = () => {
 
 export const getSupportDvd = () => {
   return async (dispatch) => {
-    const { data } = await axios.get('http://localhost:5000/support/dvd');
+    const { data } = await axiosInst.get('support/dvd');
 
     dispatch(supportDvdSuccess(data));
   };
@@ -33,7 +33,7 @@ export const getSupportDvd = () => {
 
 export const getSupportBd = () => {
   return async (dispatch) => {
-    const { data } = await axios.get('http://localhost:5000/support/bd');
+    const { data } = await axiosInst.get('support/bd');
 
     dispatch(supportBdSuccess(data));
   };
@@ -41,7 +41,7 @@ export const getSupportBd = () => {
 
 export const getSupportUhd = () => {
   return async (dispatch) => {
-    const { data } = await axios.get('http://localhost:5000/support/uhd');
+    const { data } = await axiosInst.get('support/uhd');
 
     dispatch(supportUhdSuccess(data));
   };
@@ -62,10 +62,7 @@ export const getAllSupports = () => {
 export const patchSupports = (movieId, supports) => {
   return async (dispatch) => {
     try {
-      await axios.patch(
-        `http://localhost:5000/support/movie/${movieId}`,
-        supports
-      );
+      await axiosInst.patch(`movie/${movieId}`, supports);
 
       dispatch(getAllSupports());
     } catch (error) {
@@ -77,10 +74,9 @@ export const patchSupports = (movieId, supports) => {
 export const patchSingleSupports = (movieId, support, alreadyExists) => {
   return async (dispatch) => {
     try {
-      await axios.patch(
-        `http://localhost:5000/support/movie/${movieId}/support/${support}`,
-        { alreadyExists }
-      );
+      await axiosInst.patch(`support/movie/${movieId}/support/${support}`, {
+        alreadyExists
+      });
 
       await dispatch(getAllSupports());
     } catch (error) {
