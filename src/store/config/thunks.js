@@ -1,14 +1,18 @@
 import { configFailure, configLoading, configSuccess } from './actions';
-import { axiosInst } from '../../axiosConfig';
 
 export const getConfig = () => {
   return async (dispatch) => {
     try {
       dispatch(configLoading());
 
-      const { data } = await axiosInst.get('config');
-
-      dispatch(configSuccess(data[0]));
+      dispatch(
+        configSuccess({
+          rapidApiHeader: {
+            'X-RapidAPI-Key': process.env.REACT_APP_RAPID_API_KEY,
+            'X-RapidAPI-Host': process.env.REACT_APP_RAPID_API_HOST
+          }
+        })
+      );
     } catch (error) {
       dispatch(configFailure(error.message));
     }
