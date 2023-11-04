@@ -19,7 +19,7 @@ export const useMovie = () => {
   const regionLanguage = useSelector(selectRegion);
 
   useEffect(() => {
-    if (movieInfosError) navigate('/not-found');
+    if (movieInfosError) navigate(`${process.env.PUBLIC_URL}//not-found`);
   }, [movieInfosError]);
 
   const movieRegionTitle = useMemo(() => {

@@ -47,7 +47,7 @@ const HeaderMenu = ({ noMenu }) => {
     <>
       <Header>
         <h1>
-          <Link to={`/`}>
+          <Link to={`${process.env.PUBLIC_URL}/`}>
             Filmo<span>TEK</span>
           </Link>
         </h1>
@@ -55,7 +55,7 @@ const HeaderMenu = ({ noMenu }) => {
           {noMenu ? null : (
             <ul>
               <li>
-                <Link to={`/`}>
+                <Link to={`${process.env.PUBLIC_URL}/`}>
                   <Button
                     variant="text"
                     color="secondary"

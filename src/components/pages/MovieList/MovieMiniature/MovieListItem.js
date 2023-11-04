@@ -106,7 +106,7 @@ const MovieListItem = ({ movie }) => {
   else
     return (
       <StyledMovieItem>
-        <Link to={`/movie/${movie.imdbId}`}>
+        <Link to={`${process.env.PUBLIC_URL}/movie/${movie.imdbId}`}>
           <ListItem disablePadding>
             <ListItemButton>
               <div className="movie__picture-container">
