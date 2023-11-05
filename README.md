@@ -4,7 +4,8 @@ Gestionnaire de vidéothèque (partie front - React)
 
 ## Roadmap
 
-- Lazy loading
+- Authentification
+- responsive (media-queries)
 - Options de filtre (par réalisateur)
 - Affichage des formats vidéo
 - Synchronisation IMDB
@@ -13,9 +14,8 @@ Gestionnaire de vidéothèque (partie front - React)
 - lien vers bande-annonce
 - lien vers musique
 - lien vers IMDB
-- Authentification
+- Lazy loading
 - Mode consultation
 - Gestion de prêt
 - Dark mode
 - Multi-langages
-- Films par nom

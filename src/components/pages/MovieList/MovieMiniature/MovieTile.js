@@ -121,7 +121,7 @@ const MovieTile = ({ movie }) => {
     );
   else
     return (
-      <StyledLink to={`/movie/${movie.imdbId}`}>
+      <StyledLink to={`${process.env.PUBLIC_URL}/movie/${movie.imdbId}`}>
         <StyledMovieMiniature>
           <div
             className="movie__picture movie__no-picture"

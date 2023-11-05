@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { configFailure, configLoading, configSuccess } from './actions';
 
 export const getConfig = () => {
@@ -6,9 +5,15 @@ export const getConfig = () => {
     try {
       dispatch(configLoading());
 
-      const { data } = await axios.get('http://localhost:5000/config');
-
-      dispatch(configSuccess(data[0]));
+      dispatch(
+        configSuccess({
+          rapidApiHeader: {
+            'X-RapidAPI-Key': process.env.REACT_APP_RAPID_API_KEY,
+            'X-RapidAPI-Host': process.env.REACT_APP_RAPID_API_HOST
+          },
+          region: 'FR'
+        })
+      );
     } catch (error) {
       dispatch(configFailure(error.message));
     }

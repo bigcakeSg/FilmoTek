@@ -27,7 +27,7 @@ const Root = () => {
 
   const router = createBrowserRouter([
     {
-      path: '/',
+      path: process.env.PUBLIC_URL,
       element: <App />,
       errorElement: <Error />,
       loader: initApp,
@@ -45,7 +45,7 @@ const Root = () => {
       ]
     },
     {
-      path: '/not-found',
+      path: process.env.PUBLIC_URL + '/not-found',
       element: <Error />
     }
   ]);

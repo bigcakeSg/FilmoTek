@@ -30,7 +30,7 @@ export const useAddMovieForm = (setAddMovieOpen) => {
       setIsMovieCreation(false);
       setNewMovie('');
       if (creationRedirect && result.severity !== 'error')
-        navigate(`/movie/${newMovie}`);
+        navigate(`${process.env.PUBLIC_URL}/movie/${newMovie}`);
 
       dispatch(
         addNotification({

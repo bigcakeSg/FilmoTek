@@ -80,7 +80,7 @@ const StyledRoot = styled.div`
 
 sessionStorage.clear(); // Clear session storage
 
-const store = configureStore({ reducer: rootReducer, devTools: true });
+const store = configureStore({ reducer: rootReducer, devTools: false });
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

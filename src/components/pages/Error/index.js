@@ -45,7 +45,7 @@ const Error = () => {
         <div className="mistake">Big mistake!</div>
         <div>
           <Tooltip title="Return to movie list">
-            <Link to={`/`}>
+            <Link to={`${process.env.PUBLIC_URL}/`}>
               <IconButton color="secondary" aria-label="delete">
                 <UndoIcon />
               </IconButton>

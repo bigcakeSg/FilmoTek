@@ -1,4 +1,3 @@
-import axios from 'axios';
 import {
   movieInfosLoading,
   movieInfosSuccess,
@@ -6,6 +5,7 @@ import {
 } from './actions';
 
 import { selectMovieId } from './selectors';
+import { axiosInst } from '../../axiosConfig';
 
 // Movie infos importation
 export const getMovieInfos = (movieId) => {
@@ -16,9 +16,7 @@ export const getMovieInfos = (movieId) => {
       if (selectMovieId(state) !== movieId) {
         dispatch(movieInfosLoading());
 
-        const { data } = await axios.get(
-          `http://localhost:5000/movie/${movieId}/infos`
-        );
+        const { data } = await axiosInst.get(`movie/${movieId}/infos`);
 
         dispatch(movieInfosSuccess(data));
       }

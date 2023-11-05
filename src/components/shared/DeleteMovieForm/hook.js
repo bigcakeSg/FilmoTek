@@ -18,7 +18,7 @@ export const useDeleteMovieForm = (movieId, setDeleteMovieOpen) => {
 
     setDeleteMovieOpen(false);
     setIsMovieDeletion(false);
-    navigate(`/`);
+    navigate(`${process.env.PUBLIC_URL}/`);
 
     dispatch(
       addNotification({

@@ -1,4 +1,3 @@
-import axios from 'axios';
 import {
   movieListLoading,
   movieListSuccess,
@@ -11,13 +10,14 @@ import {
   movieLisUpdateMovieFailure
 } from './actions';
 import { patchSupports } from '../videoSupports/thunks';
+import { axiosInst, axiosRapidApiInst } from '../../axiosConfig';
 
 export const getMovieList = () => {
   return async (dispatch) => {
     try {
       dispatch(movieListLoading());
 
-      const { data } = await axios.get(`http://localhost:5000/movie/list`);
+      const { data } = await axiosInst.get(`movie/list`);
 
       dispatch(movieListSuccess(data));
     } catch (error) {
@@ -29,9 +29,7 @@ export const getMovieList = () => {
 export const getMovieMiniInfo = (movieId) => {
   return async (dispatch) => {
     try {
-      const { data } = await axios.get(
-        `http://localhost:5000/movie/${movieId}/mini-infos`
-      );
+      const { data } = await axiosInst.get(`movie/${movieId}/mini-infos`);
 
       return data;
     } catch (error) {
@@ -63,19 +61,16 @@ export const postMovieByImdbId = (movieId) => {
         titles
       ] = await Promise.all([
         ...params.map((param) =>
-          axios.get(`https://moviesdatabase.p.rapidapi.com/titles/${movieId}`, {
+          axiosRapidApiInst.get(`titles/${movieId}`, {
             headers: apiHeader,
             params: {
               info: param
             }
           })
         ),
-        axios.get(
-          `https://moviesdatabase.p.rapidapi.com/titles/${movieId}/aka`,
-          {
-            headers: apiHeader
-          }
-        )
+        axiosRapidApiInst.get(`titles/${movieId}/aka`, {
+          headers: apiHeader
+        })
       ]);
 
       if (!base_info.data.results)
@@ -152,10 +147,7 @@ export const postMovieByImdbId = (movieId) => {
         seen: false
       };
 
-      const { data, status } = await axios.post(
-        `http://localhost:5000/movie`,
-        movieParams
-      );
+      const { data, status } = await axiosInst.post(`movie`, movieParams);
 
       if (status === 200) {
         return { severity: 'warning', message: 'Movie already exists!' };
@@ -200,7 +192,7 @@ export const postMovieByImdbId = (movieId) => {
 export const deleteMovieById = (movieId) => {
   return async (dispatch) => {
     try {
-      await axios.delete(`http://localhost:5000/movie/${movieId}`);
+      await axiosInst.delete(`movie/${movieId}`);
       await dispatch(patchSupports(movieId, []));
 
       dispatch(movieLisRemoveMovieSuccess(movieId));
@@ -216,10 +208,7 @@ export const deleteMovieById = (movieId) => {
 export const updateSeenMovie = (movieId, seen) => {
   return async (dispatch) => {
     try {
-      const { data } = await axios.patch(
-        `http://localhost:5000/movie/${movieId}/seen`,
-        { seen }
-      );
+      const { data } = await axiosInst.patch(`movie/${movieId}/seen`, { seen });
 
       dispatch(movieLisUpdateMovieSuccess(data));
 
