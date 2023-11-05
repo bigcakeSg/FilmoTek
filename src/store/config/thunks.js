@@ -10,7 +10,8 @@ export const getConfig = () => {
           rapidApiHeader: {
             'X-RapidAPI-Key': process.env.REACT_APP_RAPID_API_KEY,
             'X-RapidAPI-Host': process.env.REACT_APP_RAPID_API_HOST
-          }
+          },
+          region: 'FR'
         })
       );
     } catch (error) {
