@@ -62,7 +62,7 @@ export const getAllSupports = () => {
 export const patchSupports = (movieId, supports) => {
   return async (dispatch) => {
     try {
-      await axiosInst.patch(`movie/${movieId}`, supports);
+      await axiosInst.patch(`support/movie/${movieId}`, supports);
 
       dispatch(getAllSupports());
     } catch (error) {
