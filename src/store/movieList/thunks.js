@@ -75,7 +75,6 @@ export const postMovieByImdbId = (movieId) => {
 
       if (!base_info.data.results)
         return { severity: 'error', message: 'IMDB id does not exist' };
-
       // Movie creation
       const movieParams = {
         imdbId: movieId,
@@ -115,21 +114,22 @@ export const postMovieByImdbId = (movieId) => {
           })
         ),
         casting: {
-          principal: principalCast.data.results.principalCast[0].credits.map(
-            (cast) => ({
-              name: {
-                id: cast.name.id,
-                text: cast.name.nameText.text,
-                picture: {
-                  url: cast.name?.primaryImage?.url,
-                  height: cast.name?.primaryImage?.height,
-                  width: cast.name?.primaryImage?.width
-                }
-              },
-              characters: cast.characters?.map((char) => char.name) || [],
-              attributes: cast?.attributes?.map((attr) => attr.text) || []
-            })
-          ),
+          principal:
+            principalCast.data.results.principalCast?.[0]?.credits.map(
+              (cast) => ({
+                name: {
+                  id: cast.name.id,
+                  text: cast.name.nameText.text,
+                  picture: {
+                    url: cast.name?.primaryImage?.url,
+                    height: cast.name?.primaryImage?.height,
+                    width: cast.name?.primaryImage?.width
+                  }
+                },
+                characters: cast.characters?.map((char) => char.name) || [],
+                attributes: cast?.attributes?.map((attr) => attr.text) || []
+              })
+            ) || [],
           extended: extendedCast.data.results.cast.edges.map(({ node }) => ({
             name: {
               id: node.name.id,
